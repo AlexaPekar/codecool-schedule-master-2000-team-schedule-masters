@@ -1,5 +1,6 @@
 package com.codecool.web.dao;
 
+import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.model.Task;
 
 import java.sql.SQLException;
@@ -11,6 +12,6 @@ public interface TaskDao {
     void deleteTask(int id) throws SQLException;
     void updateTaskName(int id, String name) throws SQLException;
     void updateContent(int id, String content) throws SQLException;
-    Task findTaskById(int id) throws SQLException;
+    Task findTaskById(int id) throws SQLException, NotFoundException;
     List<Task> findAllTaskByUserId(int id) throws SQLException;
 }
