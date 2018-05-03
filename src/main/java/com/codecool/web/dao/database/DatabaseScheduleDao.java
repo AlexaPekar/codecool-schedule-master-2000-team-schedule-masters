@@ -1,6 +1,7 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.ScheduleDao;
+import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.model.Schedule;
 
 import java.sql.*;
@@ -28,13 +29,45 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
-    public Schedule insertSchedule(int userId, String name) {
-        return null;
+    public Schedule insertSchedule(int userId, String name) throws SQLException {
+
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO schedules (name,user_id) VALUES (?,?);";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+            statement.setString(1, name);
+            statement.setInt(2, userId);
+            executeInsert(statement);
+            int id = fetchGeneratedId(statement);
+            connection.commit();
+            return new Schedule(id,name);
+        } catch (SQLException ex) {
+            connection.rollback();
+            throw ex;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     @Override
-    public Schedule updateName(int id, String name) {
-        return null;
+    public void updateName(int id, String name) throws SQLException, EmptyFieldException {
+        if (name.equals("")) {
+            throw new EmptyFieldException("Title cannot be empty");
+        }
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "UPDATE schedules SET name = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            executeInsert(statement);
+            connection.commit();
+        } catch (SQLException ex) {
+            connection.rollback();
+            throw ex;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     @Override
@@ -54,8 +87,18 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
-    public void deleteSchedule(int id) {
-
+    public void deleteSchedule(int id) throws SQLException {
+        String sql = "DELETE from schedules WHERE id = ?;";
+        boolean autoCommit = connection.getAutoCommit();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            connection.rollback();
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     public Schedule fetchSchedule(ResultSet resultset) throws SQLException {
