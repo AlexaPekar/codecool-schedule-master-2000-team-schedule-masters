@@ -1,6 +1,6 @@
 package com.codecool.web.model;
 
-public class Task extends AbstractModel {
+public final class Task extends AbstractModel {
 
     private String name;
     private String content;

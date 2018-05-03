@@ -1,6 +1,6 @@
 package com.codecool.web.model;
 
-public class User extends AbstractModel {
+public final class User extends AbstractModel {
 
     private final String name;
     private final String password;

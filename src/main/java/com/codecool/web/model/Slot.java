@@ -1,6 +1,6 @@
 package com.codecool.web.model;
 
-public class Slot extends AbstractModel {
+public final class Slot extends AbstractModel {
 
     private String timeRange;
 
