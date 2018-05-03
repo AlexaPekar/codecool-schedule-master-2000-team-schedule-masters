@@ -31,7 +31,21 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
 
     @Override
     public User insertNewUser(String name, String password, String role) throws SQLException {
-        return null;
+        String sql = "INSERT INTO users (name, password, role) VALUES (?, ?, ?);";
+        boolean autoCommit = connection.getAutoCommit();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setString(2, password);
+            statement.setString(3, role);
+            statement.executeUpdate();
+            int id = fetchGeneratedId(statement);
+            return new User(id, name, password, role);
+        } catch (SQLException se) {
+            connection.rollback();
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     private User fetchUser(ResultSet resultSet) throws SQLException {
