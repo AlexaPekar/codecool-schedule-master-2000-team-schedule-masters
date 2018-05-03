@@ -1,6 +1,7 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.TaskDao;
+import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.model.Task;
 
 import java.sql.*;
@@ -50,16 +51,48 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public void updateTaskName(int id, String name) throws SQLException {
-
+        String sql = "UPDATE tasks SET name = ? WHERE id = ?;";
+        boolean autoCommit = connection.getAutoCommit();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            connection.rollback();
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     @Override
     public void updateContent(int id, String content) throws SQLException {
+        String sql = "UPDATE tasks SET content = ? WHERE id = ?;";
+        boolean autoCommit = connection.getAutoCommit();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, content);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException se) {
+            connection.rollback();
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     @Override
-    public Task findTaskById(int id) throws SQLException {
-        return null;
+    public Task findTaskById(int id) throws SQLException, NotFoundException {
+        String sql = "SELECT * FROM tasks WHERE id = ?;";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return fetchTask(resultSet);
+                }
+            }
+        }
+        throw new NotFoundException();
     }
 
     @Override
