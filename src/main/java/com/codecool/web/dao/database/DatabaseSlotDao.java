@@ -1,12 +1,11 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.SlotDao;
+import com.codecool.web.model.Schedule;
 import com.codecool.web.model.Slot;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class DatabaseSlotDao extends AbstractDao implements SlotDao {
@@ -52,11 +51,38 @@ public final class DatabaseSlotDao extends AbstractDao implements SlotDao {
 
     @Override
     public Slot findSlotById(int id) throws SQLException {
+        String sql = "SELECT id,column_id,time_range FROM slots WHERE id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            statement.setInt(1,id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    return fetchSlot(resultSet);
+                }
+            }
+
+        }
         return null;
     }
 
     @Override
     public List<Slot> findSlotsByColumnId(int columnId) throws SQLException {
-        return null;
+        String sql = "SELECT id,column_id,time_range FROM slots WHERE column_id = ?";
+        List<Slot> slots = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            statement.setInt(1,columnId);
+            try(ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    slots.add(fetchSlot(resultSet));
+                }
+            }
+
+        }
+        return slots;
+    }
+
+    public Slot fetchSlot(ResultSet resultset) throws SQLException {
+        int id = resultset.getInt("id");
+        String timeRange = resultset.getString("time_range");
+        return new Slot(id,timeRange);
     }
 }
