@@ -8,7 +8,7 @@ import java.util.List;
 public interface SlotDao {
 
     Slot insertNewSlot(int columnId, String timeRange) throws SQLException;
-    Slot deleteSlot(int id) throws SQLException;
+    void deleteSlot(int id) throws SQLException;
     Slot findSlotById(int id) throws SQLException;
     List<Slot> findSlotsByColumnId(int columnId) throws SQLException;
 }
