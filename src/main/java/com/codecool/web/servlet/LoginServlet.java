@@ -29,6 +29,9 @@ public class LoginServlet extends AbstractServlet {
             String password = req.getParameter("password");
 
             User user = userService.loginUser(name, password);
+            req.getSession().setAttribute("user", user);
+
+            sendMessage(resp, HttpServletResponse.SC_OK, user);
         } catch (SQLException e) {
             handleSqlError(resp, e);
         } catch (NotFoundException e) {
