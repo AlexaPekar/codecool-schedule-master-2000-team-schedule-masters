@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDao {
-    DatabaseScheduleDao(Connection connection) {
+    public DatabaseScheduleDao(Connection connection) {
         super(connection);
     }
 
