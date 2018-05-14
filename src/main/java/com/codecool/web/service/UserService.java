@@ -12,4 +12,6 @@ public interface UserService {
 
     User addNewUser(String name,String password,String role) throws SQLException, ServiceException;
 
+    User loginUser(String name, String password) throws ServiceException, SQLException, NotFoundException;
+
 }

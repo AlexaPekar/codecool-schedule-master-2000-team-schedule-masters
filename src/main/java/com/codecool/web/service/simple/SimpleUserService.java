@@ -36,4 +36,13 @@ public class SimpleUserService implements UserService {
 
         return uD.insertNewUser(name,password,role);
     }
+
+    @Override
+    public User loginUser(String name, String password) throws ServiceException, SQLException, NotFoundException {
+        User user = this.getByName(name);
+        if (!user.getPassword().equals(password)) {
+            throw new ServiceException("Wrong password!");
+        }
+        return user;
+    }
 }
