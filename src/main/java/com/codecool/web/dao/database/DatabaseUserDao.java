@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class DatabaseUserDao extends AbstractDao implements UserDao {
 
-    DatabaseUserDao(Connection connection) {
+    public DatabaseUserDao(Connection connection) {
         super(connection);
     }
 
