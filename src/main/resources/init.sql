@@ -46,13 +46,13 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 
 CREATE TABLE tasks_slots (
 task_id INTEGER NOT NULL,
-slot_id INTEGER NOT NULL,
+slot_id INTEGER UNIQUE NOT NULL,
 FOREIGN KEY (task_id) REFERENCES tasks(id),
 FOREIGN KEY (slot_id) REFERENCES slots(id)
 );
 
 CREATE TABLE task_uniqueness_checker (
-task_id INTEGER NOT NULL,
+task_id INTEGER UNIQUE NOT NULL,
 slots_ids TEXT NOT NULL,
 column_id INTEGER NOT NULL,
 schedule_id INTEGER NOT NULL,
