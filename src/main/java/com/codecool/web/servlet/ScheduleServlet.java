@@ -38,8 +38,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())){
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
-            String userID = (String)req.getAttribute("userid");
-            String name = (String)req.getAttribute("name");
+            String userID = req.getParameter("userid");
+            String name = req.getParameter("name");
             scheduleService.addSchedule(Integer.parseInt(userID),name);
         } catch (SQLException e) {
             handleSqlError(resp, e);
@@ -56,7 +56,7 @@ public class ScheduleServlet extends AbstractServlet{
             int id = Integer.parseInt(req.getParameter("id"));
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
-            String name = (String)req.getAttribute("name");
+            String name = req.getParameter("name");
             scheduleService.editName(id,name);
         } catch (SQLException e) {
             handleSqlError(resp, e);
