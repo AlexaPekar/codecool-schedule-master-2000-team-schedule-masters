@@ -54,4 +54,9 @@ public class SimpleSlotService implements SlotService {
         }
         return slotDao.findSlotsByColumnId(columnID);
     }
+
+    @Override
+    public void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException {
+        slotDao.joinSlotIdToTaskId(slotId, taskId);
+    }
 }

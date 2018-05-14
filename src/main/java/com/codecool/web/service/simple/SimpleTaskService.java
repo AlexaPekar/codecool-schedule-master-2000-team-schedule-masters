@@ -69,4 +69,22 @@ public class SimpleTaskService implements TaskService{
     public List<Task> getAllTasksByUserId(int id) throws SQLException {
         return taskDao.findAllTaskByUserId(id);
     }
+
+    @Override
+    public void storeTaskUniqueness(int taskId, String slotsIds, int columnId, int scheduleId) {
+
+    }
+
+    @Override
+    public String createSlotsString(String[] slotsIds) {
+        String result = "";
+        for (int i = 0; i < slotsIds.length; i++) {
+            if (i == (slotsIds.length - 1)) {
+                result += slotsIds[i];
+            } else {
+                result += slotsIds[i] + ",";
+            }
+        }
+        return result;
+    }
 }

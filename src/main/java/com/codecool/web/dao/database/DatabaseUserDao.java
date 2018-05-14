@@ -17,7 +17,7 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
 
     @Override
     public User findByName(String name) throws SQLException, NotFoundException {
-        String sql = "SELECT * FROM users WHERE name = ?";
+        String sql = "SELECT (id, name, password, role) FROM users WHERE name = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {

@@ -80,6 +80,24 @@ public final class DatabaseSlotDao extends AbstractDao implements SlotDao {
         return slots;
     }
 
+    @Override
+    public void joinSlotIdToTaskId(int slotId, int taskId) throws SQLException {
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO tasks_slots (task_id, slot_id) VALUES (?,?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, taskId);
+            statement.setInt(2, slotId);
+            executeInsert(statement);
+            connection.commit();
+        } catch (SQLException se) {
+            connection.rollback();
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
     public Slot fetchSlot(ResultSet resultset) throws SQLException {
         int id = resultset.getInt("id");
         String timeRange = resultset.getString("time_range");

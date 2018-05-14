@@ -83,7 +83,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public Task findTaskById(int id) throws SQLException, NotFoundException {
-        String sql = "SELECT * FROM tasks WHERE id = ?;";
+        String sql = "SELECT (id, user_id, name, content) FROM tasks WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -98,7 +98,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     @Override
     public List<Task> findAllTaskByUserId(int id) throws SQLException {
         List<Task> allTask = new ArrayList<>();
-        String sql = "SELECT * FROM tasks WHERE user_id = ?";
+        String sql = "SELECT (id, user_id, name, content) FROM tasks WHERE user_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -108,6 +108,26 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
             }
         }
         return allTask;
+    }
+
+    @Override
+    public void insertTaskUniqueness(int taskId, String slotsIds, int columnId, int scheduleId) throws SQLException {
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO task_uniqueness_checker (task_id, slots_ids, column_id, schedule_id) VALUES (?,?,?,?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, taskId);
+            statement.setString(2, slotsIds);
+            statement.setInt(3, columnId);
+            statement.setInt(4, scheduleId);
+            executeInsert(statement);
+            connection.commit();
+        } catch (SQLException se) {
+            connection.rollback();
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
     }
 
     private Task fetchTask(ResultSet resultSet) throws SQLException {
