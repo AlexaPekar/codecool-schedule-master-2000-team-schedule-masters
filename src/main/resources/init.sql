@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS task_uniqueness_checker;
+DROP TABLE IF EXISTS tasks_schedules;
 DROP TABLE IF EXISTS tasks_slots;
 DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS slots;
