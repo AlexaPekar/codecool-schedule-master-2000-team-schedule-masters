@@ -11,7 +11,7 @@ public interface SlotService {
     Slot addNewSlot(int columnID, String timeRange) throws NotFoundException, SQLException, ServiceException;
     void removeSlot(int id) throws SQLException, ServiceException;
     Slot getSlotByID(int id) throws SQLException, ServiceException;
-    List<Slot> getSlotsByColumnID(int columnID) throws NotFoundException, SQLException, ServiceException;
+    List<Slot> getSlotsByColumnID(String columnID) throws NotFoundException, SQLException, ServiceException;
     void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException;
     List<Slot> getSlotsByTaskId(int taskId) throws SQLException;
     boolean checkSlotsConnectedByTaskId(int taskId) throws SQLException;

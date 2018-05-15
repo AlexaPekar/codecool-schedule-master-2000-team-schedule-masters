@@ -49,11 +49,17 @@ public class SimpleSlotService implements SlotService {
     }
 
     @Override
-    public List<Slot> getSlotsByColumnID(int columnID) throws NotFoundException, SQLException, ServiceException {
-        if(columnDao.findById(columnID)== null){
-            throw new ServiceException("Column not found");
+    public List<Slot> getSlotsByColumnID(String columnID) throws NotFoundException, SQLException, ServiceException {
+        try {
+            if(columnDao.findById(Integer.parseInt(columnID))== null){
+                throw new ServiceException("Column not found");
+            }
+            return slotDao.findSlotsByColumnId(Integer.parseInt(columnID));
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        return slotDao.findSlotsByColumnId(columnID);
     }
 
     @Override

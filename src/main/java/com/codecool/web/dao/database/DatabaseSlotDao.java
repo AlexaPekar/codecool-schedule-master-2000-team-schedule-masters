@@ -10,7 +10,7 @@ import java.util.List;
 
 public final class DatabaseSlotDao extends AbstractDao implements SlotDao {
 
-    DatabaseSlotDao(Connection connection) {
+    public DatabaseSlotDao(Connection connection) {
         super(connection);
     }
 
