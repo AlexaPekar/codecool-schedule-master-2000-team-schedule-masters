@@ -1,6 +1,8 @@
 package com.codecool.web.servlet;
 
+import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.ScheduleDao;
+import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.exceptions.ServiceException;
@@ -23,7 +25,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())){
             int id = Integer.parseInt(req.getParameter("id"));
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
-            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            ColumnDao columnDao = new DatabaseColumnDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao);
             Schedule schedule = scheduleService.getById(id);
             sendMessage(resp, HttpServletResponse.SC_OK, schedule);
         } catch (SQLException e) {
@@ -37,10 +40,12 @@ public class ScheduleServlet extends AbstractServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
-            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            ColumnDao columnDao = new DatabaseColumnDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao);
             String userID = req.getParameter("userid");
             String name = req.getParameter("name");
-            scheduleService.addSchedule(Integer.parseInt(userID),name);
+            String amountOfColumns = req.getParameter("amountofcolumns");
+            scheduleService.addSchedule(Integer.parseInt(userID),name, Integer.parseInt(amountOfColumns));
         } catch (SQLException e) {
             handleSqlError(resp, e);
         } catch (ServiceException e) {
@@ -55,7 +60,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())){
             int id = Integer.parseInt(req.getParameter("id"));
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
-            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            ColumnDao columnDao = new DatabaseColumnDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao);
             String name = req.getParameter("name");
             scheduleService.editName(id,name);
         } catch (SQLException e) {
@@ -72,7 +78,8 @@ public class ScheduleServlet extends AbstractServlet{
         try (Connection connection = getConnection(req.getServletContext())) {
             int id = Integer.parseInt(req.getParameter("id"));
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
-            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao);
+            ColumnDao columnDao = new DatabaseColumnDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao);
             scheduleService.removeSchedule(id);
         } catch (SQLException e) {
             handleSqlError(resp, e);

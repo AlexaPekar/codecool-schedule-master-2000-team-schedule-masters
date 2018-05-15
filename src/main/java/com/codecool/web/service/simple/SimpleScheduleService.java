@@ -1,5 +1,6 @@
 package com.codecool.web.service.simple;
 
+import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.exceptions.ServiceException;
@@ -11,8 +12,11 @@ import java.util.List;
 
 public class SimpleScheduleService implements ScheduleService{
     private final ScheduleDao scheduleDao;
-    public SimpleScheduleService(ScheduleDao scheduleDao) {
+    private final ColumnDao columnDao;
+
+    public SimpleScheduleService(ScheduleDao scheduleDao,ColumnDao columnDao) {
         this.scheduleDao = scheduleDao;
+        this.columnDao = columnDao;
     }
     @Override
     public Schedule getById(int id) throws SQLException, ServiceException {
@@ -23,11 +27,19 @@ public class SimpleScheduleService implements ScheduleService{
     }
 
     @Override
-    public Schedule addSchedule(int userId, String name) throws EmptyFieldException, ServiceException, SQLException {
+    public Schedule addSchedule(int userId, String name,int amountOfColumns) throws EmptyFieldException, ServiceException, SQLException {
         if(name.equals("")){
             throw new ServiceException(new EmptyFieldException("Fill all fields"));
         }
-        return scheduleDao.insertSchedule(userId,name);
+        if (amountOfColumns < 1 || amountOfColumns > 7) {
+            throw new ServiceException("Invalid amount of columns.Enter number between 1 and 7");
+        }
+        Schedule schedule = scheduleDao.insertSchedule(userId,name);
+
+        for (int i = 0;i < amountOfColumns;i++) {
+            columnDao.insert(schedule.getId(),"Enter text");
+        }
+        return schedule;
     }
 
     @Override
