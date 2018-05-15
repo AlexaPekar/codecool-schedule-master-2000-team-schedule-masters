@@ -10,12 +10,11 @@ import java.util.List;
 public interface TaskService {
 
     Task addNewTask(int userId,String name,String content) throws ServiceException, SQLException;
-    void removeTask(int id) throws ServiceException, NotFoundException, SQLException;
-    void editTaskName(int id,String name) throws NotFoundException, SQLException, ServiceException;
-    void editTaskContent(int id,String content) throws NotFoundException, SQLException, ServiceException;
-    Task getTaskById(int id) throws NotFoundException, SQLException, ServiceException;
+    void removeTask(String id) throws ServiceException, NotFoundException, SQLException;
+    void editTaskName(String id,String name) throws NotFoundException, SQLException, ServiceException;
+    void editTaskContent(String id,String content) throws NotFoundException, SQLException, ServiceException;
+    Task getTaskById(String id) throws NotFoundException, SQLException, ServiceException;
     List<Task> getAllTasksByUserId(int id) throws SQLException;
-    void storeTaskSchedules(int taskId, int scheduleId) throws SQLException;
-    String createSlotsString(String[] slotsIds);
+    void assignTaskIdToScheduleId(int taskId, int scheduleId) throws SQLException;
 }
 

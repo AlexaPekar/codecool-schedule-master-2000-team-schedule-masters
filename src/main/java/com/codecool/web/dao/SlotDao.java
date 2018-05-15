@@ -11,6 +11,6 @@ public interface SlotDao {
     void deleteSlot(int id) throws SQLException;
     Slot findSlotById(int id) throws SQLException;
     List<Slot> findSlotsByColumnId(int columnId) throws SQLException;
-    void joinSlotIdToTaskId(int slotId, int taskId) throws SQLException;
+    void insertSlotIdToTaskId(int slotId, int taskId) throws SQLException;
     List<Integer> findSlotIdsByTaskId (int taskId) throws SQLException;
 }

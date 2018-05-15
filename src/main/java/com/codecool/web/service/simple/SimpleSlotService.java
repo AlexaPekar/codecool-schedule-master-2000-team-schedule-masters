@@ -22,22 +22,34 @@ public class SimpleSlotService implements SlotService {
     }
 
     @Override
-    public Slot addNewSlot(int columnID, String timeRange) throws NotFoundException, SQLException, ServiceException {
-        if(columnDao.findById(columnID)== null){
-            throw new ServiceException("No column found");
+    public Slot addNewSlot(String columnID, String timeRange) throws NotFoundException, SQLException, ServiceException {
+        try {
+            if (columnDao.findById(Integer.parseInt(columnID)) == null) {
+                throw new ServiceException("No column found");
+            }
+            if (timeRange.equals("")) {
+                throw new ServiceException(new EmptyFieldException("Time range not defined"));
+            }
+            return slotDao.insertNewSlot(Integer.parseInt(columnID), timeRange);
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        if(timeRange.equals("")) {
-            throw new ServiceException(new EmptyFieldException("Time range not defined"));
-        }
-        return slotDao.insertNewSlot(columnID,timeRange);
     }
 
     @Override
-    public void removeSlot(int id) throws SQLException, ServiceException {
-        if(slotDao.findSlotById(id)== null){
-            throw new ServiceException("Slot not found");
+    public void removeSlot(String id) throws SQLException, ServiceException {
+        try {
+            if (slotDao.findSlotById(Integer.parseInt(id)) == null) {
+                throw new ServiceException("Slot not found");
+            }
+            slotDao.deleteSlot(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        slotDao.deleteSlot(id);
     }
 
     @Override
@@ -49,16 +61,22 @@ public class SimpleSlotService implements SlotService {
     }
 
     @Override
-    public List<Slot> getSlotsByColumnID(int columnID) throws NotFoundException, SQLException, ServiceException {
-        if(columnDao.findById(columnID)== null){
-            throw new ServiceException("Column not found");
+    public List<Slot> getSlotsByColumnID(String columnID) throws NotFoundException, SQLException, ServiceException {
+        try {
+            if(columnDao.findById(Integer.parseInt(columnID))== null){
+                throw new ServiceException("Column not found");
+            }
+            return slotDao.findSlotsByColumnId(Integer.parseInt(columnID));
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        return slotDao.findSlotsByColumnId(columnID);
     }
 
     @Override
     public void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException {
-        slotDao.joinSlotIdToTaskId(slotId, taskId);
+        slotDao.insertSlotIdToTaskId(slotId, taskId);
     }
 
     @Override
