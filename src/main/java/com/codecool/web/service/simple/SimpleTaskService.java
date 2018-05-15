@@ -75,11 +75,11 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public Task getTaskById(int id) throws NotFoundException, SQLException, ServiceException {
-        if (taskDao.findTaskById(id) == null) {
+    public Task getTaskById(String id) throws NotFoundException, SQLException, ServiceException {
+        if (taskDao.findTaskById(Integer.parseInt(id)) == null) {
             throw new ServiceException("Task not found with given id");
         }
-        return taskDao.findTaskById(id);
+        return taskDao.findTaskById(Integer.parseInt(id));
     }
 
     @Override
