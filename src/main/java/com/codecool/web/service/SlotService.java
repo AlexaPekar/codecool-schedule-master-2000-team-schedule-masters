@@ -13,4 +13,6 @@ public interface SlotService {
     Slot getSlotByID(int id) throws SQLException, ServiceException;
     List<Slot> getSlotsByColumnID(int columnID) throws NotFoundException, SQLException, ServiceException;
     void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException;
+    List<Slot> getSlotsByTaskId(int taskId) throws SQLException;
+    boolean checkSlotsConnectedByTaskId(int taskId) throws SQLException;
 }

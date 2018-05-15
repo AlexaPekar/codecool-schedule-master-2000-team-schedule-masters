@@ -98,6 +98,21 @@ public final class DatabaseSlotDao extends AbstractDao implements SlotDao {
         }
     }
 
+    @Override
+    public List<Integer> findSlotIdsByTaskId(int taskId) throws SQLException {
+        List<Integer> slotIds = new ArrayList<>();
+        String sql = "SELECT slot_id FROM tasks_slots WHERE task_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, taskId);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()) {
+                    slotIds.add(resultSet.getInt("slot_id"));
+                }
+            }
+        }
+        return slotIds;
+    }
+
     public Slot fetchSlot(ResultSet resultset) throws SQLException {
         int id = resultset.getInt("id");
         String timeRange = resultset.getString("time_range");

@@ -15,7 +15,7 @@ public interface TaskService {
     void editTaskContent(int id,String content) throws NotFoundException, SQLException, ServiceException;
     Task getTaskById(int id) throws NotFoundException, SQLException, ServiceException;
     List<Task> getAllTasksByUserId(int id) throws SQLException;
-    void storeTaskUniqueness(int taskId, String[] slotsIds, int columnId, int scheduleId) throws SQLException;
+    void storeTaskSchedules(int taskId, int scheduleId) throws SQLException;
     String createSlotsString(String[] slotsIds);
 }
 

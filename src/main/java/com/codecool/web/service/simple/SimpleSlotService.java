@@ -9,6 +9,7 @@ import com.codecool.web.model.Slot;
 import com.codecool.web.service.SlotService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleSlotService implements SlotService {
@@ -58,5 +59,32 @@ public class SimpleSlotService implements SlotService {
     @Override
     public void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException {
         slotDao.joinSlotIdToTaskId(slotId, taskId);
+    }
+
+    @Override
+    public List<Slot> getSlotsByTaskId(int taskId) throws SQLException {
+        List<Slot> slots = new ArrayList<>();
+        List<Integer> slotIds = slotDao.findSlotIdsByTaskId(taskId);
+        for (int i = 0; i < slotIds.size(); i++) {
+            int slotId = slotIds.get(i);
+            Slot tempSlot = slotDao.findSlotById(slotId);
+            slots.add(tempSlot);
+        }
+        return slots;
+    }
+
+    @Override
+    public boolean checkSlotsConnectedByTaskId(int taskId) throws SQLException {
+        List<Integer> slotIds = slotDao.findSlotIdsByTaskId(taskId);
+        for (int i = 0; i < slotIds.size(); i++) {
+            if (i != (slotIds.size() - 1)) {
+                int slotId = slotIds.get(i);
+                int slotNextId = slotIds.get(i + 1);
+                if (slotId + 1 == slotNextId) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -111,15 +111,13 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public void insertTaskUniqueness(int taskId, String slotsIds, int columnId, int scheduleId) throws SQLException {
+    public void insertTaskSchedules(int taskId, int scheduleId) throws SQLException {
         boolean autoCommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
-        String sql = "INSERT INTO task_uniqueness_checker (task_id, slots_ids, column_id, schedule_id) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO tasks_schedules (task_id, schedule_id) VALUES (?,?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, taskId);
-            statement.setString(2, slotsIds);
-            statement.setInt(3, columnId);
-            statement.setInt(4, scheduleId);
+            statement.setInt(2, scheduleId);
             executeInsert(statement);
             connection.commit();
         } catch (SQLException se) {
