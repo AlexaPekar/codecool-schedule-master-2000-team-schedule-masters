@@ -52,14 +52,24 @@ FOREIGN KEY (slot_id) REFERENCES slots(id)
 );
 
 CREATE TABLE task_uniqueness_checker (
-task_id INTEGER UNIQUE NOT NULL,
+task_id INTEGER NOT NULL,
 slots_ids TEXT NOT NULL,
-column_id INTEGER NOT NULL,
 schedule_id INTEGER NOT NULL,
 FOREIGN KEY (task_id) REFERENCES tasks(id),
-FOREIGN KEY (column_id) REFERENCES "columns"(id),
 FOREIGN KEY (schedule_id) REFERENCES schedules(id)
 );
 
 INSERT INTO users (name, password, role)
 VALUES ('admin', 'admin', 'Admin');
+
+INSERT INTO schedules (user_id, name)
+VALUES ('1', 'TestSchedule');
+
+INSERT INTO columns (schedule_id, name)
+VALUES ('1', 'TestColumn');
+
+INSERT INTO slots (column_id, time_range)
+VALUES ('1', '7-8');
+
+INSERT INTO tasks (user_id, name, content)
+VALUES ('1', 'TestTask', 'TestContentOfTheTask');
