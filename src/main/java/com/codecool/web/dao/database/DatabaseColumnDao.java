@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DatabaseColumnDao extends AbstractDao implements ColumnDao {
 
-    DatabaseColumnDao(Connection connection) {
+    public DatabaseColumnDao(Connection connection) {
         super(connection);
 
     }
@@ -53,7 +53,7 @@ public class DatabaseColumnDao extends AbstractDao implements ColumnDao {
 
     @Override
     public void updateName(int id, String name) throws SQLException {
-        String sql = "UPDATE columns SET name = ?, WHERE id = ?;";
+        String sql = "UPDATE columns SET name = ? WHERE id = ?;";
         boolean autoCommit = connection.getAutoCommit();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
