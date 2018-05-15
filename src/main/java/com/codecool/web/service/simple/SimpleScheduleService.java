@@ -17,7 +17,7 @@ public class SimpleScheduleService implements ScheduleService{
     @Override
     public Schedule getById(int id) throws SQLException, ServiceException {
         if(scheduleDao.findById(id)==null){
-            throw new ServiceException("No user with this id");
+            throw new ServiceException("No schedules with this id");
         }
         return scheduleDao.findById(id);
     }
