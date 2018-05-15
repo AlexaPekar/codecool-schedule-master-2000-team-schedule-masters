@@ -51,12 +51,12 @@ FOREIGN KEY (task_id) REFERENCES tasks(id),
 FOREIGN KEY (slot_id) REFERENCES slots(id)
 );
 
-CREATE TABLE task_uniqueness_checker (
+CREATE TABLE tasks_schedules (
 task_id INTEGER NOT NULL,
-slots_ids TEXT NOT NULL,
 schedule_id INTEGER NOT NULL,
 FOREIGN KEY (task_id) REFERENCES tasks(id),
-FOREIGN KEY (schedule_id) REFERENCES schedules(id)
+FOREIGN KEY (schedule_id) REFERENCES schedules(id),
+UNIQUE (task_id, schedule_id)
 );
 
 INSERT INTO users (name, password, role)
