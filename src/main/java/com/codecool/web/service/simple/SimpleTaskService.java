@@ -71,8 +71,8 @@ public class SimpleTaskService implements TaskService{
     }
 
     @Override
-    public void storeTaskUniqueness(int taskId, String slotsIds, int columnId, int scheduleId) {
-
+    public void storeTaskUniqueness(int taskId, String[] slotsIds, int columnId, int scheduleId) throws SQLException {
+        taskDao.insertTaskUniqueness(taskId, createSlotsString(slotsIds), columnId, scheduleId);
     }
 
     @Override
