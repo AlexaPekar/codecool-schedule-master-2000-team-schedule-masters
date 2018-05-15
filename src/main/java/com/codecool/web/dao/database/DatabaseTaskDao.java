@@ -83,7 +83,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public Task findTaskById(int id) throws SQLException, NotFoundException {
-        String sql = "SELECT (id, user_id, name, content) FROM tasks WHERE id = ?;";
+        String sql = "SELECT id, user_id, name, content FROM tasks WHERE id = ?;";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -98,7 +98,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     @Override
     public List<Task> findAllTaskByUserId(int id) throws SQLException {
         List<Task> allTask = new ArrayList<>();
-        String sql = "SELECT (id, user_id, name, content) FROM tasks WHERE user_id = ?";
+        String sql = "SELECT id, user_id, name, content FROM tasks WHERE user_id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -111,7 +111,7 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     }
 
     @Override
-    public void insertTaskSchedules(int taskId, int scheduleId) throws SQLException {
+    public void insertTaskIdToScheduleId(int taskId, int scheduleId) throws SQLException {
         boolean autoCommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
         String sql = "INSERT INTO tasks_schedules (task_id, schedule_id) VALUES (?,?)";

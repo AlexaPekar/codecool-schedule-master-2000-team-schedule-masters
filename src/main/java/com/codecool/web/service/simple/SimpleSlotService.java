@@ -58,7 +58,7 @@ public class SimpleSlotService implements SlotService {
 
     @Override
     public void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException {
-        slotDao.joinSlotIdToTaskId(slotId, taskId);
+        slotDao.insertSlotIdToTaskId(slotId, taskId);
     }
 
     @Override

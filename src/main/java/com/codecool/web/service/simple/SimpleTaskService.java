@@ -1,7 +1,6 @@
 package com.codecool.web.service.simple;
 
 import com.codecool.web.dao.TaskDao;
-import com.codecool.web.dao.UserDao;
 import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.exceptions.ServiceException;
@@ -71,20 +70,7 @@ public class SimpleTaskService implements TaskService{
     }
 
     @Override
-    public void storeTaskSchedules(int taskId, int scheduleId) throws SQLException {
-        taskDao.insertTaskSchedules(taskId, scheduleId);
-    }
-
-    @Override
-    public String createSlotsString(String[] slotsIds) {
-        String result = "";
-        for (int i = 0; i < slotsIds.length; i++) {
-            if (i == (slotsIds.length - 1)) {
-                result += slotsIds[i];
-            } else {
-                result += slotsIds[i] + ",";
-            }
-        }
-        return result;
+    public void assignTaskIdToScheduleId(int taskId, int scheduleId) throws SQLException {
+        taskDao.insertTaskIdToScheduleId(taskId, scheduleId);
     }
 }
