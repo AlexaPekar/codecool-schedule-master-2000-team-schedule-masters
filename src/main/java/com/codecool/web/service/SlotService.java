@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface SlotService {
-    Slot addNewSlot(int columnID, String timeRange) throws NotFoundException, SQLException, ServiceException;
-    void removeSlot(int id) throws SQLException, ServiceException;
+    Slot addNewSlot(String columnID, String timeRange) throws NotFoundException, SQLException, ServiceException;
+    void removeSlot(String id) throws SQLException, ServiceException;
     Slot getSlotByID(int id) throws SQLException, ServiceException;
     List<Slot> getSlotsByColumnID(String columnID) throws NotFoundException, SQLException, ServiceException;
     void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException;
