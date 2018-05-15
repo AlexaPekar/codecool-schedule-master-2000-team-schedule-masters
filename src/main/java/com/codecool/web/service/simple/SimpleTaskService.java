@@ -10,7 +10,7 @@ import com.codecool.web.service.TaskService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SimpleTaskService implements TaskService{
+public class SimpleTaskService implements TaskService {
 
     private final TaskDao taskDao;
 
@@ -23,37 +23,55 @@ public class SimpleTaskService implements TaskService{
         if (name.equals("") || content.equals("")) {
             throw new ServiceException(new EmptyFieldException("Name or content field empty"));
         }
-        return taskDao.insertNewTask(userId,name,content);
+        return taskDao.insertNewTask(userId, name, content);
     }
 
     @Override
-    public void removeTask(int id) throws ServiceException, NotFoundException, SQLException {
-        if (taskDao.findTaskById(id) == null) {
-            throw new ServiceException("Task not found with given id");
+    public void removeTask(String id) throws ServiceException, NotFoundException, SQLException {
+        try {
+            if (taskDao.findTaskById(Integer.parseInt(id)) == null) {
+                throw new ServiceException("Task not found with given id");
+            }
+            taskDao.deleteTask(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        taskDao.deleteTask(id);
     }
 
     @Override
-    public void editTaskName(int id, String name) throws NotFoundException, SQLException, ServiceException {
-        if (taskDao.findTaskById(id) == null) {
-            throw new ServiceException("Task not found with given id");
+    public void editTaskName(String id, String name) throws NotFoundException, SQLException, ServiceException {
+        try {
+            if (taskDao.findTaskById(Integer.parseInt(id)) == null) {
+                throw new ServiceException("Task not found with given id");
+            }
+            if (name.equals("")) {
+                throw new ServiceException(new EmptyFieldException("Name is empty"));
+            }
+            taskDao.updateTaskName(Integer.parseInt(id), name);
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        if (name.equals("")) {
-            throw new ServiceException(new EmptyFieldException("Name is empty"));
-        }
-        taskDao.updateTaskName(id,name);
     }
 
     @Override
-    public void editTaskContent(int id, String content) throws NotFoundException, SQLException, ServiceException {
-        if (taskDao.findTaskById(id) == null) {
-            throw new ServiceException("Task not found with given id");
+    public void editTaskContent(String id, String content) throws NotFoundException, SQLException, ServiceException {
+        try {
+            if (taskDao.findTaskById(Integer.parseInt(id)) == null) {
+                throw new ServiceException("Task not found with given id");
+            }
+            if (content.equals("")) {
+                throw new ServiceException(new EmptyFieldException("Content field is empty"));
+            }
+            taskDao.updateContent(Integer.parseInt(id), content);
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
         }
-        if (content.equals("")) {
-            throw new ServiceException(new EmptyFieldException("Content field is empty"));
-        }
-        taskDao.updateContent(id,content);
     }
 
     @Override
