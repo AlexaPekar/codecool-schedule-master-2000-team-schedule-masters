@@ -7,6 +7,9 @@ const INTERNAL_SERVER_ERROR = 500;
 let loginContentDivEl;
 let profileContentDivEl;
 let logoutContentDivEl;
+let schedulesContentDivEl;
+let scheduleColumns;
+let tasksContentDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
@@ -102,6 +105,11 @@ function onLoad() {
 
     const logoutButtonEl = document.getElementById('logout-button');
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
+
+    schedulesContentDivEl = document.getElementById('schedules-content');
+    scheduleColumns = document.getElementById('schedule-columns');
+
+    tasksContentDivEl = document.getElementById('tasks-content');
 
     if (hasAuthorization()) {
         onProfileLoad(getAuthorization());

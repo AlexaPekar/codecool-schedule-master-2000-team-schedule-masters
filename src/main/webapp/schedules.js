@@ -1,11 +1,3 @@
-let schedulesContentDivEl;
-let scheduleColumns;
-
-function onLoad() {
-    schedulesContentDivEl = document.getElementById('schedules-content');
-    scheduleColumns = document.getElementById('schedule-columns');
-    onLoadSchedules();
-}
 function onLoadSchedules() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onSchedulesReceived);
@@ -50,11 +42,6 @@ function createSchedulesTableBody(schedules) {
 
     return tbodyEl;
 }
-function removeAllChildren(el) {
-    while (el.firstChild) {
-        el.removeChild(el.firstChild);
-    }
-}
 
 function onScheduleClick(){
     const scheduleId = this.dataset.scheduleId;
@@ -85,5 +72,3 @@ function onColumnLoad(){
     const column = JSON.parse(text);
     scheduleColumns.textContent = column.id+" "+column.name;
 }*/
-
-document.addEventListener('DOMContentLoaded', onLoad);
