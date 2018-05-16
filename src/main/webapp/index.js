@@ -10,6 +10,7 @@ let logoutContentDivEl;
 let schedulesContentDivEl;
 let scheduleColumns;
 let tasksContentDivEl;
+let taskContentDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
@@ -110,6 +111,8 @@ function onLoad() {
     scheduleColumns = document.getElementById('schedule-columns');
 
     tasksContentDivEl = document.getElementById('tasks-content');
+
+    taskContentDivEl = document.getElementById('task-content');
 
     if (hasAuthorization()) {
         onProfileLoad(getAuthorization());

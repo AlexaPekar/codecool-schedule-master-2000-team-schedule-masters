@@ -58,5 +58,5 @@ function onTaskClick(){
 function onTaskLoad(){
     const text = this.responseText;
     const task = JSON.parse(text);
-    tasksContentDivEl.textContent = task.id+" "+ task.name;
+    tasksContentDivEl.textContent = task.id + " " + task.name;
 }
