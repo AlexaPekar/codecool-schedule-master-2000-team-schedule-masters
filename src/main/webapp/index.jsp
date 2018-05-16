@@ -11,6 +11,7 @@
     <script src="profile.js"></script>
     <script src="schedules.js"></script>
     <script src="tasks.js"></script>
+    <script src="columns.js"></script>
 
 </head>
 
