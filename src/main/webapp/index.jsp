@@ -5,6 +5,7 @@
 <head>
 
     <title>Schedule Master 2000</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="index.js"></script>
     <script src="login.js"></script>
     <script src="logout.js"></script>
