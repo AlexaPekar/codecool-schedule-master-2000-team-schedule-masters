@@ -9,6 +9,7 @@
     <script src="login.js"></script>
     <script src="logout.js"></script>
     <script src="profile.js"></script>
+    <script src="schedules.js"></script>
 
 </head>
 
