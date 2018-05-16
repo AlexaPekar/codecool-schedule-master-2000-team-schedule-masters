@@ -4,11 +4,13 @@
 <html lang="en">
 <head>
 
+    <title>Schedule Master 2000</title>
     <script src="index.js"></script>
     <script src="login.js"></script>
     <script src="logout.js"></script>
     <script src="profile.js"></script>
-
+    <script src="schedules.js"></script>
+    <script src="tasks.js"></script>
 
 </head>
 
@@ -26,6 +28,48 @@
     <div id="profile-content" class="hidden content">
         <p>Name: <span id="user-name"></span></p>
         <p>Role: <span id="user-role"></span></p>
+    </div>
+
+    <div id="schedules-content" class="hidden content">
+        <h1>All schedules</h1>
+        <div id="schedules" class="hidden content">
+
+        </div>
+    </div>
+
+    <div id="schedule-content" class="hidden content">
+        <h1>Title</h1>  <!--TODO: hivatkozni a schedule nevére -->
+        <div id="schedule" class="hidden content">
+
+        </div>
+    </div>
+
+    <div id="tasks-content" class="hidden content">
+        <h1>All tasks</h1>
+        <div id="tasks" class="hidden content">
+
+        </div>
+    </div>
+
+    <div id="task-content" class="hidden content">
+        <h1>Title</h1> <!-- TODO: hivatkozni a task nevére-->
+        <div id="task" class="hidden content">
+
+        </div>
+    </div>
+
+    <div id="users-content" class="hidden content">
+        <h1>Users</h1>
+        <div id="users" class="hidden content">
+
+        </div>
+    </div>
+
+    <div id="user-content" class="hidden content">
+        <h1>Name</h1> <!-- TODO: hivatkozni a user nevére-->
+        <div id="user" class="hidden content">
+
+        </div>
     </div>
 
     <div id="logout-content" class="hidden content">

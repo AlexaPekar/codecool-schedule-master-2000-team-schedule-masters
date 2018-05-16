@@ -1,11 +1,3 @@
-let schedulesContentDivEl;
-
-function onLoad() {
-    schedulesContentDivEl = document.getElementById('schedules-content');
-
-
-    onLoadSchedules();
-}
 function onLoadSchedules() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onSchedulesReceived);
@@ -35,7 +27,10 @@ function createSchedulesTableBody(schedules) {
 
         // creating name cell
         const nameTdEl = document.createElement('td');
+        nameTdEl.dataset.scheduleId = schedule.id;
+        nameTdEl.style.cursor = "pointer";
         nameTdEl.textContent = schedule.name;
+        nameTdEl.addEventListener("click", onScheduleClick);
 
         // creating row
         const trEl = document.createElement('tr');
@@ -48,4 +43,32 @@ function createSchedulesTableBody(schedules) {
     return tbodyEl;
 }
 
-document.addEventListener('DOMContentLoaded', onLoad);
+function onScheduleClick(){
+    const scheduleId = this.dataset.scheduleId;
+    removeAllChildren(schedulesContentDivEl);
+    const link = "/schedule-masters/protected/schedule?id="+scheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleLoad);
+    xhr.open('GET',link);
+    xhr.send();
+    //getScheduleColumns(scheduleId);
+}
+function onScheduleLoad(){
+    const text = this.responseText;
+    const schedule = JSON.parse(text);
+    schedulesContentDivEl.textContent = schedule.id+" "+schedule.name;
+}
+/*
+function getScheduleColumns(scheduleId){
+    const link = "/schedule-masters/protected/columns/"+scheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onColumnLoad);
+    xhr.open('GET',link);
+    xhr.send();
+}
+
+function onColumnLoad(){
+    const text = this.responseText;
+    const column = JSON.parse(text);
+    scheduleColumns.textContent = column.id+" "+column.name;
+}*/
