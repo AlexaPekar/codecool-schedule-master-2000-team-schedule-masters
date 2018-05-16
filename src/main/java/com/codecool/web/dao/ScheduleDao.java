@@ -13,4 +13,5 @@ public interface ScheduleDao {
     void updateName(int id,String name) throws SQLException, EmptyFieldException;
     List<Schedule> findSchedulesByUserId(int userId) throws SQLException;
     void deleteSchedule(int id) throws SQLException;
+    int getColumnNumber(int id) throws SQLException;
 }

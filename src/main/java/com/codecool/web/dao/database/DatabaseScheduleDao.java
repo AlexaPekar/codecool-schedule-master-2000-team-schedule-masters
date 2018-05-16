@@ -106,4 +106,16 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         String name = resultset.getString("name");
         return new Schedule(id,name);
     }
+
+    @Override
+    public int getColumnNumber(int id) throws SQLException {
+        String sql = "SELECT COUNT(*) as amount from columns WHERE schedule_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            statement.setInt(1,id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                return resultSet.getInt("amount");
+            }
+        }
+
+    }
 }

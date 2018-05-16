@@ -13,4 +13,5 @@ public interface ScheduleService {
     void editName(int id,String name) throws SQLException, ServiceException, EmptyFieldException;
     List<Schedule> getSchedulesByUserId(int userId) throws SQLException;
     void removeSchedule(int id) throws SQLException, ServiceException;
+    int getColumnNumber(int id) throws SQLException;
 }

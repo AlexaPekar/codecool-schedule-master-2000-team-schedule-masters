@@ -65,4 +65,9 @@ public class SimpleScheduleService implements ScheduleService{
         }
         scheduleDao.deleteSchedule(id);
     }
+
+    @Override
+    public int getColumnNumber(int id) throws SQLException {
+        return scheduleDao.getColumnNumber(id);
+    }
 }
