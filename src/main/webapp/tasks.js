@@ -1,3 +1,5 @@
+//Tasks page
+
 function onLoadTasks(){
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTasksRecieved);
@@ -7,6 +9,8 @@ function onLoadTasks(){
 }
 
 function onTasksRecieved(){
+    showContents(['tasks-content']);
+
     const text = this.responseText;
     const tasks = JSON.parse(text);
 
@@ -55,8 +59,21 @@ function onTaskClick(){
     xhr.send();
 }
 
+//Task page
+
 function onTaskLoad(){
     const text = this.responseText;
     const task = JSON.parse(text);
     tasksContentDivEl.textContent = task.id + " " + task.name;
+}
+
+function createTaskTableBody(task) {
+    const tableHeadEl = document.createElement('thead');
+    const tableBodyEl = document.createElement('tbody');
+
+    const nameTdEl = document.createElement('td');
+    nameTdEl.textContent = task.name;
+    tableHeadEl.appendChild(nameTdEl);
+
+
 }
