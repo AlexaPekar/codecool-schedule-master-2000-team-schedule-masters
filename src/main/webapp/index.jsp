@@ -39,7 +39,7 @@
     </div>
 
     <div id="schedule-content" class="hidden content">
-        <h1>Title</h1>  <!--TODO: hivatkozni a schedule nevére -->
+        <h1 id = "schedule-title">Title</h1>  <!--TODO: hivatkozni a schedule nevére -->
         <div id="schedule" class="hidden content">
 
         </div>

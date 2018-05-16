@@ -45,7 +45,7 @@ function createSchedulesTableBody(schedules) {
 
 function onScheduleClick(){
     const scheduleId = this.dataset.scheduleId;
-    removeAllChildren(schedulesContentDivEl);
+   // removeAllChildren(schedulesContentDivEl);
     const link = "/schedule-masters/protected/schedule?id="+scheduleId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleLoad);
@@ -56,7 +56,9 @@ function onScheduleClick(){
 function onScheduleLoad(){
     const text = this.responseText;
     const schedule = JSON.parse(text);
-    schedulesContentDivEl.textContent = schedule.id+" "+schedule.name;
+    const scheduleTitle = document.getElementById('schedule-title');
+    scheduleTitle.textContent = schedule.name;
+    getScheduleColumns(schedule.id);
 }
 /*
 function getScheduleColumns(scheduleId){
