@@ -10,6 +10,7 @@
     <script src="logout.js"></script>
     <script src="profile.js"></script>
     <script src="schedules.js"></script>
+    <script src="tasks.js"></script>
 
 </head>
 
