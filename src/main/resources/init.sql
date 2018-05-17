@@ -60,7 +60,10 @@ UNIQUE (task_id, schedule_id)
 );
 
 INSERT INTO users (name, password, role)
-VALUES ('admin', 'admin', 'Admin');
+VALUES ('admin', 'admin', 'Admin'),
+('Tom Smith', 'admin', 'User'),
+('Avrage Joe', 'admin', 'User'),
+('Johanna Doe', 'admin', 'User');
 
 INSERT INTO schedules (user_id, name)
 VALUES ('1', 'Sima plans'),

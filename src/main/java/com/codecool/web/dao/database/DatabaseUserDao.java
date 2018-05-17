@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseUserDao extends AbstractDao implements UserDao {
 
@@ -46,6 +48,20 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
         } finally {
             connection.setAutoCommit(autoCommit);
         }
+    }
+
+    @Override
+    public List<User> findAllUsers() throws SQLException {
+        List<User> allUsers = new ArrayList<>();
+        String sql = "SELECT id, name, password, role FROM users";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    allUsers.add(fetchUser(resultSet));
+                }
+            }
+        }
+        return allUsers;
     }
 
     private User fetchUser(ResultSet resultSet) throws SQLException {

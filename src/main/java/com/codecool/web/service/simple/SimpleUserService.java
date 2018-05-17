@@ -8,6 +8,7 @@ import com.codecool.web.model.User;
 import com.codecool.web.service.UserService;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class SimpleUserService implements UserService {
 
@@ -44,5 +45,17 @@ public class SimpleUserService implements UserService {
             throw new ServiceException("Wrong password!");
         }
         return user;
+    }
+
+    @Override
+    public List<User> getAllUsers(User user) throws SQLException, ServiceException {
+        String userRole = user.getRole();
+
+        if (userRole.equals("Admin")){
+            return uD.findAllUsers();
+        } else {
+            throw new ServiceException("You are not authorized for this movement.");
+        }
+
     }
 }

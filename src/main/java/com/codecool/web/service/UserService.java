@@ -5,6 +5,7 @@ import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.model.User;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface UserService {
 
@@ -13,5 +14,7 @@ public interface UserService {
     User addNewUser(String name,String password,String role) throws SQLException, ServiceException;
 
     User loginUser(String name, String password) throws ServiceException, SQLException, NotFoundException;
+
+    List<User> getAllUsers(User user) throws SQLException, ServiceException;
 
 }
