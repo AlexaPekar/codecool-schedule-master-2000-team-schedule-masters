@@ -56,6 +56,15 @@ public class SimpleUserService implements UserService {
         } else {
             throw new ServiceException("You are not authorized for this movement.");
         }
+    }
 
+    public User getUserById(String id) throws SQLException, ServiceException {
+        try {
+            return uD.findUserById(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Must be a number");
+        }
     }
 }

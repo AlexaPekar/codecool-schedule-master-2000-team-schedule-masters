@@ -17,4 +17,6 @@ public interface UserService {
 
     List<User> getAllUsers(User user) throws SQLException, ServiceException;
 
+    User getUserById(String id) throws SQLException, ServiceException;
+
 }

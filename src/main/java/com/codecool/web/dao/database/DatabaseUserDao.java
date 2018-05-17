@@ -64,6 +64,19 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
         return allUsers;
     }
 
+    public User findUserById(int id) throws SQLException {
+        String sql = "SELECT id, name, password, role FROM users WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return fetchUser(resultSet);
+                }
+            }
+        }
+        return null;
+    }
+
     private User fetchUser(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");

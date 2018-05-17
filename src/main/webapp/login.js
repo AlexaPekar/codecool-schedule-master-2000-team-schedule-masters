@@ -1,6 +1,7 @@
 function onLoginResponse() {
     if (this.status === OK) {
         const user = JSON.parse(this.responseText);
+        activeUser = user;
         setAuthorization(user);
         onProfileLoad(user);
         showContents(['menu', 'profile-content', 'logout-content']);

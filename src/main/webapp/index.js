@@ -12,6 +12,7 @@ let scheduleColumns;
 let tasksContentDivEl;
 let taskContentDivEl;
 let menuDivEl;
+let activeUser;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
@@ -122,8 +123,10 @@ function onLoad() {
     const tasksButtonEl = document.getElementById('tasks-button');
     tasksButtonEl.addEventListener('click', onLoadTasks)
 
-    //const usersButtonEl = document.getElementById('users-button');
-    //usersButtonEl.addEventListener('click', onLoadUsers) //TODO: CREATE USERS <3
+    if (activeUser.role === "Admin") {
+        const usersButtonEl = document.getElementById('users-button');
+        usersButtonEl.addEventListener('click', onLoadUsers) //TODO: CREATE USERS <3
+    }
 
     if (hasAuthorization()) {
         onProfileLoad(getAuthorization());
