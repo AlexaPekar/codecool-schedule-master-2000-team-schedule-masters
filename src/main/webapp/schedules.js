@@ -7,7 +7,7 @@ function onLoadSchedules() {
     xhr.send();
 }
 function onSchedulesReceived(){
-    showContents(['schedules-content','profile-content','schedules']);
+    showContents(['schedules-content','profile-content','schedules','menu', 'logout-content']);
     const text = this.responseText;
     const schedules = JSON.parse(text);
 
@@ -58,7 +58,7 @@ function onScheduleClick(){
     //getScheduleColumns(scheduleId);
 }
 function onScheduleLoad(){
-    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules']);
+    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules','menu', 'logout-content']);
     const text = this.responseText;
     const schedule = JSON.parse(text);
     const scheduleTitle = document.getElementById('schedule-title');
