@@ -1,10 +1,13 @@
 function onLoadSchedules() {
+    const schedulesDivEl = document.getElementById('schedules');
+    removeAllChildren(schedulesDivEl);
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onSchedulesReceived);
     xhr.open('GET','/schedule-masters/protected/schedules');
     xhr.send();
 }
 function onSchedulesReceived(){
+    showContents(['schedules-content','profile-content','schedules']);
     const text = this.responseText;
     const schedules = JSON.parse(text);
 
@@ -45,7 +48,8 @@ function createSchedulesTableBody(schedules) {
 
 function onScheduleClick(){
     const scheduleId = this.dataset.scheduleId;
-   // removeAllChildren(schedulesContentDivEl);
+    const scheduleDivEl = document.getElementById('schedule');
+    removeAllChildren(scheduleDivEl);
     const link = "/schedule-masters/protected/schedule?id="+scheduleId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onScheduleLoad);
@@ -54,23 +58,10 @@ function onScheduleClick(){
     //getScheduleColumns(scheduleId);
 }
 function onScheduleLoad(){
+    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules']);
     const text = this.responseText;
     const schedule = JSON.parse(text);
     const scheduleTitle = document.getElementById('schedule-title');
     scheduleTitle.textContent = schedule.name;
     getScheduleColumns(schedule.id);
 }
-/*
-function getScheduleColumns(scheduleId){
-    const link = "/schedule-masters/protected/columns/"+scheduleId;
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onColumnLoad);
-    xhr.open('GET',link);
-    xhr.send();
-}
-
-function onColumnLoad(){
-    const text = this.responseText;
-    const column = JSON.parse(text);
-    scheduleColumns.textContent = column.id+" "+column.name;
-}*/
