@@ -72,4 +72,5 @@ INSERT INTO slots (column_id, time_range)
 VALUES ('1', '7-8');
 
 INSERT INTO tasks (user_id, name, content)
-VALUES ('1', 'TestTask', 'TestContentOfTheTask');
+VALUES ('1', 'TestTask', 'TestContentOfTheTask'),
+('1', 'TesTask2', 'TestContentOfTheTask2');

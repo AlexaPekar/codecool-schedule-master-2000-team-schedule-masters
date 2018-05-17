@@ -26,7 +26,7 @@ public class TaskServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
-            String taskId = req.getParameter("taskId");
+            String taskId = req.getParameter("id");
 
             Task task = taskService.getTaskById(taskId);
             sendMessage(resp, HttpServletResponse.SC_OK, task);

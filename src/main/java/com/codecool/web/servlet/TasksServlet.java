@@ -18,7 +18,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/protected/tasks")
+@WebServlet("/protected/tasks/*")
 public class TasksServlet extends AbstractServlet {
 
     @Override

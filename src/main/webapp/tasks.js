@@ -9,7 +9,7 @@ function onLoadTasks(){
 }
 
 function onTasksRecieved(){
-    showContents(['tasks-content']);
+    showContents(['tasks-content', 'tasks', 'profile-content']);
 
     const text = this.responseText;
     const tasks = JSON.parse(text);
@@ -55,6 +55,7 @@ function onTaskClick(){
     const link = "/schedule-masters/protected/task?id="+taskId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTaskLoad);
+    xhr.addEventListener('error', onNetworkError);
     xhr.open('GET',link);
     xhr.send();
 }
@@ -62,12 +63,16 @@ function onTaskClick(){
 //Task page
 
 function onTaskLoad(){
+    showContents(['task-content', 'task', 'profile-content']);
+
     const text = this.responseText;
     const task = JSON.parse(text);
-    tasksContentDivEl.textContent = task.id + " " + task.name;
+    const taskEl = document.getElementById('task');
+    taskEl.appendChild(createTaskTable(task));
 }
 
-function createTaskTableBody(task) {
+function createTaskTable(task) {
+    const tableEl = document.createElement('table');
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
 
@@ -75,5 +80,15 @@ function createTaskTableBody(task) {
     nameTdEl.textContent = task.name;
     tableHeadEl.appendChild(nameTdEl);
 
+    const contentTdEl = document.createElement('td');
+    contentTdEl.textContent = task.content;
 
+    const trEl = document.createElement('tr');
+    trEl.appendChild(contentTdEl);
+
+    tableBodyEl.appendChild(trEl);
+    tableEl.appendChild(tableHeadEl);
+    tableEl.appendChild(tableBodyEl);
+
+    return tableEl;
 }
