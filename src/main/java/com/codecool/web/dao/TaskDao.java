@@ -15,4 +15,5 @@ public interface TaskDao {
     Task findTaskById(int id) throws SQLException, NotFoundException;
     List<Task> findAllTaskByUserId(int id) throws SQLException;
     void insertTaskIdToScheduleId(int taskId, int scheduleId) throws SQLException;
+    int findTaskIdBySlotId(int slotId) throws SQLException;
 }

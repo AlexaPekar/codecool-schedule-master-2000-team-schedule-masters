@@ -54,7 +54,7 @@ public class SimpleSlotService implements SlotService {
 
     @Override
     public Slot getSlotByID(int id) throws SQLException, ServiceException {
-        if(slotDao.findSlotById(id)== null){
+        if (slotDao.findSlotById(id) == null) {
             throw new ServiceException("Slot not found");
         }
         return slotDao.findSlotById(id);
@@ -63,7 +63,7 @@ public class SimpleSlotService implements SlotService {
     @Override
     public List<Slot> getSlotsByColumnID(String columnID) throws NotFoundException, SQLException, ServiceException {
         try {
-            if(columnDao.findById(Integer.parseInt(columnID))== null){
+            if (columnDao.findById(Integer.parseInt(columnID)) == null) {
                 throw new ServiceException("Column not found");
             }
             return slotDao.findSlotsByColumnId(Integer.parseInt(columnID));

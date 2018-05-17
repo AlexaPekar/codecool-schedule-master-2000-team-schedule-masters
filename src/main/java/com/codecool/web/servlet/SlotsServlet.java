@@ -40,7 +40,7 @@ public class SlotsServlet extends AbstractServlet {
             SlotsDto slotsDto = new SlotsDto(Integer.parseInt(columnId),slots);
             sendMessage(resp, HttpServletResponse.SC_OK, slotsDto);
         } catch (SQLException e) {
-            handleSqlError(resp, e);e.printStackTrace();
+            handleSqlError(resp, e);
         } catch (ServiceException e) {
             e.printStackTrace();
         } catch (NotFoundException e) {
