@@ -2,6 +2,7 @@ package com.codecool.web.servlet;
 
 import com.codecool.web.dao.TaskDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
+import com.codecool.web.dto.TaskDto;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.model.Task;
@@ -31,8 +32,9 @@ public class SlotFillUpServlet extends AbstractServlet{
 
             int taskId = taskService.getTaskIdBySlotId(slotId);
             Task task = taskService.getTaskById(taskId);
+            TaskDto taskDto = new TaskDto(Integer.parseInt(slotId),task);
 
-            sendMessage(resp, HttpServletResponse.SC_OK, task);
+            sendMessage(resp, HttpServletResponse.SC_OK, taskDto);
 
         } catch (SQLException e) {
             handleSqlError(resp, e);

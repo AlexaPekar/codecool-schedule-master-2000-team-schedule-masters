@@ -30,7 +30,10 @@ function createSlotsTableBody(slots) {
         trEl.appendChild(slotTimeRangeTdEl);
 
         const slotContentTdEl = document.createElement('td');
-        slotContentTdEl.textContent = 'enter task';
+        const divEl = document.createElement('div');
+        divEl.id = 'slot' + slot.id;
+
+        slotContentTdEl.appendChild(divEl);
 
         trEl.appendChild(slotContentTdEl);
         tbodyEl.appendChild(trEl);
