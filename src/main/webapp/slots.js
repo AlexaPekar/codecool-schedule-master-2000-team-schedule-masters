@@ -8,12 +8,12 @@ function getColumnSlots(columnId){
 
 function onSlotsReceived() {
     const text = this.responseText;
-    const slots = JSON.parse(text);
+    const slotsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
-    tableEl.appendChild(createSlotsTableBody(slots));
+    tableEl.appendChild(createSlotsTableBody(slotsDto.slots));
 
-    const slEl = document.getElementById('column');
+    const slEl = document.getElementById('column' + slotsDto.index);
     slEl.appendChild(tableEl);
 }
 

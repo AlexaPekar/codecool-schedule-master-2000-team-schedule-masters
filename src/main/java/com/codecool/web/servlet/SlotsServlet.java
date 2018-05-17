@@ -4,6 +4,7 @@ import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.SlotDao;
 import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.dao.database.DatabaseSlotDao;
+import com.codecool.web.dto.SlotsDto;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.model.Slot;
@@ -36,7 +37,8 @@ public class SlotsServlet extends AbstractServlet {
             SlotService slotService = new SimpleSlotService(columnDao, slotDao);
 
             List<Slot> slots = slotService.getSlotsByColumnID(columnId);
-            sendMessage(resp, HttpServletResponse.SC_OK, slots);
+            SlotsDto slotsDto = new SlotsDto(Integer.parseInt(columnId),slots);
+            sendMessage(resp, HttpServletResponse.SC_OK, slotsDto);
         } catch (SQLException e) {
             handleSqlError(resp, e);e.printStackTrace();
         } catch (ServiceException e) {
