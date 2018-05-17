@@ -38,8 +38,8 @@ function createColumnsTableBody(columns) {
         const column = columns[i];
 
         const divEl = document.createElement('div');
-        divEl.textContent = "insert slot";
-        divEl.id = i;
+        divEl.textContent = 'insert slot';
+        divEl.id = 'column';
 
         // creating id cell
         const colTdEl = document.createElement('td');

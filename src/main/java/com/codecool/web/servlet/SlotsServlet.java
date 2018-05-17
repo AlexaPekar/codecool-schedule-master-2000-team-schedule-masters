@@ -20,27 +20,29 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/protected/slots")
+@WebServlet("/protected/slots/*")
 public class SlotsServlet extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try (Connection connection = getConnection(req.getServletContext())) {
+        try (Connection connection = getConnection(req.getServletContext())){
+            String url=req.getRequestURI();
+            int i = url.lastIndexOf('/');
+            String columnId = req.getRequestURI().substring(i + 1);
+
             ColumnDao columnDao = new DatabaseColumnDao(connection);
+
             SlotDao slotDao = new DatabaseSlotDao(connection);
             SlotService slotService = new SimpleSlotService(columnDao, slotDao);
 
-            String columnId = req.getParameter("columnId");
-
             List<Slot> slots = slotService.getSlotsByColumnID(columnId);
-
             sendMessage(resp, HttpServletResponse.SC_OK, slots);
         } catch (SQLException e) {
-            handleSqlError(resp, e);
+            handleSqlError(resp, e);e.printStackTrace();
         } catch (ServiceException e) {
-            sendMessage(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            e.printStackTrace();
         } catch (NotFoundException e) {
-            sendMessage(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            e.printStackTrace();
         }
     }
 
