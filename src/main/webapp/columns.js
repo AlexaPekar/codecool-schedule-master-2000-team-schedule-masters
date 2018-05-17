@@ -47,6 +47,7 @@ function createColumnsTableBody(columns) {
 
 
         trEl2.appendChild(colTdEl);
+        getColumnSlots(column.id);
 
     }
 

@@ -13,6 +13,8 @@
     <script src="schedules.js"></script>
     <script src="tasks.js"></script>
     <script src="columns.js"></script>
+    <script src="slots.js"></script>
+
 
 </head>
 
