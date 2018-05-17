@@ -12,14 +12,15 @@
 
 table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size: 12px;
     border-collapse: collapse;
-    width:1%;
-    white-space: nowrap;
 }
 
 td, th {
     border: 1px solid #ddd;
     padding: 8px;
+    height: 30px;
+    width: 300px;
 }
 
 tr:nth-child(even){background-color: #f2f2f2;}

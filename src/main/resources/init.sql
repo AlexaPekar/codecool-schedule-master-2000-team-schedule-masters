@@ -61,9 +61,14 @@ UNIQUE (task_id, schedule_id)
 
 INSERT INTO users (name, password, role)
 VALUES ('admin', 'admin', 'Admin'),
-('Tom Smith', 'admin', 'User'),
-('Avrage Joe', 'admin', 'User'),
-('Johanna Doe', 'admin', 'User');
+('Joe', 'admin', 'User'),
+('Liz', 'littleduck67', 'User'),
+('Josh', 'NeverFindOut', 'User'),
+('Samantha', 'mypassword99', 'User'),
+('Robert', 'lolkabolka11', 'User'),
+('Selena', 'neverForget83', 'User'),
+('John', 'IlikeSissy12', 'User'),
+('Jessica', 'jess1992', 'User');
 
 INSERT INTO schedules (user_id, name)
 VALUES ('1', 'Sima plans'),
@@ -216,7 +221,26 @@ VALUES ('1', 'Drink beer', 'try not to vomit'),
 ('1', 'Feed the Tomcat', 'RRRrrrrrr'),
 ('1', 'Browsing the stackoverflow', 'find the complete solution'),
 ('1', 'Try not to cry', 'you are beautiful and strong ;)'),
-('1', 'Pray for successful compile', 'remember to feed the Tomcat');
+('1', 'Pray for successful compile', 'remember to feed the Tomcat'),
+
+('2', 'Drink beer', 'try not to vomit'),
+('2', 'Eat chili beans', 'this is a nice activity, tell Imi it tastes good.'),
+('2', 'Listen to Kenéz singing', 'feat Hresko Norbi w guitar'),
+('2', 'Partying', 'just dance!'),
+('2', 'Sleeping', 'not much'),
+('2', 'Survive hangover', 'The Bear Grylls way'),
+('2', 'Go home', ':('),
+('2', 'Practice JavaSrcipt', 'call backs, DOM manipulation, jQuery'),
+('2', 'Fail to pratice JavaScript', 'because errors'),
+('2', 'Chill', 'you know the drill'),
+('2', 'Start implement the assignments', 'start is the hardest part'),
+('2', 'Continue implementation', 'try not to give up'),
+('2', 'Finishing implementation', 'and forgot to submit'),
+('2', 'Submit the assignment', 'because you forgot'),
+('2', 'Feed the Tomcat', 'RRRrrrrrr'),
+('2', 'Browsing the stackoverflow', 'find the complete solution'),
+('2', 'Try not to cry', 'you are beautiful and strong ;)'),
+('2', 'Pray for successful compile', 'remember to feed the Tomcat');
 
 INSERT INTO tasks_slots (task_id, slot_id)
 VALUES (1, 6),

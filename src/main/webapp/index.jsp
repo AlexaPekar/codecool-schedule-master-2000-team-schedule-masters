@@ -14,6 +14,7 @@
     <script src="tasks.js"></script>
     <script src="columns.js"></script>
     <script src="slots.js"></script>
+    <script src="users.js"></script>
 
 
 </head>
@@ -35,7 +36,7 @@
 </div>
 
 <div id="menu" class="hidden content">
-    <button id="schedules-button">Schedules</button>
+    <button id="schedules-button">Schedules</button><br>
     <button id="tasks-button">Tasks</button>
     <button id="users-button">Users</button>
 </div>
@@ -84,6 +85,7 @@
         <div id="user" class="hidden content">
 
         </div>
+    <button id="users-goback-button">Go back</button>
     </div>
 
 

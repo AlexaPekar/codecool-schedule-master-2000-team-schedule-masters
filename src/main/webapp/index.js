@@ -11,6 +11,8 @@ let schedulesContentDivEl;
 let scheduleColumns;
 let tasksContentDivEl;
 let taskContentDivEl;
+let usersContentDivEl;
+let userContentDivEl;
 let menuDivEl;
 let activeUser;
 
@@ -102,6 +104,8 @@ function onLoad() {
     loginContentDivEl = document.getElementById('login-content');
     profileContentDivEl = document.getElementById('profile-content');
     logoutContentDivEl = document.getElementById('logout-content');
+    usersContentDivEl = document.getElementById('users-content');
+    userContentDivEl = document.getElementById('user-content');
 
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);
@@ -115,18 +119,6 @@ function onLoad() {
     tasksContentDivEl = document.getElementById('tasks-content');
 
     taskContentDivEl = document.getElementById('task-content');
-
-    menuDivEl = document.getElementById('menu');
-    const schedulesButtonEl = document.getElementById('schedules-button');
-    schedulesButtonEl.addEventListener('click', onLoadSchedules);
-
-    const tasksButtonEl = document.getElementById('tasks-button');
-    tasksButtonEl.addEventListener('click', onLoadTasks)
-
-    if (activeUser.role === "Admin") {
-        const usersButtonEl = document.getElementById('users-button');
-        usersButtonEl.addEventListener('click', onLoadUsers) //TODO: CREATE USERS <3
-    }
 
     if (hasAuthorization()) {
         onProfileLoad(getAuthorization());

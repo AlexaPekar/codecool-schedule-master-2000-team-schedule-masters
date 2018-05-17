@@ -32,7 +32,7 @@ function createTasksTableBody(tasks) {
 
         //creating id cell
         const idTdEl = document.createElement('td');
-        idTdEl.textContent = task.id;
+        idTdEl.textContent = task.id + ".";
 
         //creating name cell
         const nameTdEl = document.createElement('td');
@@ -99,7 +99,6 @@ function onTaskLoad(){
     removeAllChildren(taskEl);
 
     const backButtonEl  = document.getElementById('tasks-goback-button');
-    taskContentDivEl.appendChild(backButtonEl);
 
     backButtonEl.addEventListener('click', onBackButtonClick);
 
