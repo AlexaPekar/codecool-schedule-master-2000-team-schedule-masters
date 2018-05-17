@@ -33,6 +33,8 @@ function createSlotsTableBody(slots) {
         const divEl = document.createElement('div');
         divEl.id = 'slot' + slot.id;
 
+        getSlotsTask(slot.id);
+
         slotContentTdEl.appendChild(divEl);
 
         trEl.appendChild(slotContentTdEl);
