@@ -11,6 +11,7 @@ let schedulesContentDivEl;
 let scheduleColumns;
 let tasksContentDivEl;
 let taskContentDivEl;
+let menuDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
@@ -113,6 +114,16 @@ function onLoad() {
     tasksContentDivEl = document.getElementById('tasks-content');
 
     taskContentDivEl = document.getElementById('task-content');
+
+    menuDivEl = document.getElementById('menu');
+    const schedulesButtonEl = document.getElementById('schedules-button');
+    schedulesButtonEl.addEventListener('click', onLoadSchedules);
+
+    const tasksButtonEl = document.getElementById('tasks-button');
+    tasksButtonEl.addEventListener('click', onLoadTasks)
+
+    //const usersButtonEl = document.getElementById('users-button');
+    //usersButtonEl.addEventListener('click', onLoadUsers) //TODO: CREATE USERS <3
 
     if (hasAuthorization()) {
         onProfileLoad(getAuthorization());

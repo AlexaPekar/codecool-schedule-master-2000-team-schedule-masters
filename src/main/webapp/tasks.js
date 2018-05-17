@@ -9,15 +9,18 @@ function onLoadTasks(){
 }
 
 function onTasksRecieved(){
-    showContents(['tasks-content', 'tasks', 'profile-content']);
+    showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
 
     const text = this.responseText;
     const tasks = JSON.parse(text);
 
     const tableEl = document.createElement('table');
-    tableEl.appendChild(createTasksTableBody(tasks));
 
     const tasksEl = document.getElementById('tasks');
+    removeAllChildren(tasksEl);
+
+    tableEl.appendChild(createTasksTableBody(tasks));
+
     tasksEl.appendChild(tableEl);
 }
 
@@ -51,7 +54,6 @@ function createTasksTableBody(tasks) {
 
 function onTaskClick(){
     const taskId = this.dataset.taskId;
-    removeAllChildren(tasksContentDivEl);
     const link = "/schedule-masters/protected/task?id="+taskId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTaskLoad);
@@ -62,12 +64,22 @@ function onTaskClick(){
 
 //Task page
 
-function onTaskLoad(){
-    showContents(['task-content', 'task', 'profile-content']);
+function onBackButtonClick() {
+    showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
+}
 
+function onTaskLoad(){
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'tasks-goback-button']);
     const text = this.responseText;
     const task = JSON.parse(text);
     const taskEl = document.getElementById('task');
+    removeAllChildren(taskEl);
+
+    const backButtonEl  = document.getElementById('tasks-goback-button');
+    taskContentDivEl.appendChild(backButtonEl);
+
+    backButtonEl.addEventListener('click', onBackButtonClick);
+
     taskEl.appendChild(createTaskTable(task));
 }
 

@@ -3,6 +3,7 @@ function onLoginResponse() {
         const user = JSON.parse(this.responseText);
         setAuthorization(user);
         onProfileLoad(user);
+        showContents(['menu', 'profile-content', 'logout-content']);
         onLoadSchedules();
     } else {
         onOtherResponse(loginContentDivEl, this);
