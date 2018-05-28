@@ -127,7 +127,7 @@ function onTaskAddClicked() {
     xhr.send(params);
 
     document.getElementById("dimmer").remove();
-    document.getElementById("task-lightbox").style.visibility = "hidden";
+    document.getElementById('task-lightbox').style.visibility = "hidden";
 }
 
 function onTaskAddResponse(){
@@ -184,6 +184,7 @@ function onSlotsTaskReceived() {
 function onTaskLightBoxLoad() {
     const lightbox = document.getElementById("task-lightbox");
     const dimmer = document.createElement("div");
+    dimmer.id = "dimmer";
     dimmer.style.width =  window.innerWidth + 'px';
     dimmer.style.height = window.innerHeight + 'px';
     dimmer.className = 'dimmer';
