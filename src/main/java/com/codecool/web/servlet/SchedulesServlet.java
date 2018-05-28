@@ -36,10 +36,7 @@ public class SchedulesServlet extends AbstractServlet {
             User user = (User)req.getSession().getAttribute("user");
 
             int userID = user.getId();
-            if(!user.getRole().equals("Admin")&&Integer.parseInt(urlID)!=userID){
-                sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, "You don't have access to this Schedule");
-                return;
-            }
+
             List<Schedule> schedules = scheduleService.getSchedulesByUserId(userID);
             sendMessage(resp, HttpServletResponse.SC_OK, schedules);
         } catch (SQLException e) {
