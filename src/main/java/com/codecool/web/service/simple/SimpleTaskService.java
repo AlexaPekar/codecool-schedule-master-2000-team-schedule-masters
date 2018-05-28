@@ -20,7 +20,7 @@ public class SimpleTaskService implements TaskService {
 
     @Override
     public Task addNewTask(int userId, String name, String content) throws ServiceException, SQLException {
-        if (name.equals("") || content.equals("")) {
+        if (name.equals("")) {
             throw new ServiceException(new EmptyFieldException("Name or content field empty"));
         }
         return taskDao.insertNewTask(userId, name, content);

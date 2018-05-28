@@ -56,7 +56,6 @@ function createTasksTableBody(tasks) {
         //creating delete button
         const deleteButtonEl = document.createElement('button');
         deleteButtonEl.textContent = "Delete";
-        console.log(task.id);
         deleteButtonEl.dataset.taskId = task.id;
         nameTdEl.style.cursor = "pointer";
         deleteButtonEl.addEventListener('click', onDeleteTaskClick);
