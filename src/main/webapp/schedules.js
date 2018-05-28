@@ -70,6 +70,7 @@ function onScheduleLightBoxLoad(){
         const scheduleContentDiv = document.getElementById("schedules-content");
         const lightbox = document.getElementById("schedule-lightbox");
         const dimmer = document.createElement("div");
+        dimmer.id = "dimmer";
         dimmer.style.width =  window.innerWidth + 'px';
         dimmer.style.height = window.innerHeight + 'px';
         dimmer.className = 'dimmer';
@@ -104,6 +105,11 @@ function onScheduleAddClicked(){
 
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
+    xhr.addEventListener('load', onLoadSchedules);
     xhr.open('POST', '/schedule-masters/protected/schedule');
     xhr.send(params);
+
+    document.getElementById("dimmer").remove();
+    document.getElementById("schedule-lightbox").style.visibility = "hidden";
+
 }
