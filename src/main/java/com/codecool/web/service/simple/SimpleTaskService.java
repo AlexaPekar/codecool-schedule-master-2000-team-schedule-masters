@@ -36,7 +36,7 @@ public class SimpleTaskService implements TaskService {
         } catch (NumberFormatException e) {
             throw new ServiceException("Must be a number");
         } catch (IllegalArgumentException e) {
-            throw new ServiceException("Must be a number");
+            throw new ServiceException("Illegal argument");
         }
     }
 

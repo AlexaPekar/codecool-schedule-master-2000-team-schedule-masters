@@ -26,6 +26,16 @@ function onTasksRecieved(){
     tasksEl.appendChild(tableEl);
 }
 
+function onDeleteTaskClick() {
+    const taskId = this.dataset.taskId;
+    const link = "/schedule-masters/protected/tasks?id="+taskId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoadTasks);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('DELETE',link);
+    xhr.send();
+}
+
 function createTasksTableBody(tasks) {
     tasksTableBodyEl = document.createElement('tbody');
 
@@ -43,10 +53,19 @@ function createTasksTableBody(tasks) {
         nameTdEl.style.cursor = "pointer";
         nameTdEl.addEventListener('click', onTaskClick);
 
+        //creating delete button
+        const deleteButtonEl = document.createElement('button');
+        deleteButtonEl.textContent = "Delete";
+        console.log(task.id);
+        deleteButtonEl.dataset.taskId = task.id;
+        nameTdEl.style.cursor = "pointer";
+        deleteButtonEl.addEventListener('click', onDeleteTaskClick);
+
         //creating row
         const trEl = document.createElement('tr');
         trEl.appendChild(idTdEl);
         trEl.appendChild(nameTdEl);
+        trEl.appendChild(deleteButtonEl);
 
         tasksTableBodyEl.appendChild(trEl);
     }

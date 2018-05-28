@@ -37,8 +37,9 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public void deleteTask(int id) throws SQLException {
-        String sql = "DELETE from tasks WHERE id = ?;";
+        String sql = "DELETE from tasks CASCADE WHERE id = ?;";
         boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1,id);
             statement.executeUpdate();
