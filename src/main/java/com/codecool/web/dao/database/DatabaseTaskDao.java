@@ -17,9 +17,10 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
 
     @Override
     public Task insertNewTask(int userId, String name, String content) throws SQLException {
-        String sql = "INSERT into tasks (user_id,name,content) VALUES (?,?,?);";
+        String sql = "INSERT into tasks (user_id,name,content) VALUES (?,?,?)";
         boolean autoCommit = connection.getAutoCommit();
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
+        connection.setAutoCommit(false);
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             statement.setInt(1, userId);
             statement.setString(2, name);
             statement.setString(3, content);
