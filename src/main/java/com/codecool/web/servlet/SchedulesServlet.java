@@ -2,8 +2,10 @@ package com.codecool.web.servlet;
 
 import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.ScheduleDao;
+import com.codecool.web.dao.SlotDao;
 import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
+import com.codecool.web.dao.database.DatabaseSlotDao;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.model.User;
 import com.codecool.web.service.ScheduleService;
@@ -29,7 +31,8 @@ public class SchedulesServlet extends AbstractServlet {
 
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ColumnDao columnDao = new DatabaseColumnDao(connection);
-            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao);
+            SlotDao slotDao = new DatabaseSlotDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
             User user = (User)req.getSession().getAttribute("user");
 
             int userID = user.getId();

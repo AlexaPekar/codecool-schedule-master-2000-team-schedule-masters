@@ -2,8 +2,10 @@ package com.codecool.web.service.simple;
 
 import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.ScheduleDao;
+import com.codecool.web.dao.SlotDao;
 import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.exceptions.ServiceException;
+import com.codecool.web.model.Column;
 import com.codecool.web.model.Schedule;
 import com.codecool.web.service.ScheduleService;
 
@@ -13,10 +15,12 @@ import java.util.List;
 public class SimpleScheduleService implements ScheduleService{
     private final ScheduleDao scheduleDao;
     private final ColumnDao columnDao;
+    private final SlotDao slotDao;
 
-    public SimpleScheduleService(ScheduleDao scheduleDao,ColumnDao columnDao) {
+    public SimpleScheduleService(ScheduleDao scheduleDao,ColumnDao columnDao,SlotDao slotDao) {
         this.scheduleDao = scheduleDao;
         this.columnDao = columnDao;
+        this.slotDao = slotDao;
     }
     @Override
     public Schedule getById(int id) throws SQLException, ServiceException {
@@ -37,7 +41,11 @@ public class SimpleScheduleService implements ScheduleService{
         Schedule schedule = scheduleDao.insertSchedule(userId,name);
 
         for (int i = 0;i < amountOfColumns;i++) {
-            columnDao.insert(schedule.getId(),"Enter text");
+            Column column =columnDao.insert(schedule.getId(),"Enter text");
+            for (int j= 7;j < 19;j++) {
+                String timeRange = j + "-" + (j+1);
+                slotDao.insertNewSlot(column.getId(),timeRange);
+            }
         }
         return schedule;
     }
