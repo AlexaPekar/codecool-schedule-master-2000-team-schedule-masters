@@ -49,6 +49,23 @@
         <div id="schedules" class="hidden content">
 
         </div>
+        <div id="schedule-lightbox">
+            <form id="schedule-form" onsubmit="return false;">
+                <p>Schedule name:</p>
+                <input type="text" name="name">
+                <p>Number of columns:</p>
+                <select>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                </select>
+                <button onclick="onScheduleAddClicked();">Add new Schedule</button>
+            </form>
+        </div>
     </div>
 
 <div id="schedule-content" class="hidden content">
@@ -63,7 +80,16 @@
         <div id="tasks" class="hidden content">
 
         </div>
-    </div>
+        <div id="task-lightbox">
+            <form id="task-form" onsubmit="return false;">
+                <p>Task name:</p>
+                <input type="text" name="name">
+                <p>Task content:</p>
+                <textarea name="content"></textarea>
+                <button onclick="onTaskAddClicked();">Add new Task</button>
+            </form>
+        </div>
+</div>
 
 <div id="task-content" class="hidden content">
         <div id="task" class="hidden content">
@@ -84,7 +110,7 @@
         <div id="user" class="hidden content">
 
         </div>
-    </div>
+</div>
 
 
 </body>
