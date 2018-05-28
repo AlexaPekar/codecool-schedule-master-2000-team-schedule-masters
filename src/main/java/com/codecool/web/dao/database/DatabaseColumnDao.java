@@ -4,10 +4,7 @@ import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.model.Column;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +17,10 @@ public class DatabaseColumnDao extends AbstractDao implements ColumnDao {
 
     @Override
     public Column insert(int scheduleId, String name) throws SQLException {
-        String sql = "INSERT INTO columns (schedule_id, name) VALUES (?, ?);";
+        String sql = "INSERT INTO columns (schedule_id, name) VALUES (?, ?)";
         boolean autoCommit = connection.getAutoCommit();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        connection.setAutoCommit(false);
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, scheduleId);
             statement.setString(2, name);
             statement.executeUpdate();

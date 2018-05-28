@@ -92,7 +92,7 @@ function onScheduleAddClicked(){
 
     const nameInputEl = scheduleFormEl.querySelector('input[name="name"]');
     const select = document.getElementById("amountofcolumns");
-    const currOpt = select.options[select.selectedIndex];
+    const currOpt = select.options[select.selectedIndex].value;
     //const columnsNumberEl = scheduleFormEl.querySelector('option[name="amountofcolumns"]');
 
     const name = nameInputEl.value;
