@@ -14,6 +14,7 @@
     <script src="tasks.js"></script>
     <script src="columns.js"></script>
     <script src="slots.js"></script>
+    <script src="users.js"></script>
 
 
 </head>
@@ -35,7 +36,7 @@
 </div>
 
 <div id="menu" class="hidden content">
-    <button id="schedules-button">Schedules</button>
+    <button id="schedules-button">Schedules</button><br>
     <button id="tasks-button">Tasks</button>
     <button id="users-button">Users</button>
 </div>
@@ -66,6 +67,7 @@
                 <button onclick="onScheduleAddClicked();">Add new Schedule</button>
             </form>
         </div>
+        
     </div>
 
 <div id="schedule-content" class="hidden content">
@@ -80,6 +82,13 @@
         <div id="tasks" class="hidden content">
 
         </div>
+        
+</div>
+
+<div id="task-content" class="hidden content">
+        <div id="task" class="hidden content">
+
+        </div>
         <div id="task-lightbox">
             <form id="task-form" onsubmit="return false;">
                 <p>Task name:</p>
@@ -88,12 +97,6 @@
                 <textarea name="content"></textarea>
                 <button onclick="onTaskAddClicked();">Add new Task</button>
             </form>
-        </div>
-</div>
-
-<div id="task-content" class="hidden content">
-        <div id="task" class="hidden content">
-
         </div>
     <button id="tasks-goback-button">Go back</button>
     </div>
@@ -110,7 +113,8 @@
         <div id="user" class="hidden content">
 
         </div>
-</div>
+    <button id="users-goback-button">Go back</button>
+    </div>
 
 
 </body>
