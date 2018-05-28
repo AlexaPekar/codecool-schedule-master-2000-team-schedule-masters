@@ -47,14 +47,14 @@ FOREIGN KEY (user_id) REFERENCES users(id)
 CREATE TABLE tasks_slots (
 task_id INTEGER NOT NULL,
 slot_id INTEGER UNIQUE NOT NULL,
-FOREIGN KEY (task_id) REFERENCES tasks(id),
+FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
 FOREIGN KEY (slot_id) REFERENCES slots(id)
 );
 
 CREATE TABLE tasks_schedules (
 task_id INTEGER NOT NULL,
 schedule_id INTEGER NOT NULL,
-FOREIGN KEY (task_id) REFERENCES tasks(id),
+FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
 FOREIGN KEY (schedule_id) REFERENCES schedules(id),
 UNIQUE (task_id, schedule_id)
 );
