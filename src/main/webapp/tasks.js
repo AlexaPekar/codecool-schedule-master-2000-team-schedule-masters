@@ -1,5 +1,7 @@
 //Tasks page
 
+let tasksTableBodyEl;
+
 function onLoadTasks(){
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTasksRecieved);
@@ -25,7 +27,7 @@ function onTasksRecieved(){
 }
 
 function createTasksTableBody(tasks) {
-    const tableBodyEl = document.createElement('tbody');
+    tasksTableBodyEl = document.createElement('tbody');
 
     for (let i = 0; i < tasks.length; i++) {
         const task = tasks[i];
@@ -46,10 +48,10 @@ function createTasksTableBody(tasks) {
         trEl.appendChild(idTdEl);
         trEl.appendChild(nameTdEl);
 
-        tableBodyEl.appendChild(trEl);
+        tasksTableBodyEl.appendChild(trEl);
     }
 
-    return tableBodyEl;
+    return tasksTableBodyEl;
 }
 
 function onTaskClick(){
@@ -103,4 +105,52 @@ function createTaskTable(task) {
     tableEl.appendChild(tableBodyEl);
 
     return tableEl;
+}
+
+function onTaskAddClicked() {
+    const taskFormEl = document.forms['task-form'];
+
+    const taskNameInputEl = taskFormEl.querySelector('input[name="name"]');
+    const taskContentInputEl = taskFormEl.querySelector('textarea[name="content"]');
+
+    const taskName = taskNameInputEl.value;
+    const taskContent = taskContentInputEl.value;
+
+    const params = new URLSearchParams();
+    params.append('name', taskName);
+    params.append('content', taskContent);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onTaskAddResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', '/schedule-masters/protected/tasks');
+    xhr.send(params);
+}
+
+function onTaskAddResponse(){
+    clearMessages();
+    if (this.status === OK) {
+        appendTask(JSON.parse(this.responseText));
+    } else {
+        onOtherResponse(tasksContentDivEl, this);
+    }
+}
+
+function appendTask(task){
+    const idTdEl = document.createElement('td');
+    idTdEl.textContent = task.id;
+
+    const aEl = document.createElement('a');
+    aEl.textContent = task.name;
+    aEl.href = 'javascript:void(0);';
+    aEl.dataset.taskId = task.id;
+    aEl.addEventListener('click', onTaskClick);
+
+    const nameTdEl = document.createElement('td');
+    nameTdEl.appendChild(aEl);
+
+    const trEl = document.createElement('tr');
+    trEl.appendChild(idTdEl);
+    trEl.appendChild(nameTdEl);
+    tasksTableBodyEl.appendChild(trEl);
 }
