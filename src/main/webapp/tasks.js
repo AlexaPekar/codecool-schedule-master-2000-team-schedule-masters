@@ -154,3 +154,26 @@ function appendTask(task){
     trEl.appendChild(nameTdEl);
     tasksTableBodyEl.appendChild(trEl);
 }
+
+function getSlotsTask(slotId){
+    const link = "/schedule-masters/protected/slotfillup/"+slotId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onSlotsTaskReceived);
+    xhr.open('GET',link);
+    xhr.send();
+}
+
+function onSlotsTaskReceived() {
+    const text = this.responseText;
+    const taskDto = JSON.parse(text);
+
+    const taskEl = document.getElementById('slot' + taskDto.slotId);
+
+    const namePEl = document.createElement('p');
+    namePEl.textContent = taskDto.task.name;
+    namePEl.dataset.taskId = taskDto.task.id;
+    namePEl.style.cursor = "pointer";
+    namePEl.addEventListener('click', onTaskClick);
+
+    taskEl.appendChild(namePEl);
+}
