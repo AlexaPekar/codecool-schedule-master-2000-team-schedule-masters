@@ -158,6 +158,27 @@ function appendTask(task){
     tasksTableBodyEl.appendChild(trEl);
 }
 
+function onTaskLightBoxLoad() {
+    const lightbox = document.getElementById("task-lightbox");
+    const dimmer = document.createElement("div");
+    dimmer.id = "dimmer";
+    dimmer.style.width =  window.innerWidth + 'px';
+    dimmer.style.height = window.innerHeight + 'px';
+    dimmer.className = 'dimmer';
+
+    dimmer.onclick = function(){
+        document.body.removeChild(this);
+        lightbox.style.visibility = 'hidden';
+    }
+
+
+    document.body.appendChild(dimmer);
+
+    lightbox.style.visibility = 'visible';
+    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
+    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+}
+
 function getSlotsTask(slotId){
     const link = "/schedule-masters/protected/slotfillup/"+slotId;
     const xhr = new XMLHttpRequest();
@@ -181,23 +202,3 @@ function onSlotsTaskReceived() {
     taskEl.appendChild(namePEl);
 }
 
-function onTaskLightBoxLoad() {
-    const lightbox = document.getElementById("task-lightbox");
-    const dimmer = document.createElement("div");
-    dimmer.id = "dimmer";
-    dimmer.style.width =  window.innerWidth + 'px';
-    dimmer.style.height = window.innerHeight + 'px';
-    dimmer.className = 'dimmer';
-
-    dimmer.onclick = function(){
-        document.body.removeChild(this);
-        lightbox.style.visibility = 'hidden';
-    }
-
-
-    document.body.appendChild(dimmer);
-
-    lightbox.style.visibility = 'visible';
-    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
-    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
-}
