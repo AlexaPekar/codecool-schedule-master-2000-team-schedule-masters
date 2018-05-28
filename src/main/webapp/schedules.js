@@ -65,3 +65,45 @@ function onScheduleLoad(){
     scheduleTitle.textContent = schedule.name;
     getScheduleColumns(schedule.id);
 }
+function onScheduleLightBoxLoad(){
+
+        const scheduleContentDiv = document.getElementById("schedules-content");
+        const lightbox = document.getElementById("schedule-lightbox");
+        const dimmer = document.createElement("div");
+        dimmer.style.width =  window.innerWidth + 'px';
+        dimmer.style.height = window.innerHeight + 'px';
+        dimmer.className = 'dimmer';
+
+        dimmer.onclick = function(){
+            document.body.removeChild(this);
+            lightbox.style.visibility = 'hidden';
+        }
+
+
+        document.body.appendChild(dimmer);
+
+        lightbox.style.visibility = 'visible';
+        lightbox.style.top = window.innerHeight/2 - 50 + 'px';
+        lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+
+}
+function onScheduleAddClicked(){
+    const scheduleFormEl = document.forms['schedule-form'];
+
+    const nameInputEl = scheduleFormEl.querySelector('input[name="name"]');
+    const select = document.getElementById("amountofcolumns");
+    const currOpt = select.options[select.selectedIndex];
+    //const columnsNumberEl = scheduleFormEl.querySelector('option[name="amountofcolumns"]');
+
+    const name = nameInputEl.value;
+    const columns = currOpt;
+
+    const params = new URLSearchParams();
+    params.append('name', name);
+    params.append('amountofcolumns', columns);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', '/schedule-masters/protected/schedule');
+    xhr.send(params);
+}

@@ -7,6 +7,7 @@ import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.model.Schedule;
+import com.codecool.web.model.User;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.simple.SimpleScheduleService;
 
@@ -42,7 +43,8 @@ public class ScheduleServlet extends AbstractServlet{
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ColumnDao columnDao = new DatabaseColumnDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao);
-            String userID = req.getParameter("userid");
+            User user = (User)req.getSession().getAttribute("user");
+            String userID = Integer.toString(user.getId());
             String name = req.getParameter("name");
             String amountOfColumns = req.getParameter("amountofcolumns");
             scheduleService.addSchedule(Integer.parseInt(userID),name, Integer.parseInt(amountOfColumns));
