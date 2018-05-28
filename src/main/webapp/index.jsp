@@ -47,6 +47,7 @@
 
 <div id="schedules-content" class="hidden content">
         <h1>Schedules</h1>
+        <button onclick="onScheduleLightBoxLoad();">Create schedule</button>
         <div id="schedules" class="hidden content">
 
         </div>
@@ -79,6 +80,7 @@
 
 <div id="tasks-content" class="hidden content">
         <h1>Tasks</h1>
+        <button onclick="onTaskLightBoxLoad();">Create task</button>
         <div id="tasks" class="hidden content">
 
         </div>
