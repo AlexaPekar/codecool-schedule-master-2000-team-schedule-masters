@@ -51,7 +51,7 @@
         <div id="schedules" class="hidden content">
 
         </div>
-        <div id="schedule-lightbox">
+        <div id="schedule-lightbox" class="lightbox">
             <form id="schedule-form" onsubmit="return false;">
                 <p>Schedule name:</p>
                 <input type="text" name="name">
@@ -79,26 +79,26 @@
     </div>
 
 <div id="tasks-content" class="hidden content">
-        <h1>Tasks</h1>
-        <button onclick="onTaskLightBoxLoad();">Create task</button>
-        <div id="tasks" class="hidden content">
+    <h1>Tasks</h1>
+    <button onclick="onTaskLightBoxLoad();">Create task</button>
+    <div id="tasks" class="hidden content">
 
-        </div>
-        
+    </div>
+
+    <div id="task-lightbox" class="lightbox">
+        <form id="task-form" onsubmit="return false;">
+            <p>Task name:</p>
+            <input type="text" name="name">
+            <p>Task content:</p>
+            <textarea name="content"></textarea>
+            <button onclick="onTaskAddClicked();">Add new Task</button>
+        </form>
+    </div>
 </div>
 
 <div id="task-content" class="hidden content">
-        <div id="task" class="hidden content">
+    <div id="task" class="hidden content">
 
-        </div>
-        <div id="task-lightbox">
-            <form id="task-form" onsubmit="return false;">
-                <p>Task name:</p>
-                <input type="text" name="name">
-                <p>Task content:</p>
-                <textarea name="content"></textarea>
-                <button onclick="onTaskAddClicked();">Add new Task</button>
-            </form>
         </div>
     <button id="tasks-goback-button">Go back</button>
     </div>
