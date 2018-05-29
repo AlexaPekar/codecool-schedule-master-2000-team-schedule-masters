@@ -7,13 +7,11 @@ DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS users;
 DROP TYPE IF EXISTS roles;
 
-CREATE TYPE roles AS ENUM('Admin', 'User', 'Guest');
-
 CREATE TABLE users (
 id SERIAL PRIMARY KEY,
 name TEXT NOT NULL,
 password TEXT NOT NULL,
-role roles NOT NULL
+role TEXT NOT NULL
 );
 
 CREATE TABLE schedules (
