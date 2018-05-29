@@ -246,16 +246,18 @@ function getSlotsTask(slotId){
 
 function onSlotsTaskReceived() {
     const text = this.responseText;
-    const taskDto = JSON.parse(text);
+    if (this.status !== 404) {
+        const taskDto = JSON.parse(text);
 
-    const taskEl = document.getElementById('slot' + taskDto.slotId);
+        const taskEl = document.getElementById('slot' + taskDto.slotId);
 
-    const namePEl = document.createElement('p');
-    namePEl.textContent = taskDto.task.name;
-    namePEl.dataset.taskId = taskDto.task.id;
-    namePEl.style.cursor = "pointer";
-    namePEl.addEventListener('click', onTaskClick);
+        const namePEl = document.createElement('p');
+        namePEl.textContent = taskDto.task.name;
+        namePEl.dataset.taskId = taskDto.task.id;
+        namePEl.style.cursor = "pointer";
+        namePEl.addEventListener('click', onTaskClick);
 
-    taskEl.appendChild(namePEl);
+        taskEl.appendChild(namePEl);
+    }
 }
 
