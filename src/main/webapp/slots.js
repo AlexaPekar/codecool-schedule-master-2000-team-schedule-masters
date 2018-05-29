@@ -32,7 +32,7 @@ function createSlotsTableBody(slots) {
         const slotContentTdEl = document.createElement('td');
         const divEl = document.createElement('div');
         divEl.id = 'slot' + slot.id;
-        slotContentTdEl.addEventListener('click',getTaskForUsers);
+        //slotContentTdEl.addEventListener('click',getTaskForUsers);
         slotContentTdEl.id = "slotcontent";
 
         getSlotsTask(slot.id);
