@@ -35,6 +35,7 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
     public User insertNewUser(String name, String password, String role) throws SQLException {
         String sql = "INSERT INTO users (name, password, role) VALUES (?, ?, ?);";
         boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, name);
             statement.setString(2, password);
