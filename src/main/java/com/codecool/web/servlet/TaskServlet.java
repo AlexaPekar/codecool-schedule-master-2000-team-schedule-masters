@@ -45,9 +45,9 @@ public class TaskServlet extends AbstractServlet {
             TaskDao taskDao = new DatabaseTaskDao(connection);
             TaskService taskService = new SimpleTaskService(taskDao);
 
-            String taskId = req.getParameter("taskId");
-            String newTaskName = req.getParameter("newName");
-            String newContent = req.getParameter("newContent");
+            String taskId = req.getParameter("id");
+            String newTaskName = req.getParameter("name");
+            String newContent = req.getParameter("content");
 
             taskService.editTaskName(taskId, newTaskName);
             taskService.editTaskContent(taskId, newContent);

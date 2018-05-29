@@ -128,39 +128,60 @@ function createModifyTable() {
     return tableEl;
 }
 
-function onLoadModifyTask() {
-    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'task-goback-button', 'task-modifying-table']);
+function onModifyTaskClick() {
+    const taskNameEl = document.getElementById('task-name');
+    const taskContentEl = document.getElementById('task-content');
+
+    const taskName = taskNameEl.textContent;
+    const taskContent = taskContentEl.textContent;
+
+    const taskId = taskNameEl.dataset.taskId;
+
+    const params = new URLSearchParams();
+    params.append('id', taskId);
+    params.append('name', taskName);
+    params.append('content', taskContent);
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', "/schedule-masters/protected/task");
+    xhr.send(params);
 }
 
-function onModifyTaskClick() {
-    const taskId = this.dataset.taskId;
-    const taskName = this.dataset.taskName;
-    const taskContent = this.dataset.taskContent;
-    const link = "/schedule-masters/protected/task?id=" + taskId + "&name=" + taskName + "&content=" + taskContent;
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onLoadModifyTask);
-    xhr.addEventListener('error', onNetworkError);
-    xhr.open('PUT', link);
-    xhr.send();
+function taskKeyPressed(k) {
+    if (k.code == 'Enter') {
+        onModifyTaskClick();
+    }
 }
 
 function createTaskTable(task) {
     const tableEl = document.createElement('table');
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
-    tableEl.setAttribute('id', 'task-table');
-    tableEl.setAttribute('class', 'hidden content');
 
     const nameTdEl = document.createElement('td');
     nameTdEl.textContent = task.name;
+    nameTdEl.dataset.taskId = task.id;
+    nameTdEl.setAttribute('id', 'task-name');
+    nameTdEl.setAttribute('title', 'Click here to modify and press enter to save');
+
     tableHeadEl.appendChild(nameTdEl);
-    nameTdEl.dataset.taskName = task.name;
-    nameTdEl.addEventListener('click', onModifyTaskClick);
+
+    //modify name
+    nameTdEl.setAttribute('contenteditable', true);
+    nameTdEl.addEventListener("keypress", taskKeyPressed);
+
 
     const contentTdEl = document.createElement('td');
     contentTdEl.textContent = task.content;
-    contentTdEl.dataset.taskContent = task.content;
-    contentTdEl.addEventListener('click', onModifyTaskClick);
+    nameTdEl.dataset.taskId = task.id;
+    contentTdEl.setAttribute('id', 'task-content');
+    contentTdEl.setAttribute('title', 'Click here to modify and press enter to save');
+
+    //modify content
+    contentTdEl.setAttribute('contenteditable', true);
+    contentTdEl.addEventListener("keypress", taskKeyPressed);
+
     const trEl = document.createElement('tr');
     trEl.appendChild(contentTdEl);
 
