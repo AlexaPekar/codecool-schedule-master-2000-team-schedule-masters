@@ -35,10 +35,36 @@ function createSchedulesTableBody(schedules) {
         nameTdEl.textContent = schedule.name;
         nameTdEl.addEventListener("click", onScheduleClick);
 
+
+        const deleteTdEl = document.createElement('td');
+        const xDeleteImageTdEl = document.createElement('img');
+        xDeleteImageTdEl.setAttribute("src", "/schedule-masters/icons/delete-button.png");
+        xDeleteImageTdEl.setAttribute("width", "30");
+        xDeleteImageTdEl.setAttribute("height", "30");
+        deleteTdEl.appendChild(xDeleteImageTdEl);
+
+        xDeleteImageTdEl.style.cursor = "pointer";
+        xDeleteImageTdEl.dataset.scheduleId = schedule.id;
+        xDeleteImageTdEl.addEventListener("click",onScheduleDelete);
+
+        const xUpdateImageTdEl = document.createElement('img');
+        xUpdateImageTdEl.setAttribute("src", "/schedule-masters/icons/update-button.png");
+        xUpdateImageTdEl.setAttribute("width", "30");
+        xUpdateImageTdEl.setAttribute("height", "30");
+        deleteTdEl.appendChild(xUpdateImageTdEl);
+
+        xUpdateImageTdEl.style.cursor = "pointer";
+        xUpdateImageTdEl.dataset.scheduleId = schedule.id;
+        xUpdateImageTdEl.addEventListener("click",onScheduleUpdate);
+
+
+
+
         // creating row
         const trEl = document.createElement('tr');
         trEl.appendChild(idTdEl);
         trEl.appendChild(nameTdEl);
+        trEl.appendChild(deleteTdEl);
 
         tbodyEl.appendChild(trEl);
     }
@@ -46,6 +72,45 @@ function createSchedulesTableBody(schedules) {
     return tbodyEl;
 }
 
+function onScheduleUpdate(){
+
+    const scheduleContentDiv = document.getElementById("schedules-content");
+    const lightbox = document.getElementById("scheduleupdate-lightbox");
+    const dimmer = document.createElement("div");
+    dimmer.id = "dimmer";
+    dimmer.style.width =  window.innerWidth + 'px';
+    dimmer.style.height = window.innerHeight + 'px';
+    dimmer.className = 'dimmer';
+
+    dimmer.onclick = function(){
+        document.body.removeChild(this);
+        lightbox.style.visibility = 'hidden';
+    }
+
+
+    document.body.appendChild(dimmer);
+
+    lightbox.style.visibility = 'visible';
+    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
+    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+}
+
+function onScheduleDelete(){
+    const scheduleId = this.dataset.scheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoadSchedules);
+    xhr.open('DELETE', '/schedule-masters/protected/schedule?id='+scheduleId);
+    xhr.send();
+}
+
+function onScheduleLoad(){
+    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules','menu', 'logout-content']);
+    const text = this.responseText;
+    const schedule = JSON.parse(text);
+    const scheduleTitle = document.getElementById('schedule-title');
+    scheduleTitle.textContent = schedule.name;
+    getScheduleColumns(schedule.id);
+}
 function onScheduleClick(){
     const scheduleId = this.dataset.scheduleId;
     const scheduleDivEl = document.getElementById('schedule');
@@ -55,15 +120,6 @@ function onScheduleClick(){
     xhr.addEventListener('load', onScheduleLoad);
     xhr.open('GET',link);
     xhr.send();
-    //getScheduleColumns(scheduleId);
-}
-function onScheduleLoad(){
-    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules','menu', 'logout-content']);
-    const text = this.responseText;
-    const schedule = JSON.parse(text);
-    const scheduleTitle = document.getElementById('schedule-title');
-    scheduleTitle.textContent = schedule.name;
-    getScheduleColumns(schedule.id);
 }
 function onScheduleLightBoxLoad(){
 

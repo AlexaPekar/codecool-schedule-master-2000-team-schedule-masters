@@ -68,7 +68,14 @@
                 <button onclick="onScheduleAddClicked();">Add new Schedule</button>
             </form>
         </div>
-        
+    <div id="scheduleupdate-lightbox" class="lightbox">
+        <form id="scheduleupdate-form" onsubmit="return false;">
+            <p>Schedule name:</p>
+            <input type="text" name="name">
+            <br>
+            <img id = "savebutton" src = "icons/save-button.png" onclick="onScheduleSaveClicked()">
+        </form>
+    </div>
     </div>
 
 <div id="schedule-content" class="hidden content">
