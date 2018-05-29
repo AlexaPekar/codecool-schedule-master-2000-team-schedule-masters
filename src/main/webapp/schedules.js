@@ -73,7 +73,9 @@ function createSchedulesTableBody(schedules) {
 }
 
 function onScheduleUpdate(){
-
+    const scheduleId =this.dataset.scheduleId;
+    const saveScheduleButton = document.getElementById("savebutton");
+    saveScheduleButton.dataset.scheduleId = scheduleId;
     const scheduleContentDiv = document.getElementById("schedules-content");
     const lightbox = document.getElementById("scheduleupdate-lightbox");
     const dimmer = document.createElement("div");
@@ -111,6 +113,20 @@ function onScheduleLoad(){
     scheduleTitle.textContent = schedule.name;
     getScheduleColumns(schedule.id);
 }
+
+function onScheduleSaveClicked() {
+    const scheduleName = document.getElementById('schedule-name').value;
+    const saveScheduleButton = document.getElementById("savebutton");
+
+    const scheduleId = saveScheduleButton.dataset.scheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoadSchedules);
+    xhr.open('PUT', '/schedule-masters/protected/schedule?id='+scheduleId + '&name=' + scheduleName);
+    xhr.send();
+    document.getElementById("dimmer").remove();
+    document.getElementById("scheduleupdate-lightbox").style.visibility = "hidden";
+}
+
 function onScheduleClick(){
     const scheduleId = this.dataset.scheduleId;
     const scheduleDivEl = document.getElementById('schedule');

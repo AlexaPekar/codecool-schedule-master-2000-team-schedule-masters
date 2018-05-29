@@ -71,7 +71,7 @@
     <div id="scheduleupdate-lightbox" class="lightbox">
         <form id="scheduleupdate-form" onsubmit="return false;">
             <p>Schedule name:</p>
-            <input type="text" name="name">
+            <input type="text" name="name" id = "schedule-name">
             <br>
             <img id = "savebutton" src = "icons/save-button.png" onclick="onScheduleSaveClicked()">
         </form>
