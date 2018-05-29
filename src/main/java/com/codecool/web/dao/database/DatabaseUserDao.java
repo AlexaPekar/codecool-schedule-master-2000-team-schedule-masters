@@ -4,10 +4,7 @@ import com.codecool.web.dao.UserDao;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
         String sql = "INSERT INTO users (name, password, role) VALUES (?, ?, ?);";
         boolean autoCommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, name);
             statement.setString(2, password);
             statement.setString(3, role);
