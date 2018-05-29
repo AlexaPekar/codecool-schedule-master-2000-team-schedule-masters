@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/protected/register")
+@WebServlet("/register")
 public class RegisterServlet extends AbstractServlet {
 
     @Override
