@@ -103,34 +103,10 @@ function onTaskLoad(){
     taskEl.appendChild(createTaskTable(task));
 }
 
-function createModifyTable() {
-    const tableEl = document.createElement('table');
-    const tableHeadEl = document.createElement('thead');
-    const tableBodyEl = document.createElement('tbody');
-
-    const nameTdEl = document.createElement('td');
-    nameTdEl.textContent = task.name;
-    tableHeadEl.appendChild(nameTdEl);
-    nameTdEl.dataset.taskName = task.name;
-    nameTdEl.addEventListener('click', onModifyTaskClick);
-
-    const contentTdEl = document.createElement('td');
-    contentTdEl.textContent = task.content;
-    contentTdEl.dataset.taskContent = task.content;
-    contentTdEl.addEventListener('click', onModifyTaskClick);
-    const trEl = document.createElement('tr');
-    trEl.appendChild(contentTdEl);
-
-    tableBodyEl.appendChild(trEl);
-    tableEl.appendChild(tableHeadEl);
-    tableEl.appendChild(tableBodyEl);
-
-    return tableEl;
-}
 
 function onModifyTaskClick() {
-    const taskNameEl = document.getElementById('task-name');
-    const taskContentEl = document.getElementById('task-content');
+    const taskNameEl = document.getElementById('task-input-name');
+    const taskContentEl = document.getElementById('task-input-content');
 
     const taskName = taskNameEl.textContent;
     const taskContent = taskContentEl.textContent;
@@ -150,6 +126,7 @@ function onModifyTaskClick() {
 
 function taskKeyPressed(k) {
     if (k.code == 'Enter') {
+        this.contentEditable = false;
         onModifyTaskClick();
     }
 }
@@ -162,7 +139,7 @@ function createTaskTable(task) {
     const nameTdEl = document.createElement('td');
     nameTdEl.textContent = task.name;
     nameTdEl.dataset.taskId = task.id;
-    nameTdEl.setAttribute('id', 'task-name');
+    nameTdEl.setAttribute('id', 'task-input-name');
     nameTdEl.setAttribute('title', 'Click here to modify and press enter to save');
 
     tableHeadEl.appendChild(nameTdEl);
@@ -175,7 +152,7 @@ function createTaskTable(task) {
     const contentTdEl = document.createElement('td');
     contentTdEl.textContent = task.content;
     nameTdEl.dataset.taskId = task.id;
-    contentTdEl.setAttribute('id', 'task-content');
+    contentTdEl.setAttribute('id', 'task-input-content');
     contentTdEl.setAttribute('title', 'Click here to modify and press enter to save');
 
     //modify content
