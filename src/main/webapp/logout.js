@@ -2,7 +2,7 @@ function onLogoutResponse() {
     if (this.status === OK) {
         setUnauthorized();
         clearMessages();
-        showContents(['login-content'])
+        showContents(['login-register-buttons'])
     } else {
         onOtherResponse(logoutContentDivEl, this);
     }

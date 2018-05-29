@@ -48,6 +48,9 @@ function onLoginButtonClicked() {
     xhr.addEventListener('error', onNetworkError);
     xhr.open('POST', 'login');
     xhr.send(params);
+
+    document.getElementById("dimmer").remove();
+    document.getElementById('login-lightbox').style.visibility = "hidden";
 }
 
 function onLoginLightBoxLoad() {
