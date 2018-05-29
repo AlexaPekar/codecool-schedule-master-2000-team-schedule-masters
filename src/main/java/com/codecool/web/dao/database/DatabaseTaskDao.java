@@ -100,7 +100,8 @@ public class DatabaseTaskDao extends AbstractDao implements TaskDao {
     @Override
     public List<Task> findAllTaskByUserId(int id) throws SQLException {
         List<Task> allTask = new ArrayList<>();
-        String sql = "SELECT id, name, content FROM tasks WHERE user_id = ?";
+        String sql = "SELECT id, name, content FROM tasks WHERE user_id = ? " +
+                "ORDER BY id";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {

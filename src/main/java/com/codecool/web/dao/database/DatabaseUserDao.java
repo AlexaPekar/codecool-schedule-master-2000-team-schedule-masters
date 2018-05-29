@@ -53,7 +53,8 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
     @Override
     public List<User> findAllUsers() throws SQLException {
         List<User> allUsers = new ArrayList<>();
-        String sql = "SELECT id, name, password, role FROM users";
+        String sql = "SELECT id, name, password, role FROM users " +
+                "ORDER BY id";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
