@@ -28,7 +28,7 @@ function onTasksRecieved(){
 
 function onDeleteTaskClick() {
     const taskId = this.dataset.taskId;
-    const link = "/schedule-masters/protected/tasks?id="+taskId;
+    const link = "/schedule-masters/protected/tasks?id=" + taskId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoadTasks);
     xhr.addEventListener('error', onNetworkError);
@@ -103,7 +103,7 @@ function onTaskLoad(){
     taskEl.appendChild(createTaskTable(task));
 }
 
-function createTaskTable(task) {
+function createModifyTable() {
     const tableEl = document.createElement('table');
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
@@ -111,10 +111,56 @@ function createTaskTable(task) {
     const nameTdEl = document.createElement('td');
     nameTdEl.textContent = task.name;
     tableHeadEl.appendChild(nameTdEl);
+    nameTdEl.dataset.taskName = task.name;
+    nameTdEl.addEventListener('click', onModifyTaskClick);
 
     const contentTdEl = document.createElement('td');
     contentTdEl.textContent = task.content;
+    contentTdEl.dataset.taskContent = task.content;
+    contentTdEl.addEventListener('click', onModifyTaskClick);
+    const trEl = document.createElement('tr');
+    trEl.appendChild(contentTdEl);
 
+    tableBodyEl.appendChild(trEl);
+    tableEl.appendChild(tableHeadEl);
+    tableEl.appendChild(tableBodyEl);
+
+    return tableEl;
+}
+
+function onLoadModifyTask() {
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'task-goback-button', 'task-modifying-table']);
+}
+
+function onModifyTaskClick() {
+    const taskId = this.dataset.taskId;
+    const taskName = this.dataset.taskName;
+    const taskContent = this.dataset.taskContent;
+    const link = "/schedule-masters/protected/task?id=" + taskId + "&name=" + taskName + "&content=" + taskContent;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onLoadModifyTask);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('PUT', link);
+    xhr.send();
+}
+
+function createTaskTable(task) {
+    const tableEl = document.createElement('table');
+    const tableHeadEl = document.createElement('thead');
+    const tableBodyEl = document.createElement('tbody');
+    tableEl.setAttribute('id', 'task-table');
+    tableEl.setAttribute('class', 'hidden content');
+
+    const nameTdEl = document.createElement('td');
+    nameTdEl.textContent = task.name;
+    tableHeadEl.appendChild(nameTdEl);
+    nameTdEl.dataset.taskName = task.name;
+    nameTdEl.addEventListener('click', onModifyTaskClick);
+
+    const contentTdEl = document.createElement('td');
+    contentTdEl.textContent = task.content;
+    contentTdEl.dataset.taskContent = task.content;
+    contentTdEl.addEventListener('click', onModifyTaskClick);
     const trEl = document.createElement('tr');
     trEl.appendChild(contentTdEl);
 
