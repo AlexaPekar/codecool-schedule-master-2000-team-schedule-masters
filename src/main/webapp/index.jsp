@@ -15,6 +15,7 @@
     <script src="columns.js"></script>
     <script src="slots.js"></script>
     <script src="users.js"></script>
+    <script src="customselect.js"></script>
 
 
 </head>
