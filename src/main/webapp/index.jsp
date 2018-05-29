@@ -22,13 +22,32 @@
 
 <body>
 
-<div id="login-content" class="content">
-    <h1>Login</h1>
-    <form id="login-form" onsubmit="return false;">
-        <p>Name: <input type="text" name="name"></p>
-        <p>Password: <input type="password" name="password"></p>
-        <button id="login-button">Login</button>
-    </form>
+<div id="login-register-buttons" class="content">
+    <button id="login-lightbox-button">Schedules</button>
+    <br>
+    <button id="register-lightbox-button">Tasks</button>
+</div>
+
+<div id="login-lightbox" class="lightbox">
+    <div id="login-content">
+        <h1>Login</h1>
+        <form id="login-form" onsubmit="return false;">
+            <p>Name: <input type="text" name="name"></p>
+            <p>Password: <input type="password" name="password"></p>
+            <button id="login-button">Login</button>
+        </form>
+    </div>
+</div>
+
+<div id="register-lightbox" class="lightbox">
+    <div id="register-content">
+        <h1>Register</h1>
+        <form id="register-form" onsubmit="return false;">
+            <p>Name: <input type="text" name="name"></p>
+            <p>Password: <input type="password" name="password"></p>
+            <button id="register-button">Login</button>
+        </form>
+    </div>
 </div>
 
 <div id="profile-content" class="hidden content">
@@ -37,7 +56,8 @@
 </div>
 
 <div id="menu" class="hidden content">
-    <button id="schedules-button">Schedules</button><br>
+    <button id="schedules-button">Schedules</button>
+    <br>
     <button id="tasks-button">Tasks</button>
     <button id="users-button">Users</button>
 </div>
@@ -47,44 +67,44 @@
 </div>
 
 <div id="schedules-content" class="hidden content">
-        <h1>Schedules</h1>
-        <button onclick="onScheduleLightBoxLoad();">Create schedule</button>
-        <div id="schedules" class="hidden content">
+    <h1>Schedules</h1>
+    <button onclick="onScheduleLightBoxLoad();">Create schedule</button>
+    <div id="schedules" class="hidden content">
 
-        </div>
-        <div id="schedule-lightbox" class="lightbox">
-            <form id="schedule-form" onsubmit="return false;">
-                <p>Schedule name:</p>
-                <input type="text" name="name">
-                <p>Number of columns:</p>
-                <select id = "amountofcolumns">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                <button onclick="onScheduleAddClicked();">Add new Schedule</button>
-            </form>
-        </div>
+    </div>
+    <div id="schedule-lightbox" class="lightbox">
+        <form id="schedule-form" onsubmit="return false;">
+            <p>Schedule name:</p>
+            <input type="text" name="name">
+            <p>Number of columns:</p>
+            <select id="amountofcolumns">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+            <button onclick="onScheduleAddClicked();">Add new Schedule</button>
+        </form>
+    </div>
     <div id="scheduleupdate-lightbox" class="lightbox">
         <form id="scheduleupdate-form" onsubmit="return false;">
             <p>Schedule name:</p>
-            <input type="text" name="name" id = "schedule-name">
+            <input type="text" name="name" id="schedule-name">
             <br>
-            <img id = "savebutton" src = "icons/save-button.png" onclick="onScheduleSaveClicked()">
+            <img id="savebutton" src="icons/save-button.png" onclick="onScheduleSaveClicked()">
         </form>
     </div>
-    </div>
+</div>
 
 <div id="schedule-content" class="hidden content">
-        <h1 id = "schedule-title">Title</h1>
-        <div id="schedule" class="hidden content">
+    <h1 id="schedule-title">Title</h1>
+    <div id="schedule" class="hidden content">
 
-        </div>
     </div>
+</div>
 
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
@@ -107,24 +127,24 @@
 <div id="task-content" class="hidden content">
     <div id="task" class="hidden content">
 
-        </div>
-    <button id="tasks-goback-button">Go back</button>
     </div>
+    <button id="tasks-goback-button">Go back</button>
+</div>
 
 <div id="users-content" class="hidden content">
-        <h1>Users</h1>
-        <div id="users" class="hidden content">
+    <h1>Users</h1>
+    <div id="users" class="hidden content">
 
-        </div>
     </div>
+</div>
 
 <div id="user-content" class="hidden content">
-        <h1>Name</h1> <!-- TODO: hivatkozni a user nevére-->
-        <div id="user" class="hidden content">
+    <h1>Name</h1> <!-- TODO: hivatkozni a user nevére-->
+    <div id="user" class="hidden content">
 
-        </div>
-    <button id="users-goback-button">Go back</button>
     </div>
+    <button id="users-goback-button">Go back</button>
+</div>
 
 
 </body>
