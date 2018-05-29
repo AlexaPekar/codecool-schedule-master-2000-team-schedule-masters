@@ -113,15 +113,10 @@ function onModifyTaskClick() {
 
     const taskId = taskNameEl.dataset.taskId;
 
-    const params = new URLSearchParams();
-    params.append('id', taskId);
-    params.append('name', taskName);
-    params.append('content', taskContent);
-
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('PUT', "/schedule-masters/protected/task");
-    xhr.send(params);
+    xhr.open('PUT', "/schedule-masters/protected/task?id=" + taskId + "&name=" + taskName + "&content=" + taskContent);
+    xhr.send();
 }
 
 function taskKeyPressed(k) {
