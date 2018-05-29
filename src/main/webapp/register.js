@@ -8,25 +8,7 @@ function onRegisterResponse() {
         showContents(['menu', 'profile-content', 'logout-content']);
         onLoadSchedules();
     } else {
-        onOtherResponse(loginContentDivEl, this);
-    }
-}
-
-function onLoadMenu() {
-    menuDivEl = document.getElementById('menu');
-    const schedulesButtonEl = document.getElementById('schedules-button');
-    schedulesButtonEl.addEventListener('click', onLoadSchedules);
-
-    const tasksButtonEl = document.getElementById('tasks-button');
-    tasksButtonEl.addEventListener('click', onLoadTasks)
-
-    const usersButtonEl = document.getElementById('users-button');
-    usersButtonEl.addEventListener('click', onLoadUsers);
-
-    if (activeUser.role !== "Admin") {
-        usersButtonEl.style.display = "none";
-    } else {
-        usersButtonEl.style.display = "block";
+        onOtherResponse(registerContentDivEl, this);
     }
 }
 

@@ -15,6 +15,7 @@ let usersContentDivEl;
 let userContentDivEl;
 let menuDivEl;
 let activeUser;
+let registerContentDivEl;
 
 function newInfo(targetEl, message) {
     newMessage(targetEl, 'info', message);
@@ -106,9 +107,13 @@ function onLoad() {
     logoutContentDivEl = document.getElementById('logout-content');
     usersContentDivEl = document.getElementById('users-content');
     userContentDivEl = document.getElementById('user-content');
+    registerContentDivEl = document.getElementById('register-content');
 
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);
+
+    const registerButtonEl = document.getElementById('register-button');
+    registerButtonEl.addEventListener('click', onRegisterButtonClicked);
 
     const logoutButtonEl = document.getElementById('logout-button');
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
