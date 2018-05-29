@@ -23,9 +23,9 @@
 <body>
 
 <div id="login-register-buttons" class="content">
-    <button id="login-lightbox-button">Schedules</button>
+    <button id="login-lightbox-button">Login</button>
     <br>
-    <button id="register-lightbox-button">Tasks</button>
+    <button id="register-lightbox-button">Register</button>
 </div>
 
 <div id="login-lightbox" class="lightbox">

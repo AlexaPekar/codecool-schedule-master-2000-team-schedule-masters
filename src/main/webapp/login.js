@@ -49,3 +49,24 @@ function onLoginButtonClicked() {
     xhr.open('POST', 'login');
     xhr.send(params);
 }
+
+function onLoginLightBoxLoad() {
+    const lightbox = document.getElementById("login-lightbox");
+    const dimmer = document.createElement("div");
+    dimmer.id = "dimmer";
+    dimmer.style.width =  window.innerWidth + 'px';
+    dimmer.style.height = window.innerHeight + 'px';
+    dimmer.className = 'dimmer';
+
+    dimmer.onclick = function(){
+        document.body.removeChild(this);
+        lightbox.style.visibility = 'hidden';
+    }
+
+
+    document.body.appendChild(dimmer);
+
+    lightbox.style.visibility = 'visible';
+    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
+    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+}
