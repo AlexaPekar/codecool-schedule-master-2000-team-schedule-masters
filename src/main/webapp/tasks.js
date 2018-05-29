@@ -135,13 +135,17 @@ function onModifyTaskClick() {
     const taskName = taskNameEl.textContent;
     const taskContent = taskContentEl.textContent;
 
-    const taskId = this.dataset.taskId;
+    const taskId = taskNameEl.dataset.taskId;
 
-    const link = "/schedule-masters/protected/task?id=" + taskId + "&name=" + taskName + "&content=" + taskContent;
+    const params = new URLSearchParams();
+    params.append('id', taskId);
+    params.append('name', taskName);
+    params.append('content', taskContent);
+
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('PUT', link);
-    xhr.send();
+    xhr.open('PUT', "/schedule-masters/protected/task");
+    xhr.send(params);
 }
 
 function taskKeyPressed(k) {
