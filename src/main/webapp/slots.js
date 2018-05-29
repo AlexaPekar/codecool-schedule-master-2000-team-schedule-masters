@@ -32,6 +32,8 @@ function createSlotsTableBody(slots) {
         const slotContentTdEl = document.createElement('td');
         const divEl = document.createElement('div');
         divEl.id = 'slot' + slot.id;
+        //slotContentTdEl.addEventListener('click',getTaskForUsers);
+        slotContentTdEl.id = "slotcontent";
 
         getSlotsTask(slot.id);
 
@@ -41,4 +43,37 @@ function createSlotsTableBody(slots) {
         tbodyEl.appendChild(trEl);
     }
     return tbodyEl;
+}
+
+function getTaskForUsers(){
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onTasksLoaded);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', '/schedule-masters/protected/tasks');
+    xhr.send();
+}
+
+function onTasksLoaded(){
+    const text = this.responseText;
+    const tasks = JSON.parse(text);
+    createTaskSelectionForElement(tasks);
+}
+
+function createTaskSelectionForElement(tasks){
+    const el = document.getElementById('slotcontent');
+    const selectDivEl = document.createElement('div');
+    selectDivEl.className = "custom-select";
+    selectDivEl.style.width = "100px";
+
+    const selectEl = document.createElement('select');
+    for (let i=0;i < tasks.length; i++) {
+        const task = tasks[i];
+        const optionEl = document.createElement('option');
+        optionEl.label = task.name;
+        optionEl.value = task.id;
+        selectEl.appendChild(optionEl);
+    }
+    selectDivEl.appendChild(selectEl);
+    el.appendChild(selectDivEl);
+
 }

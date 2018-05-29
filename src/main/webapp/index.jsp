@@ -15,7 +15,7 @@
     <script src="columns.js"></script>
     <script src="slots.js"></script>
     <script src="users.js"></script>
-    <script src="customselect.js"></script>
+    <script src="register.js"></script>
 
 
 </head>
@@ -24,7 +24,7 @@
 
 <div id="login-register-buttons" class="content">
     <button onclick="onLoginLightBoxLoad();" id="login-lightbox-button">Login</button>
-    <button onclick="onLoginLightBoxLoad();" id="register-lightbox-button">Register</button>
+    <button onclick="onRegisterLightBoxLoad();" id="register-lightbox-button">Register</button>
 </div>
 
 <div id="login-lightbox" class="lightbox">
@@ -44,7 +44,7 @@
         <form id="register-form" onsubmit="return false;">
             <p>Name: <input type="text" name="name"></p>
             <p>Password: <input type="password" name="password"></p>
-            <button id="register-button">Login</button>
+            <button id="register-button">Register</button>
         </form>
     </div>
 </div>
