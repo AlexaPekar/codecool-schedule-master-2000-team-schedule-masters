@@ -18,6 +18,30 @@ function onColumnsReceived() {
     const scEl = document.getElementById('schedule');
     scEl.appendChild(tableEl);
 }
+function onColumnNameClicked(){
+    this.contentEditable = true;
+    this.addEventListener("keypress",keypressed);
+
+}
+
+function keypressed(k){
+    const name = this.textContent;
+    const id = this.dataset.columnId;
+    if(k.code == 'Enter'){
+        this.contentEditable = false;
+        onNameUpdateSaved(name,id);
+    }
+
+}
+
+function onNameUpdateSaved(name,id){
+
+    const link = "protected/column?id="+id+"&name="+name;
+    const xhr = new XMLHttpRequest();
+    xhr.open('PUT',link);
+    xhr.send();
+
+}
 
 function createColumnsTableBody(columns) {
     const tbodyEl = document.createElement('tbody');
@@ -28,6 +52,9 @@ function createColumnsTableBody(columns) {
 
         const colNameTdEl = document.createElement('td');
         colNameTdEl.textContent = column.name;
+        colNameTdEl.dataset.columnId = column.id;
+        colNameTdEl.addEventListener('click',onColumnNameClicked)
+        //colNameTdEl.contentEditable = true;
 
         trEl1.appendChild(colNameTdEl);
     }
