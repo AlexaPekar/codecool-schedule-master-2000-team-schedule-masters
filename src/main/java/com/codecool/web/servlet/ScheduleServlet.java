@@ -31,12 +31,23 @@ public class ScheduleServlet extends AbstractServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = (User)req.getSession().getAttribute("user");
         try (Connection connection = getConnection(req.getServletContext())){
-            int id = Integer.parseInt(req.getParameter("id"));
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
             ColumnDao columnDao = new DatabaseColumnDao(connection);
             SlotDao slotDao = new DatabaseSlotDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
+
+            int id = 0;
+
+            String taskId = req.getParameter("taskId");
+
+            if (taskId != null) {
+                id = scheduleService.getScheduleIdByTaskId(taskId);
+            } else {
+                id = Integer.parseInt(req.getParameter("id"));
+            }
+
             Schedule schedule = scheduleService.getById(id);
+
             sendMessage(resp, HttpServletResponse.SC_OK, schedule);
             logger.info("{}: requested a schedule: {}", user.getId(), id);
         } catch (SQLException e) {

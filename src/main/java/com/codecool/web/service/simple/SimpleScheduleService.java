@@ -15,7 +15,7 @@ import com.codecool.web.service.ScheduleService;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SimpleScheduleService implements ScheduleService{
+public class SimpleScheduleService implements ScheduleService {
 
     private static final Logger logger = LoggerFactory.getLogger(SimpleScheduleService.class);
 
@@ -23,14 +23,15 @@ public class SimpleScheduleService implements ScheduleService{
     private final ColumnDao columnDao;
     private final SlotDao slotDao;
 
-    public SimpleScheduleService(ScheduleDao scheduleDao,ColumnDao columnDao,SlotDao slotDao) {
+    public SimpleScheduleService(ScheduleDao scheduleDao, ColumnDao columnDao, SlotDao slotDao) {
         this.scheduleDao = scheduleDao;
         this.columnDao = columnDao;
         this.slotDao = slotDao;
     }
+
     @Override
     public Schedule getById(int id) throws SQLException, ServiceException {
-        if(scheduleDao.findById(id)==null){
+        if (scheduleDao.findById(id) == null) {
             logger.error("No schedule found by ID");
             throw new ServiceException("No schedules with this id");
         }
@@ -39,8 +40,8 @@ public class SimpleScheduleService implements ScheduleService{
     }
 
     @Override
-    public Schedule addSchedule(int userId, String name,int amountOfColumns) throws EmptyFieldException, ServiceException, SQLException {
-        if(name.equals("")){
+    public Schedule addSchedule(int userId, String name, int amountOfColumns) throws EmptyFieldException, ServiceException, SQLException {
+        if (name.equals("")) {
             logger.error("Field(s) left empty");
             throw new ServiceException(new EmptyFieldException("Fill all fields"));
         }
@@ -48,13 +49,13 @@ public class SimpleScheduleService implements ScheduleService{
             logger.error("Column number not between 1 and 7");
             throw new ServiceException("Invalid amount of columns.Enter number between 1 and 7");
         }
-        Schedule schedule = scheduleDao.insertSchedule(userId,name);
+        Schedule schedule = scheduleDao.insertSchedule(userId, name);
 
-        for (int i = 0;i < amountOfColumns;i++) {
-            Column column =columnDao.insert(schedule.getId(),"Enter text");
-            for (int j= 7;j < 19;j++) {
-                String timeRange = j + "-" + (j+1);
-                slotDao.insertNewSlot(column.getId(),timeRange);
+        for (int i = 0; i < amountOfColumns; i++) {
+            Column column = columnDao.insert(schedule.getId(), "Enter text");
+            for (int j = 7; j < 19; j++) {
+                String timeRange = j + "-" + (j + 1);
+                slotDao.insertNewSlot(column.getId(), timeRange);
             }
         }
         logger.info("New schedule added");
@@ -63,16 +64,16 @@ public class SimpleScheduleService implements ScheduleService{
 
     @Override
     public void editName(int id, String name) throws SQLException, ServiceException, EmptyFieldException {
-        if(scheduleDao.findById(id)==null){
+        if (scheduleDao.findById(id) == null) {
             logger.error("No schedule by ID");
             throw new ServiceException("No schedule with this id");
         }
-        if(name.equals("")){
+        if (name.equals("")) {
             logger.error("Field(s) left empty");
             throw new ServiceException(new EmptyFieldException("Fill all fields"));
         }
         logger.info("Schedule name edited");
-        scheduleDao.updateName(id,name);
+        scheduleDao.updateName(id, name);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class SimpleScheduleService implements ScheduleService{
 
     @Override
     public void removeSchedule(int id) throws SQLException, ServiceException {
-        if(scheduleDao.findById(id)==null){
+        if (scheduleDao.findById(id) == null) {
             logger.error("No schedule found by ID");
             throw new ServiceException("No schedule with this id");
         }
@@ -95,5 +96,18 @@ public class SimpleScheduleService implements ScheduleService{
     public int getColumnNumber(int id) throws SQLException {
         logger.info("Column number returned by ID");
         return scheduleDao.getColumnNumber(id);
+    }
+
+    @Override
+    public int getScheduleIdByTaskId(String taskId) throws SQLException, ServiceException {
+        try {
+            return scheduleDao.findScheduleIdByTaskId(Integer.parseInt(taskId));
+        } catch (NumberFormatException e) {
+            logger.error("Parameter to 'updateContent' method must be int");
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            logger.error("Parameter to 'updateContent' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
+        }
     }
 }
