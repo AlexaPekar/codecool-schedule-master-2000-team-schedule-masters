@@ -2,7 +2,7 @@
 
 let tasksTableBodyEl;
 
-function onLoadTasks(){
+function onLoadTasks() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTasksRecieved);
     xhr.addEventListener('error', onNetworkError);
@@ -10,7 +10,7 @@ function onLoadTasks(){
     xhr.send();
 }
 
-function onTasksRecieved(){
+function onTasksRecieved() {
     showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
 
     const text = this.responseText;
@@ -32,7 +32,7 @@ function onDeleteTaskClick() {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoadTasks);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('DELETE',link);
+    xhr.open('DELETE', link);
     xhr.send();
 }
 
@@ -72,33 +72,68 @@ function createTasksTableBody(tasks) {
     return tasksTableBodyEl;
 }
 
-function onTaskClick(){
+function onTaskClick() {
     const taskId = this.dataset.taskId;
-    const link = "/schedule-masters/protected/task?id="+taskId;
+    const link = "/schedule-masters/protected/task?id=" + taskId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTaskLoad);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET',link);
+    xhr.open('GET', link);
     xhr.send();
 }
 
-//Task page
+function onToScheduleFromTaskLoad() {
+    const text = this.responseText;
+    if (text !== '{"message":"No schedules with this id"}') {
+        const schedule = JSON.parse(text);
+        console.log(this.responseText);
+        const scheduleId = schedule.id;
 
-function onBackButtonClick() {
+        currentSchedule = scheduleId;
+        const scheduleDivEl = document.getElementById('schedule');
+        removeAllChildren(scheduleDivEl);
+        const link = "/schedule-masters/protected/schedule?id=" + scheduleId;
+        const xhr = new XMLHttpRequest();
+        xhr.addEventListener('load', onScheduleLoad);
+        xhr.open('GET', link);
+        xhr.send();
+    }
+
+}
+
+//Task page
+function onOpenScheduleButtonClick() {
+
+    const taskId = this.dataset.taskId;
+
+    const link = "/schedule-masters/protected/toScheduleFromTask?taskId=" + taskId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onToScheduleFromTaskLoad);
+    xhr.open('GET', link);
+    xhr.send();
+}
+
+function onOpenTasksButtonClick() {
     onLoadTasks();
 }
 
-function onTaskLoad(){
-    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'tasks-goback-button']);
+function onTaskLoad() {
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'open-schedule-button']);
     const text = this.responseText;
     const task = JSON.parse(text);
     const taskEl = document.getElementById('task');
     removeAllChildren(taskEl);
 
-    const backButtonEl  = document.getElementById('tasks-goback-button');
-    taskContentDivEl.appendChild(backButtonEl);
+    const openTasksButtonEl = document.getElementById('open-tasks-button');
 
-    backButtonEl.addEventListener('click', onBackButtonClick);
+    //if (onToScheduleFromTaskLoad()) {
+    const openScheduleButtonEl = document.getElementById('open-schedule-button');
+    //}
+
+    openScheduleButtonEl.dataset.taskId = task.id;
+
+    openTasksButtonEl.addEventListener('click', onOpenTasksButtonClick);
+    openScheduleButtonEl.addEventListener('click', onOpenScheduleButtonClick);
 
     taskEl.appendChild(createTaskTable(task));
 }
@@ -187,7 +222,7 @@ function onTaskAddClicked() {
     document.getElementById('task-lightbox').style.visibility = "hidden";
 }
 
-function onTaskAddResponse(){
+function onTaskAddResponse() {
     clearMessages();
     if (this.status === OK) {
         appendTask(JSON.parse(this.responseText));
@@ -196,7 +231,7 @@ function onTaskAddResponse(){
     }
 }
 
-function appendTask(task){
+function appendTask(task) {
     const idTdEl = document.createElement('td');
     idTdEl.textContent = task.id;
 
@@ -219,11 +254,11 @@ function onTaskLightBoxLoad() {
     const lightbox = document.getElementById("task-lightbox");
     const dimmer = document.createElement("div");
     dimmer.id = "dimmer";
-    dimmer.style.width =  window.innerWidth + 'px';
+    dimmer.style.width = window.innerWidth + 'px';
     dimmer.style.height = window.innerHeight + 'px';
     dimmer.className = 'dimmer';
 
-    dimmer.onclick = function(){
+    dimmer.onclick = function () {
         document.body.removeChild(this);
         lightbox.style.visibility = 'hidden';
     }
@@ -232,15 +267,15 @@ function onTaskLightBoxLoad() {
     document.body.appendChild(dimmer);
 
     lightbox.style.visibility = 'visible';
-    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
-    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+    lightbox.style.top = window.innerHeight / 2 - 50 + 'px';
+    lightbox.style.left = window.innerWidth / 2 - 100 + 'px';
 }
 
-function getSlotsTask(slotId){
-    const link = "/schedule-masters/protected/slotfillup/"+slotId;
+function getSlotsTask(slotId) {
+    const link = "/schedule-masters/protected/slotfillup/" + slotId;
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onSlotsTaskReceived);
-    xhr.open('GET',link);
+    xhr.open('GET', link);
     xhr.send();
 }
 
