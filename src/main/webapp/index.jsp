@@ -127,7 +127,8 @@
     <div id="task" class="hidden content">
 
     </div>
-    <button id="tasks-goback-button">Go back</button>
+    <button id="open-tasks-button">Go to tasks</button>
+    <button id="open-schedule-button">Go to schedule</button>
 </div>
 
 <div id="users-content" class="hidden content">
