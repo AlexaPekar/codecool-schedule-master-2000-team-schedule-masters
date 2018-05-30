@@ -85,7 +85,7 @@ function onTaskClick(){
 //Task page
 
 function onBackButtonClick() {
-    showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
+    onLoadTasks();
 }
 
 function onTaskLoad(){
