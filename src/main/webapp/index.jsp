@@ -149,6 +149,7 @@
     <form id="slot-form" onsubmit="return false;">
 
     </form>
+    <img id="slotsavebutton" src="icons/save-button.png" onclick="onSlotSaveClicked()">
 </div>
 
 

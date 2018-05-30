@@ -61,6 +61,16 @@ th {
     bottom:5px;
     left:40%;
 }
+#slotsavebutton{
+    width: 60px;
+    height: 60px;
+    position:absolute;
+    bottom:5px;
+    left:40%;
+}
 #savebutton:hover{
+    cursor:pointer;
+}
+#slotsavebutton:hover{
     cursor:pointer;
 }
