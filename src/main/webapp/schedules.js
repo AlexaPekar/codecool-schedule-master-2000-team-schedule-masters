@@ -140,6 +140,17 @@ function onScheduleClick(){
     xhr.open('GET',link);
     xhr.send();
 }
+
+function onScheduleRefresh(){
+    const scheduleId = currentSchedule;
+    const scheduleDivEl = document.getElementById('schedule');
+    removeAllChildren(scheduleDivEl);
+    const link = "/schedule-masters/protected/schedule?id="+scheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onScheduleLoad);
+    xhr.open('GET',link);
+    xhr.send();
+}
 function onScheduleLightBoxLoad(){
 
         const scheduleContentDiv = document.getElementById("schedules-content");
