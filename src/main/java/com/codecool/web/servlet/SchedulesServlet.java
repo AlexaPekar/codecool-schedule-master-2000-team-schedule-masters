@@ -10,6 +10,8 @@ import com.codecool.web.model.Schedule;
 import com.codecool.web.model.User;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.simple.SimpleScheduleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +24,12 @@ import java.util.List;
 
 @WebServlet("/protected/schedules/*")
 public class SchedulesServlet extends AbstractServlet {
+
+    private final Logger logger = LoggerFactory.getLogger(SchedulesServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = (User)req.getSession().getAttribute("user");
         try (Connection connection = getConnection(req.getServletContext())){
             String url=req.getRequestURI();
             int i = url.lastIndexOf('/');
@@ -33,14 +39,15 @@ public class SchedulesServlet extends AbstractServlet {
             ColumnDao columnDao = new DatabaseColumnDao(connection);
             SlotDao slotDao = new DatabaseSlotDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
-            User user = (User)req.getSession().getAttribute("user");
 
             int userID = user.getId();
 
             List<Schedule> schedules = scheduleService.getSchedulesByUserId(userID);
             sendMessage(resp, HttpServletResponse.SC_OK, schedules);
+            logger.info("User with ID: {} requested the schedule list",userID);
         } catch (SQLException e) {
             handleSqlError(resp, e);e.printStackTrace();
+            logger.error("{} for user ID: {}",e.getMessage(),user.getId());
         }
     }
 }
