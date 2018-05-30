@@ -1,5 +1,8 @@
 package com.codecool.web.service.simple;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codecool.web.dao.ColumnDao;
 import com.codecool.web.dao.SlotDao;
 import com.codecool.web.exceptions.EmptyFieldException;
@@ -13,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleSlotService implements SlotService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SimpleSlotService.class);
+
     private final ColumnDao columnDao;
     private final SlotDao slotDao;
 
@@ -25,16 +31,21 @@ public class SimpleSlotService implements SlotService {
     public Slot addNewSlot(String columnID, String timeRange) throws NotFoundException, SQLException, ServiceException {
         try {
             if (columnDao.findById(Integer.parseInt(columnID)) == null) {
+                logger.error("No column found by ID");
                 throw new ServiceException("No column found");
             }
             if (timeRange.equals("")) {
+                logger.error("No time range defined");
                 throw new ServiceException(new EmptyFieldException("Time range not defined"));
             }
+            logger.info("New slot added");
             return slotDao.insertNewSlot(Integer.parseInt(columnID), timeRange);
         } catch (NumberFormatException e) {
+            logger.error("Parameter to 'insertNewSlot' method must be int");
             throw new ServiceException("Must be a number");
         } catch (IllegalArgumentException e) {
-            throw new ServiceException("Must be a number");
+            logger.error("Parameter to 'insertNewSlot' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
         }
     }
 
@@ -42,21 +53,27 @@ public class SimpleSlotService implements SlotService {
     public void removeSlot(String id) throws SQLException, ServiceException {
         try {
             if (slotDao.findSlotById(Integer.parseInt(id)) == null) {
+                logger.error("No slot found by ID");
                 throw new ServiceException("Slot not found");
             }
+            logger.info("Slot removed");
             slotDao.deleteSlot(Integer.parseInt(id));
         } catch (NumberFormatException e) {
+            logger.error("Parameter to 'deleteSlot' method must be int");
             throw new ServiceException("Must be a number");
         } catch (IllegalArgumentException e) {
-            throw new ServiceException("Must be a number");
+            logger.error("Parameter to 'deleteSlot' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
         }
     }
 
     @Override
     public Slot getSlotByID(int id) throws SQLException, ServiceException {
         if (slotDao.findSlotById(id) == null) {
+            logger.error("No slot found by ID");
             throw new ServiceException("Slot not found");
         }
+        logger.info("Slot returned by ID");
         return slotDao.findSlotById(id);
     }
 
@@ -64,18 +81,23 @@ public class SimpleSlotService implements SlotService {
     public List<Slot> getSlotsByColumnID(String columnID) throws NotFoundException, SQLException, ServiceException {
         try {
             if (columnDao.findById(Integer.parseInt(columnID)) == null) {
+                logger.error("No column found by ID");
                 throw new ServiceException("Column not found");
             }
+            logger.info("Slots returned by Column ID");
             return slotDao.findSlotsByColumnId(Integer.parseInt(columnID));
         } catch (NumberFormatException e) {
+            logger.error("Parameter to 'findSlotsByColumnId' method must be int");
             throw new ServiceException("Must be a number");
         } catch (IllegalArgumentException e) {
-            throw new ServiceException("Must be a number");
+            logger.error("Parameter to 'findSlotsByColumnId' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
         }
     }
 
     @Override
     public void assignSlotIdToTaskId(int slotId, int taskId) throws SQLException {
+        logger.info("Slot ID assigned to Task ID");
         slotDao.insertSlotIdToTaskId(slotId, taskId);
     }
 
@@ -88,6 +110,7 @@ public class SimpleSlotService implements SlotService {
             Slot tempSlot = slotDao.findSlotById(slotId);
             slots.add(tempSlot);
         }
+        logger.info("Slots returned by Task ID");
         return slots;
     }
 
@@ -103,6 +126,7 @@ public class SimpleSlotService implements SlotService {
                 }
             }
         }
+        logger.info("Slots checked if connected by Task ID");
         return false;
     }
 }

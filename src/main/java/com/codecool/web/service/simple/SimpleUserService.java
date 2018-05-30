@@ -1,5 +1,8 @@
 package com.codecool.web.service.simple;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codecool.web.dao.UserDao;
 import com.codecool.web.exceptions.EmptyFieldException;
 import com.codecool.web.exceptions.NotFoundException;
@@ -12,6 +15,8 @@ import java.util.List;
 
 public class SimpleUserService implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(SimpleUserService.class);
+
     private final UserDao uD;
 
     public SimpleUserService(UserDao uD) {
@@ -21,20 +26,24 @@ public class SimpleUserService implements UserService {
     @Override
     public User getByName(String name) throws NotFoundException, SQLException, ServiceException {
         if (name.equals("")) {
+            logger.error("No user name entered");
             throw new ServiceException("You didn't enter a name");
         }
         if (uD.findByName(name) == null) {
-            throw new ServiceException("User not found");
+            logger.error("No user found by name");
+            throw new ServiceException("User not found by this name");
         }
+        logger.info("User returned by name");
         return uD.findByName(name);
     }
 
     @Override
     public User addNewUser(String name, String password, String role) throws SQLException, ServiceException {
         if (name.equals("") || password.equals("") || role.equals("") ) {
+            logger.error("Field(s) left empty");
             throw new ServiceException(new EmptyFieldException("Fill all fields"));
         }
-
+        logger.info("New user added");
         return uD.insertNewUser(name,password,role);
     }
 
@@ -42,8 +51,10 @@ public class SimpleUserService implements UserService {
     public User loginUser(String name, String password) throws ServiceException, SQLException, NotFoundException {
         User user = this.getByName(name);
         if (!user.getPassword().equals(password)) {
+            logger.error("Wrong password entered");
             throw new ServiceException("Wrong password!");
         }
+        logger.info("User logged in");
         return user;
     }
 
@@ -52,19 +63,24 @@ public class SimpleUserService implements UserService {
         String userRole = user.getRole();
 
         if (userRole.equals("Admin")){
+            logger.info("All users returned");
             return uD.findAllUsers();
         } else {
+            logger.error("No authorization");
             throw new ServiceException("You are not authorized for this movement.");
         }
     }
 
     public User getUserById(String id) throws SQLException, ServiceException {
         try {
+            logger.info("User returned by ID");
             return uD.findUserById(Integer.parseInt(id));
         } catch (NumberFormatException e) {
+            logger.error("Parameter to 'findUserById' method must be int");
             throw new ServiceException("Must be a number");
         } catch (IllegalArgumentException e) {
-            throw new ServiceException("Must be a number");
+            logger.error("Parameter to 'findUserById' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
         }
     }
 }
