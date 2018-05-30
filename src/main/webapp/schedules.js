@@ -1,3 +1,5 @@
+let currentSchedule;
+
 function onLoadSchedules() {
     const schedulesDivEl = document.getElementById('schedules');
     removeAllChildren(schedulesDivEl);
@@ -129,6 +131,7 @@ function onScheduleSaveClicked() {
 
 function onScheduleClick(){
     const scheduleId = this.dataset.scheduleId;
+    currentSchedule = scheduleId;
     const scheduleDivEl = document.getElementById('schedule');
     removeAllChildren(scheduleDivEl);
     const link = "/schedule-masters/protected/schedule?id="+scheduleId;

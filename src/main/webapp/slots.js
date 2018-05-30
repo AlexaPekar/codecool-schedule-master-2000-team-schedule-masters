@@ -32,7 +32,7 @@ function createSlotsTableBody(slots) {
         const slotContentTdEl = document.createElement('td');
         const divEl = document.createElement('div');
         divEl.id = 'slot' + slot.id;
-        //slotContentTdEl.addEventListener('click',getTaskForUsers);
+        slotContentTdEl.addEventListener('click',onSlotClicked);
         slotContentTdEl.id = "slotcontent";
 
         getSlotsTask(slot.id);
@@ -44,7 +44,33 @@ function createSlotsTableBody(slots) {
     }
     return tbodyEl;
 }
+function onSlotClicked(){
 
+    getTaskForUsers();
+    const lightbox = document.getElementById("slot-lightbox");
+    const slotForm = document.getElementById("slot-form");
+    removeAllChildren(slotForm);
+    const dimmer = document.createElement("div");
+
+    dimmer.id = "dimmer";
+    dimmer.style.width =  window.innerWidth + 'px';
+    dimmer.style.height = window.innerHeight + 'px';
+    dimmer.className = 'dimmer';
+
+    dimmer.onclick = function(){
+        document.body.removeChild(this);
+        lightbox.style.visibility = 'hidden';
+    }
+
+
+    document.body.appendChild(dimmer);
+
+    lightbox.style.visibility = 'visible';
+    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
+    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+
+
+}
 function getTaskForUsers(){
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onTasksLoaded);
@@ -60,11 +86,8 @@ function onTasksLoaded(){
 }
 
 function createTaskSelectionForElement(tasks){
-    const el = document.getElementById('slotcontent');
+    const el = document.getElementById('slot-form');
     const selectDivEl = document.createElement('div');
-    selectDivEl.className = "custom-select";
-    selectDivEl.style.width = "100px";
-
     const selectEl = document.createElement('select');
     for (let i=0;i < tasks.length; i++) {
         const task = tasks[i];
@@ -76,4 +99,8 @@ function createTaskSelectionForElement(tasks){
     selectDivEl.appendChild(selectEl);
     el.appendChild(selectDivEl);
 
+}
+
+function onSlotSaveClicked(){
+    console.log("nincskészgec");
 }
