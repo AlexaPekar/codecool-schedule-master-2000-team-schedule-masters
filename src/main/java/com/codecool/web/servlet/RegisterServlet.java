@@ -6,6 +6,8 @@ import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.model.User;
 import com.codecool.web.service.UserService;
 import com.codecool.web.service.simple.SimpleUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +19,7 @@ import java.sql.SQLException;
 
 @WebServlet("/register")
 public class RegisterServlet extends AbstractServlet {
-
+    private final Logger logger  = LoggerFactory.getLogger(RegisterServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
@@ -31,10 +33,13 @@ public class RegisterServlet extends AbstractServlet {
             req.getSession().setAttribute("user", user);
 
             sendMessage(resp, HttpServletResponse.SC_OK, user);
+            logger.info("{} created",user.getId());
         } catch (SQLException e) {
             handleSqlError(resp, e);
+            logger.error("sqlError: {}",e.getMessage());
         } catch (ServiceException e) {
             sendMessage(resp, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+            logger.error("serviceError: {}",e.getMessage());
         }
     }
 }

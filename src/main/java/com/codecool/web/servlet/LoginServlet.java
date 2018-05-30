@@ -7,6 +7,8 @@ import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.model.User;
 import com.codecool.web.service.UserService;
 import com.codecool.web.service.simple.SimpleUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +20,7 @@ import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginServlet extends AbstractServlet {
-
+    private final Logger logger  = LoggerFactory.getLogger(LoginServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())){
@@ -32,12 +34,16 @@ public class LoginServlet extends AbstractServlet {
             req.getSession().setAttribute("user", user);
 
             sendMessage(resp, HttpServletResponse.SC_OK, user);
+            logger.info("{} logged in",user.getId());
         } catch (SQLException e) {
             handleSqlError(resp, e);
+            logger.error("sql error: {}",e.getMessage());
         } catch (NotFoundException e) {
             sendMessage(resp, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
+            logger.error("Someone tries to login");
         } catch (ServiceException e) {
             sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
+            logger.error("Service error: {} ",e.getMessage());
         }
     }
 }
