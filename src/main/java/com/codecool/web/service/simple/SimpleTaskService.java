@@ -70,6 +70,8 @@ public class SimpleTaskService implements TaskService {
         } catch (IllegalArgumentException e) {
             logger.error("Parameter to 'updateTaskName' method must be int");
             throw new ServiceException("Illegal argument, must be number");
+        } catch (EmptyFieldException e) {
+            logger.error("Name shouldn't be empty");
         }
     }
 
@@ -88,6 +90,8 @@ public class SimpleTaskService implements TaskService {
         } catch (IllegalArgumentException e) {
             logger.error("Parameter to 'updateContent' method must be int");
             throw new ServiceException("Illegal argument, must be number");
+        } catch (EmptyFieldException e) {
+            logger.error("Field shouldn't be empty");
         }
     }
 
