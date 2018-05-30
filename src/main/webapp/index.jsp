@@ -145,6 +145,12 @@
     <button id="users-goback-button">Go back</button>
 </div>
 
+<div id="slot-lightbox" class="lightbox">
+    <form id="slot-form" onsubmit="return false;">
+
+    </form>
+</div>
+
 
 </body>
 </html>
