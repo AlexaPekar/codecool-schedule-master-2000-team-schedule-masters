@@ -51,7 +51,7 @@ public class SlotFillUpServlet extends AbstractServlet{
             logger.error("{} for user ID: {}",e.getMessage(),user.getId());
         } catch (NotFoundException e) {
             sendMessage(resp, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
-            logger.error("{} for user ID: {}",e.getMessage(),user.getId());
+            //logger.error("{} for user ID: {}",e.getMessage(),user.getId());
         }
     }
 }
