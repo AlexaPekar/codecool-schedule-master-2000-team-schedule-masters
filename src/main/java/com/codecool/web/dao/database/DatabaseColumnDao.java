@@ -94,7 +94,7 @@ public class DatabaseColumnDao extends AbstractDao implements ColumnDao {
                 }
             }
         }
-        logger.error("sql had not executed", new NotFoundException());
+        logger.error("sql had not executed");
         throw new NotFoundException();
     }
 

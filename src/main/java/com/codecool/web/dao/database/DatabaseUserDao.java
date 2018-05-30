@@ -33,7 +33,7 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
                 }
             }
         }
-        logger.error("sql had not executed", new NotFoundException());
+        logger.error("sql had not executed");
         throw new NotFoundException();
     }
 
@@ -92,7 +92,7 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
                 }
             }
         }
-        logger.error("sql had not executed", new NotFoundException());
+        logger.error("sql had not executed");
         return null;
     }
 

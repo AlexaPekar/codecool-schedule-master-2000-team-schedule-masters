@@ -35,7 +35,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
                 }
             }
         }
-        logger.error("sql had not executed", new NotFoundException());
+        logger.error("sql had not executed");
         return null;
     }
 

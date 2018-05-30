@@ -75,7 +75,7 @@ public final class DatabaseSlotDao extends AbstractDao implements SlotDao {
                 }
             }
         }
-        logger.error("sql had not executed", new NotFoundException());
+        logger.error("sql had not executed");
         return null;
     }
 

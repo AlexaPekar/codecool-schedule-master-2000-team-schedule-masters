@@ -19,7 +19,7 @@ abstract class AbstractDao {
         int insertCount = statement.executeUpdate();
         if (insertCount != 1) {
             connection.rollback();
-            logger.error("Excepted 1 row to be inserted", new SQLException("Expected 1 row to be inserted"));
+            logger.error("Excepted 1 row to be inserted");
             throw new SQLException("Expected 1 row to be inserted");
         }
     }
@@ -32,7 +32,7 @@ abstract class AbstractDao {
                 id = resultSet.getInt(1);
             } else {
                 connection.rollback();
-                logger.error("Expected 1 result", new SQLException("Expected 1 result"));
+                logger.error("Expected 1 result");
                 throw new SQLException("Expected 1 result");
             }
         }
