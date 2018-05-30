@@ -102,7 +102,7 @@ public class DatabaseColumnDao extends AbstractDao implements ColumnDao {
     public List<Column> findColumnsByScheduleID(int scheduleID) throws SQLException {
         logger.info("finding columns in columns by schedule id");
         List<Column> allColumns = new ArrayList<>();
-        String sql = "SELECT * FROM columns WHERE schedule_id = ?";
+        String sql = "SELECT * FROM columns WHERE schedule_id = ? ORDER BY id";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, scheduleID);
             logger.info("sql query prepared successfully");

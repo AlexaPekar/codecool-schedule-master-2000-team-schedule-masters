@@ -91,7 +91,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     public List<Schedule> findSchedulesByUserId(int userId) throws SQLException {
         logger.info("finding schedule in schedules by user id");
         List<Schedule> schedules = new ArrayList<>();
-        String sql = "SELECT id,user_id,name FROM schedules WHERE user_id = ?";
+        String sql = "SELECT id,user_id,name FROM schedules WHERE user_id = ? ORDER BY id";
         try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             statement.setInt(1,userId);
             logger.info("sql query prepared successfully");
