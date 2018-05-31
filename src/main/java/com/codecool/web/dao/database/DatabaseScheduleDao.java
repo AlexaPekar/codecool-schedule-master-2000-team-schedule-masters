@@ -2,7 +2,6 @@ package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.ScheduleDao;
 import com.codecool.web.exceptions.EmptyFieldException;
-import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.model.Schedule;
 
 import org.slf4j.Logger;
@@ -159,5 +158,45 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         String name = resultset.getString("name");
         logger.info("schedule fetched successfully");
         return new Schedule(id,name);
+    }
+
+    @Override
+    public Schedule insertScheduleToPublished(int id) throws SQLException {
+        logger.info("inserting a schedule to publishedschedules");
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "INSERT INTO published_schedules (schedule_id) VALUES (?)";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+            statement.setInt(1, id);
+            executeInsert(statement);
+            connection.commit();
+            logger.info("sql query executed successfully");
+            return findById(id);
+        } catch (SQLException ex) {
+            connection.rollback();
+            logger.error("sql had not executed", ex);
+            throw ex;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
+    @Override
+    public boolean findPublished(int id) throws SQLException {
+        logger.info("Checking if schedule with ID:{} is published",id);
+        String sql = "SELECT * FROM schedules WHERE schedule_id = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            statement.setInt(1,id);
+            logger.info("sql query prepared successfully");
+            try(ResultSet resultSet = statement.executeQuery()){
+                logger.info("sql query executed successfully");
+                if(resultSet.next()){
+                    logger.info("Schedule is published");
+                    return true;
+                }
+            }
+        }
+        logger.error("sql had not executed");
+        return false;
     }
 }
