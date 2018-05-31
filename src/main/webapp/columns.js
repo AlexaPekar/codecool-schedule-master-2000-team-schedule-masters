@@ -30,6 +30,7 @@ function keypressed(k){
     if(k.code == 'Enter'){
         this.contentEditable = false;
         onNameUpdateSaved(name,id);
+        alert("Column name updated.");
     }
 
 }
