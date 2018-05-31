@@ -108,7 +108,7 @@
 
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
-    <button onclick="onTaskLightBoxLoad();">Create task</button>
+    <button id="create-task-button" class="hidden content" onclick="onTaskLightBoxLoad();">Create task</button>
     <div id="tasks" class="hidden content">
 
     </div>
@@ -128,8 +128,8 @@
     <div id="task" class="hidden content">
 
     </div>
-    <button id="open-tasks-button">Go to tasks</button>
-    <button id="open-schedule-button">Go to schedule</button>
+    <button id="open-tasks-button" class="hidden content">Go to tasks</button>
+    <button id="open-schedule-button" class="hidden content">Go to schedule</button>
 </div>
 
 <div id="users-content" class="hidden content">
