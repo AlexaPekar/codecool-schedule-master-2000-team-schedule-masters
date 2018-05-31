@@ -53,18 +53,24 @@ function createTasksTableBody(tasks) {
         nameTdEl.style.cursor = "pointer";
         nameTdEl.addEventListener('click', onTaskClick);
 
-        //creating delete button
-        const deleteButtonEl = document.createElement('button');
-        deleteButtonEl.textContent = "Delete";
-        deleteButtonEl.dataset.taskId = task.id;
-        nameTdEl.style.cursor = "pointer";
-        deleteButtonEl.addEventListener('click', onDeleteTaskClick);
+        //creating delete cell
+        const deleteTdEl = document.createElement('td');
+        const xDeleteImageTdEl = document.createElement('img');
+        xDeleteImageTdEl.setAttribute("src", "/schedule-masters/icons/delete-button.png");
+        xDeleteImageTdEl.setAttribute("width", "30");
+        xDeleteImageTdEl.setAttribute("height", "30");
+        deleteTdEl.appendChild(xDeleteImageTdEl);
+
+        xDeleteImageTdEl.style.cursor = "pointer";
+        deleteTdEl.style.cursor = "pointer";
+        xDeleteImageTdEl.dataset.taskId = task.id;
+        xDeleteImageTdEl.addEventListener('click', onDeleteTaskClick);
 
         //creating row
         const trEl = document.createElement('tr');
         trEl.appendChild(idTdEl);
         trEl.appendChild(nameTdEl);
-        trEl.appendChild(deleteButtonEl);
+        trEl.appendChild(deleteTdEl);
 
         tasksTableBodyEl.appendChild(trEl);
     }
