@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS published_schedules;
 DROP TABLE IF EXISTS tasks_schedules;
 DROP TABLE IF EXISTS tasks_slots;
 DROP TABLE IF EXISTS tasks;
@@ -55,6 +56,11 @@ schedule_id INTEGER NOT NULL,
 FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
 FOREIGN KEY (schedule_id) REFERENCES schedules(id) ON DELETE CASCADE,
 UNIQUE (task_id, schedule_id)
+);
+
+CREATE TABLE published_schedules (
+schedule_id INTEGER UNIQUE,
+FOREIGN KEY (schedule_id) REFERENCES schedules(id) ON DELETE CASCADE
 );
 
 INSERT INTO users (name, password, role)
