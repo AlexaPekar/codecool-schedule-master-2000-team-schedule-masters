@@ -65,7 +65,17 @@ function onUserClick(){
 //Task page
 
 function onUsersBackButtonClick() {
-    showContents(['users-content', 'users', 'profile-content', 'menu', 'logout-content']);
+    onLoadUsers();
+}
+
+function onScheduleButtonClick(){
+    const schedulesDivEl = document.getElementById('schedules');
+    removeAllChildren(schedulesDivEl);
+    const id = this.dataset.userId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onSchedulesReceived);
+    xhr.open('GET','/schedule-masters/protected/userSchedules?userId=' + id);
+    xhr.send();
 }
 
 function onUserLoad(){
@@ -76,8 +86,15 @@ function onUserLoad(){
     removeAllChildren(userEl);
 
     const backButtonEl  = document.getElementById('users-goback-button');
-
     backButtonEl.addEventListener('click', onUsersBackButtonClick);
+
+    const scheduleButtonEl = document.getElementById('user-schedules-button');
+    scheduleButtonEl.textContent.userId = user.id;
+    scheduleButtonEl.addEventListener('click', onScheduleButtonClick);
+
+    const taskButtonEl = document.getElementById('user-tasks-button');
+    taskButtonEl.textContent.userId = user.id;
+    taskButtonEl.addEventListener('click', onTaskButtonClick);
 
     userEl.appendChild(createUserTable(user));
 }

@@ -139,10 +139,12 @@
 </div>
 
 <div id="user-content" class="hidden content">
-    <h1>Name</h1> <!-- TODO: hivatkozni a user nevére-->
+    <h1>User info</h1>
     <div id="user" class="hidden content">
 
     </div>
+    <button id="user-schedules-button">Schedule</button>
+    <button id="user-tasks-button">Tasks</button><br>
     <button id="users-goback-button">Go back</button>
 </div>
 
