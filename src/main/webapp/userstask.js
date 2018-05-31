@@ -38,7 +38,7 @@ function createUserTaskTable(task) {
 }
 
 function onUserTaskLoad() {
-    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'open-schedule-button']);
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content']);
     const text = this.responseText;
     const task = JSON.parse(text);
     const taskEl = document.getElementById('task');
@@ -106,7 +106,7 @@ function onUserTasksButtonClick() {
     removeAllChildren(tasksDivEl);
     const id = this.dataset.userId;
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onUserTaskButtonRecieved);
+    xhr.addEventListener('load', onUserTasksButtonRecieved);
     xhr.open('GET','/schedule-masters/protected/userTasks?userId=' + id);
     xhr.send();
 }

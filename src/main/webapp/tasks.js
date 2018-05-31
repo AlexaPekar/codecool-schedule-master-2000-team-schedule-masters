@@ -126,7 +126,7 @@ function onOpenTasksButtonClick() {
 }
 
 function onTaskLoad() {
-    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'open-schedule-button', 'open-tasks-button', 'open-schedule-button']);
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'open-tasks-button', 'open-schedule-button']);
     const text = this.responseText;
     const task = JSON.parse(text);
     const taskEl = document.getElementById('task');
