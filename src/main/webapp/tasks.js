@@ -152,6 +152,8 @@ function onModifyTaskClick() {
     xhr.addEventListener('error', onNetworkError);
     xhr.open('PUT', "/schedule-masters/protected/task?id=" + taskId + "&name=" + taskName + "&content=" + taskContent);
     xhr.send();
+
+    alert("Modification saved!");
 }
 
 function taskKeyPressed(k) {
@@ -220,6 +222,8 @@ function onTaskAddClicked() {
 
     document.getElementById("dimmer").remove();
     document.getElementById('task-lightbox').style.visibility = "hidden";
+
+    alert("New task have added successfully!");
 }
 
 function onTaskAddResponse() {
