@@ -97,6 +97,8 @@ function onToScheduleFromTaskLoad() {
         xhr.addEventListener('load', onScheduleLoad);
         xhr.open('GET', link);
         xhr.send();
+    } else {
+        alert("This task isn't in any schedule!");
     }
 
 }
@@ -168,18 +170,28 @@ function createTaskTable(task) {
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
 
+    const nameTitleStrongEl = document.createElement('strong');
+    nameTitleStrongEl.textContent = "Task title";
+    const nameTitleTdEl = document.createElement('td');
+    nameTitleTdEl.appendChild(nameTitleStrongEl);
+
     const nameTdEl = document.createElement('td');
     nameTdEl.textContent = task.name;
     nameTdEl.dataset.taskId = task.id;
     nameTdEl.setAttribute('id', 'task-input-name');
     nameTdEl.setAttribute('title', 'Click here to modify and press enter to save');
 
+    tableHeadEl.appendChild(nameTitleTdEl);
     tableHeadEl.appendChild(nameTdEl);
 
     //modify name
     nameTdEl.setAttribute('contenteditable', true);
     nameTdEl.addEventListener("keypress", taskKeyPressed);
 
+    const contentTitleStrongEl = document.createElement('strong');
+    contentTitleStrongEl.textContent = "Description";
+    const contentTitleTdEl = document.createElement('td');
+    contentTitleTdEl.appendChild(contentTitleStrongEl);
 
     const contentTdEl = document.createElement('td');
     contentTdEl.textContent = task.content;
@@ -192,6 +204,7 @@ function createTaskTable(task) {
     contentTdEl.addEventListener("keypress", taskKeyPressed);
 
     const trEl = document.createElement('tr');
+    trEl.appendChild(contentTitleTdEl);
     trEl.appendChild(contentTdEl);
 
     tableBodyEl.appendChild(trEl);
