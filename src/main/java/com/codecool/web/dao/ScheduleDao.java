@@ -15,4 +15,6 @@ public interface ScheduleDao {
     void deleteSchedule(int id) throws SQLException;
     int getColumnNumber(int id) throws SQLException;
     int findScheduleIdByTaskId(int taskId) throws SQLException;
+    Schedule insertScheduleToPublished(int id) throws SQLException;
+    boolean findPublished(int id) throws SQLException;
 }
