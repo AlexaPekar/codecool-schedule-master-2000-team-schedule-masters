@@ -129,6 +129,20 @@ public class SimpleTaskService implements TaskService {
         return taskDao.findAllTaskByUserId(id);
     }
 
+    @Override
+    public List<Task> getAllTasksByUserId(String id) throws SQLException, ServiceException {
+        try {
+        logger.info("All tasks returned");
+        return taskDao.findAllTaskByUserId(Integer.parseInt(id));
+        } catch (NumberFormatException e) {
+            logger.error("Parameter to 'findTaskIdBySlotId' method must be int");
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            logger.error("Parameter to 'findTaskIdBySlotId' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
+        }
+    }
+
     public int getTaskIdBySlotId(String slotId) throws SQLException, ServiceException {
         try {
             logger.info("Task ID returned by Slot ID");

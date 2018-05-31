@@ -26,5 +26,7 @@ public interface TaskService {
     int getTaskIdBySlotId(String slotId) throws SQLException, ServiceException;
 
     Task getTaskById(int id) throws NotFoundException, SQLException, ServiceException;
+
+    List<Task> getAllTasksByUserId(String id) throws SQLException, ServiceException;
 }
 

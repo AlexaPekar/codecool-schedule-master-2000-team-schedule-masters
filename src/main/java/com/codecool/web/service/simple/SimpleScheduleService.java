@@ -83,6 +83,20 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
+    public List<Schedule> getSchedulesByUserId(String userId) throws SQLException, ServiceException {
+        try {
+            logger.info("Schedules returned by User ID");
+            return scheduleDao.findSchedulesByUserId(Integer.parseInt(userId));
+        } catch (NumberFormatException e) {
+            logger.error("Parameter to 'updateContent' method must be int");
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            logger.error("Parameter to 'updateContent' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
+        }
+    }
+
+    @Override
     public void removeSchedule(int id) throws SQLException, ServiceException {
         if (scheduleDao.findById(id) == null) {
             logger.error("No schedule found by ID");
