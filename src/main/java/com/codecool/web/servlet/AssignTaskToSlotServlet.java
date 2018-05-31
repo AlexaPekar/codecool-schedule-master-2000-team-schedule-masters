@@ -48,6 +48,7 @@ public class AssignTaskToSlotServlet extends AbstractServlet{
             slotService.assignSlotIdToTaskId(slotId,taskId);
 
             logger.info("User with ID:{} assigned task with ID:{} to slot with ID:{}", user.getId(),taskId, slotId);
+            sendMessage(resp,HttpServletResponse.SC_OK,"Task successfully added to the slot");
         } catch (SQLException e) {
             handleSqlError(resp, e);
             logger.error("{} for User with ID:{}",user.getId(),e.getMessage());

@@ -112,7 +112,17 @@ function onSlotSaveClicked(){
     xhr.addEventListener('load', onScheduleRefresh);
     xhr.open('POST', 'protected/addtasktoslot?scheduleId='+currentSchedule+"&slotId="+selectedSlot+"&taskId="+task);
     xhr.send();
-
+    xhr.onreadystatechange = function() {
+        if(this.readyState === 4 ){
+            if (this.status === INTERNAL_SERVER_ERROR) {
+                alert("You can't add multiple tasks");
+            }
+            else{
+                alert("Task added to the slot");
+            }
+        }
+    };
     document.getElementById("dimmer").remove();
     document.getElementById("slot-lightbox").style.visibility = "hidden";
+
 }
