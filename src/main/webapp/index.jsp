@@ -16,6 +16,8 @@
     <script src="slots.js"></script>
     <script src="users.js"></script>
     <script src="register.js"></script>
+    <script src="guest.js"></script>
+    <script src="userstask.js"></script>
     <script src="usersschedule.js"></script>
 
 
