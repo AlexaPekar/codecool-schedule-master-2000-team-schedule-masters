@@ -124,4 +124,16 @@ public class SimpleScheduleService implements ScheduleService {
             throw new ServiceException("Illegal argument, must be number");
         }
     }
+
+    @Override
+    public Schedule publishSchedule(int id) throws SQLException {
+        logger.info("Publishing schedule with ID:{}",id);
+        return scheduleDao.insertScheduleToPublished(id);
+    }
+
+    @Override
+    public boolean isSchedulePublished(int id) throws SQLException {
+        logger.info("Checking if schedule with ID:{} is published",id);
+        return scheduleDao.findPublished(id);
+    }
 }
