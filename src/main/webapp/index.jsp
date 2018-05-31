@@ -16,6 +16,7 @@
     <script src="slots.js"></script>
     <script src="users.js"></script>
     <script src="register.js"></script>
+    <script src="usersschedule.js"></script>
 
 
 </head>
@@ -67,7 +68,7 @@
 
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
-    <button id="createScheduleButton" class="hidden" onclick="onScheduleLightBoxLoad();">Create schedule</button>
+    <button id="create-schedule-button" class="hidden content" onclick="onScheduleLightBoxLoad();">Create schedule</button>
     <div id="schedules" class="hidden content">
 
     </div>

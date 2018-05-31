@@ -8,7 +8,7 @@ function onLoadUsers(){
     xhr.send();
 }
 
-function onUsersRecieved(){
+function onUsersRecieved() {
     showContents(['users-content', 'users', 'profile-content', 'menu', 'logout-content']);
 
     const text = this.responseText;
@@ -68,56 +68,6 @@ function onUsersBackButtonClick() {
     onLoadUsers();
 }
 
-function onScheduleButtonClick(){
-    const schedulesDivEl = document.getElementById('schedules');
-    removeAllChildren(schedulesDivEl);
-    const id = this.dataset.userId;
-    const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onScheduleButtonRecieved);
-    xhr.open('GET','/schedule-masters/protected/userSchedules?userId=' + id);
-    xhr.send();
-}
-
-function onScheduleButtonRecieved(){
-    showContents(['schedules-content','profile-content','schedules','menu', 'logout-content']);
-    const text = this.responseText;
-    const schedules = JSON.parse(text);
-
-    const tableEl = document.createElement('table');
-    tableEl.appendChild(createUserSchedulesTableBody(schedules));
-
-    const scEl = document.getElementById('schedules');
-    scEl.appendChild(tableEl);
-}
-
-function createUserSchedulesTableBody(schedules){
-    const tbodyEl = document.createElement('tbody');
-
-    for (let i = 0; i < schedules.length; i++) {
-        const schedule = schedules[i];
-
-        // creating id cell
-        const idTdEl = document.createElement('td');
-        idTdEl.textContent = schedule.id;
-
-        // creating name cell
-        const nameTdEl = document.createElement('td');
-        nameTdEl.dataset.scheduleId = schedule.id;
-        nameTdEl.style.cursor = "pointer";
-        nameTdEl.textContent = schedule.name;
-        nameTdEl.addEventListener("click", onScheduleClick);
-
-        // creating row
-        const trEl = document.createElement('tr');
-        trEl.appendChild(idTdEl);
-        trEl.appendChild(nameTdEl);
-
-        tbodyEl.appendChild(trEl);
-    }
-
-    return tbodyEl;
-}
-
 function onUserLoad(){
     showContents(['user-content', 'user', 'profile-content', 'menu', 'logout-content', 'users-goback-button']);
     const text = this.responseText;
@@ -130,11 +80,11 @@ function onUserLoad(){
 
     const scheduleButtonEl = document.getElementById('user-schedules-button');
     scheduleButtonEl.dataset.userId = user.id;
-    scheduleButtonEl.addEventListener('click', onScheduleButtonClick);
+    scheduleButtonEl.addEventListener('click', onUserSchedulesButtonClick);
 
     const taskButtonEl = document.getElementById('user-tasks-button');
     taskButtonEl.dataset.userId = user.id;
-    taskButtonEl.addEventListener('click', onTaskButtonClick);
+    taskButtonEl.addEventListener('click', onUserTasksButtonClick);
 
     userEl.appendChild(createUserTable(user));
 }

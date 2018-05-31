@@ -9,7 +9,7 @@ function onLoadSchedules() {
     xhr.send();
 }
 function onSchedulesReceived(){
-    showContents(['schedules-content','profile-content','schedules','menu', 'logout-content', 'createScheduleButton']);
+    showContents(['schedules-content','profile-content','schedules','menu', 'logout-content', 'create-schedule-button']);
     const text = this.responseText;
     const schedules = JSON.parse(text);
 
@@ -108,7 +108,7 @@ function onScheduleDelete(){
 }
 
 function onScheduleLoad(){
-    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules','menu', 'logout-content']);
+    showContents(['schedule-content','schedule','schedules-content','profile-content','schedules','menu', 'logout-content', 'create-schedule-button']);
     const text = this.responseText;
     const schedule = JSON.parse(text);
     const scheduleTitle = document.getElementById('schedule-title');
