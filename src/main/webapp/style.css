@@ -36,8 +36,9 @@ th {
 
 .lightbox{
     visibility:hidden;
-    position:absolute;
-    background:green;
+    position:fixed;
+    background:#73AD21;
+    border-radius: 15px 50px;
     border:2px solid #3c3c3c;
     color:white;
     z-index:100;
@@ -48,7 +49,7 @@ th {
 
 .dimmer{
     background: #000;
-    position: absolute;
+    position: fixed;
     opacity: .5;
     top: 0;
     z-index:99;
