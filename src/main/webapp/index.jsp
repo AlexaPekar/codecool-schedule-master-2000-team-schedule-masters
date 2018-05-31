@@ -67,7 +67,7 @@
 
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
-    <button onclick="onScheduleLightBoxLoad();">Create schedule</button>
+    <button id="createScheduleButton" class="hidden" onclick="onScheduleLightBoxLoad();">Create schedule</button>
     <div id="schedules" class="hidden content">
 
     </div>

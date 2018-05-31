@@ -9,7 +9,7 @@ function onLoadSchedules() {
     xhr.send();
 }
 function onSchedulesReceived(){
-    showContents(['schedules-content','profile-content','schedules','menu', 'logout-content']);
+    showContents(['schedules-content','profile-content','schedules','menu', 'logout-content', 'createScheduleButton']);
     const text = this.responseText;
     const schedules = JSON.parse(text);
 
