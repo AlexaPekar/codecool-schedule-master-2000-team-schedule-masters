@@ -1,3 +1,28 @@
+function onUserSlotsTaskReceived() {
+    const text = this.responseText;
+    if (this.status !== 404) {
+        const taskDto = JSON.parse(text);
+
+        const taskEl = document.getElementById('slot' + taskDto.slotId);
+
+        const namePEl = document.createElement('p');
+        namePEl.textContent = taskDto.task.name;
+        namePEl.dataset.taskId = taskDto.task.id;
+        namePEl.style.cursor = "pointer";
+        namePEl.addEventListener('click', onUserTaskClick);
+
+        taskEl.appendChild(namePEl);
+    }
+}
+
+function getUserSlotsTask(slotId) {
+    const link = "/schedule-masters/protected/slotfillup/" + slotId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onUserSlotsTaskReceived);
+    xhr.open('GET', link);
+    xhr.send();
+}
+
 function createUserSlotsTableBody(slots) {
     const tbodyEl = document.createElement('tbody');
 
@@ -15,7 +40,7 @@ function createUserSlotsTableBody(slots) {
         divEl.id = 'slot'+slot.id;
         slotContentTdEl.id = "slotcontent";
 
-        getSlotsTask(slot.id); //TODO: CALL NEW TASK CHECKING METHOD
+        getUserSlotsTask(slot.id);
 
         slotContentTdEl.appendChild(divEl);
 
