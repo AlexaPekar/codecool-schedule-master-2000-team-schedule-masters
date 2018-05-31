@@ -176,6 +176,10 @@ function createUserSchedulesTableBody(schedules){
     return tbodyEl;
 }
 
+function onGobackFromScheduleButtonClick() {
+    showContents(['user-content','user','profile-content','menu', 'logout-content', 'users-goback-button']);
+}
+
 function onUserScheduleButtonRecieved(){
     showContents(['schedules-content','profile-content','schedules','menu', 'logout-content']);
     const text = this.responseText;
@@ -184,8 +188,13 @@ function onUserScheduleButtonRecieved(){
     const tableEl = document.createElement('table');
     tableEl.appendChild(createUserSchedulesTableBody(schedules));
 
+    const gobackButtonEl = document.createElement('button');
+    gobackButtonEl.textContent = "Go back"
+    gobackButtonEl.addEventListener('click', onGobackFromScheduleButtonClick);
+
     const scEl = document.getElementById('schedules');
     scEl.appendChild(tableEl);
+    scEl.appendChild(gobackButtonEl);
 }
 
 function onUserSchedulesButtonClick(){

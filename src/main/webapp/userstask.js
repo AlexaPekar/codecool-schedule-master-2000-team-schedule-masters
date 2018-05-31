@@ -37,6 +37,10 @@ function createUserTaskTable(task) {
     return tableEl;
 }
 
+function onGobackFromTaskButtonClick() {
+    showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
+}
+
 function onUserTaskLoad() {
     showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content']);
     const text = this.responseText;
@@ -44,7 +48,12 @@ function onUserTaskLoad() {
     const taskEl = document.getElementById('task');
     removeAllChildren(taskEl);
 
+    const gobackButtonEl = document.createElement('button');
+    gobackButtonEl.textContent = "Go back"
+    gobackButtonEl.addEventListener('click', onGobackFromTaskButtonClick);
+
     taskEl.appendChild(createUserTaskTable(task));
+    taskEl.appendChild(gobackButtonEl);
 }
 
 function onUserTaskClick() {
@@ -85,6 +94,10 @@ function createUserTasksTableBody(tasks) {
     return tasksTableBodyEl;
 }
 
+function onGobackFromTasksButtonClick() {
+    showContents(['user-content','user','profile-content','menu', 'logout-content', 'users-goback-button']);
+}
+
 function onUserTasksButtonRecieved() {
     showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
 
@@ -96,9 +109,14 @@ function onUserTasksButtonRecieved() {
     const tasksEl = document.getElementById('tasks');
     removeAllChildren(tasksEl);
 
+    const gobackButtonEl = document.createElement('button');
+    gobackButtonEl.textContent = "Go back"
+    gobackButtonEl.addEventListener('click', onGobackFromTasksButtonClick);
+
     tableEl.appendChild(createUserTasksTableBody(tasks));
 
     tasksEl.appendChild(tableEl);
+    tasksEl.appendChild(gobackButtonEl)
 }
 
 function onUserTasksButtonClick() {
