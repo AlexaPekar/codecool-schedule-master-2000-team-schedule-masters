@@ -89,11 +89,11 @@ function onUserLoad(){
     backButtonEl.addEventListener('click', onUsersBackButtonClick);
 
     const scheduleButtonEl = document.getElementById('user-schedules-button');
-    scheduleButtonEl.textContent.userId = user.id;
+    scheduleButtonEl.dataset.userId = user.id;
     scheduleButtonEl.addEventListener('click', onScheduleButtonClick);
 
     const taskButtonEl = document.getElementById('user-tasks-button');
-    taskButtonEl.textContent.userId = user.id;
+    taskButtonEl.dataset.userId = user.id;
     taskButtonEl.addEventListener('click', onTaskButtonClick);
 
     userEl.appendChild(createUserTable(user));
