@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 
-    <title>Schedule Master 2000</title>
+    <title>Schedule Master 2001</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="index.js"></script>
     <script src="login.js"></script>
@@ -19,11 +19,13 @@
     <script src="guest.js"></script>
     <script src="userstask.js"></script>
     <script src="usersschedule.js"></script>
+    <link rel="shortcut icon" type="image/png" href="calendar.png"/>
 
 
 </head>
 
 <body>
+<div id="transparent-div">
 
 <div id="login-register-buttons" class="content">
     <button onclick="onLoginLightBoxLoad();" id="login-lightbox-button">Login</button>
@@ -59,9 +61,8 @@
 
 <div id="menu" class="hidden content">
     <button id="schedules-button">Schedules</button>
-    <br>
     <button id="tasks-button">Tasks</button>
-    <button id="users-button">Users</button>
+    <button id="users-button">Users</button><br>
 </div>
 
 <div id="logout-content" class="hidden content">
@@ -71,7 +72,7 @@
 <div id="schedules-content" class="hidden content">
     <h1>Schedules</h1>
     <button id="create-schedule-button" class="hidden content" onclick="onScheduleLightBoxLoad();">Create schedule</button>
-    <div id="schedules" class="hidden content">
+    <div id="schedules" class="hidden content" class="center-table">
 
     </div>
     <div id="schedule-lightbox" class="lightbox">
@@ -103,7 +104,7 @@
 
 <div id="schedule-content" class="hidden content">
     <h1 id="schedule-title">Title</h1>
-    <div id="schedule" class="hidden content">
+    <div id="schedule" class="hidden content" class="center-table">
 
     </div>
 </div>
@@ -111,7 +112,7 @@
 <div id="tasks-content" class="hidden content">
     <h1>Tasks</h1>
     <button id="create-task-button" class="hidden content" onclick="onTaskLightBoxLoad();">Create task</button>
-    <div id="tasks" class="hidden content">
+    <div id="tasks" class="hidden content" class="center-table">
 
     </div>
 
@@ -127,7 +128,7 @@
 </div>
 
 <div id="task-content" class="hidden content">
-    <div id="task" class="hidden content">
+    <div id="task" class="hidden content" class="center-table">
 
     </div>
     <button id="open-tasks-button" class="hidden content">Go to tasks</button>
@@ -136,14 +137,14 @@
 
 <div id="users-content" class="hidden content">
     <h1>Users</h1>
-    <div id="users" class="hidden content">
+    <div id="users" class="hidden content" class="center-table">
 
     </div>
 </div>
 
 <div id="user-content" class="hidden content">
     <h1>User info</h1>
-    <div id="user" class="hidden content">
+    <div id="user" class="hidden content" class="center-table">
 
     </div>
     <button id="user-schedules-button">Schedule</button>
@@ -157,7 +158,7 @@
     </form>
     <img id="slotsavebutton" src="icons/save-button.png" onclick="onSlotSaveClicked()">
 </div>
-
+</div>
 
 </body>
 </html>
