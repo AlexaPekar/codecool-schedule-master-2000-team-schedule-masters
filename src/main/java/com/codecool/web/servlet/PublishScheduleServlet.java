@@ -26,6 +26,9 @@ public class PublishScheduleServlet extends AbstractServlet{
             SlotDao slotDao = new DatabaseSlotDao(connection);
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao, columnDao, slotDao);
             int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
+            if(scheduleService.isSchedulePublished(scheduleId)){
+                return;
+            }
             scheduleService.publishSchedule(scheduleId);
         } catch (SQLException e) {
             e.printStackTrace();
