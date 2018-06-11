@@ -8,6 +8,7 @@ import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseSlotDao;
 import com.codecool.web.dao.database.DatabaseTaskDao;
+import com.codecool.web.dto.TaskDto;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.service.ScheduleService;
@@ -36,21 +37,25 @@ public class GuestSlotServlet extends AbstractServlet{
             SlotDao slotDao = new DatabaseSlotDao(connection);
             TaskDao taskDao = new DatabaseTaskDao(connection);
             String slotId = req.getParameter("slotid");
-            int scheduleId = Integer.parseInt("scheduleid");
+            int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
             TaskService taskService = new SimpleTaskService(taskDao);
             if(!scheduleService.isSchedulePublished(scheduleId)){
-                sendMessage(resp,HttpServletResponse.SC_OK,taskService.getTaskIdBySlotId(slotId));
-
+                sendMessage(resp,HttpServletResponse.SC_FORBIDDEN,"Schedule isn't public.");
                 return;
             }
-            sendMessage(resp,HttpServletResponse.SC_OK,taskService.getTaskIdBySlotId(slotId));
+            if(taskService.getTaskIdBySlotId(slotId) != 0) {
+                TaskDto taskDto = new TaskDto(Integer.parseInt(slotId),taskService.getTaskById(taskService.getTaskIdBySlotId(slotId)));
+                sendMessage(resp, HttpServletResponse.SC_OK,taskDto );
+            }
 
 
         } catch (SQLException e) {
             handleSqlError(resp,e);
         } catch (ServiceException e) {
             sendMessage(resp,HttpServletResponse.SC_BAD_REQUEST,e.getMessage());
+        } catch (NotFoundException e) {
+            sendMessage(resp,HttpServletResponse.SC_NOT_FOUND,e.getMessage());
         }
     }
 }
