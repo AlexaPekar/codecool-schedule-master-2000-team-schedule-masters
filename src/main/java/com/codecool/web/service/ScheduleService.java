@@ -18,4 +18,6 @@ public interface ScheduleService {
     List<Schedule> getSchedulesByUserId(String userId) throws SQLException, ServiceException;
     Schedule publishSchedule(int id) throws SQLException;
     boolean isSchedulePublished(int id) throws SQLException;
+    String encrypt(Long id);
+    Long decrypt(String encryptedId);
 }

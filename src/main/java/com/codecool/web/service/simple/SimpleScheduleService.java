@@ -136,4 +136,16 @@ public class SimpleScheduleService implements ScheduleService {
         logger.info("Checking if schedule with ID:{} is published",id);
         return scheduleDao.findPublished(id);
     }
+
+    @Override
+    public String encrypt(Long id) {
+        Long x;
+        x = (id * 1708159939L) % 2176782336L;
+        return String.format("%6s",Long.toString(x, 36).toUpperCase()).replace(' ','0');
+    }
+
+    @Override
+    public Long decrypt(String s) {
+        return (Long.valueOf(s, 36) * 1553655019L) % 2176782336L;
+    }
 }
