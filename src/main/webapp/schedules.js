@@ -68,7 +68,8 @@ function createSchedulesTableBody(schedules) {
 
         xShareButtonEl.style.cursor = "pointer";
         xShareButtonEl.dataset.scheduleId = schedule.id;
-        //xShareButtonEl.addEventListener("click",onScheduleShare);
+        xShareButtonEl.id="share-button";
+        xShareButtonEl.addEventListener("click",onScheduleShare);
 
 
 
@@ -210,4 +211,40 @@ function onScheduleAddClicked(){
     document.getElementById("dimmer").remove();
     document.getElementById("schedule-lightbox").style.visibility = "hidden";
 
+}
+
+function onScheduleShare() {
+    const scheduleId = this.dataset.scheduleId;
+    publishSchedule(scheduleId);
+
+    const scheduleContentDiv = document.getElementById("schedules-content");
+    const lightbox = document.getElementById("scheduleshare-lightbox");
+    removeAllChildren(lightbox);
+    const pEl = document.createElement('p');
+    pEl.textContent = "http://localhost:8080/schedule-masters/guest?scheduleid=" + scheduleId;
+    lightbox.appendChild(pEl);
+    const dimmer = document.createElement("div");
+    dimmer.id = "dimmer";
+    dimmer.style.width =  window.innerWidth + 'px';
+    dimmer.style.height = window.innerHeight + 'px';
+    dimmer.className = 'dimmer';
+
+    dimmer.onclick = function(){
+        document.body.removeChild(this);
+        lightbox.style.visibility = 'hidden';
+    }
+
+
+    document.body.appendChild(dimmer);
+
+    lightbox.style.visibility = 'visible';
+    lightbox.style.width = "600px";
+    lightbox.style.height = "70px";
+    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
+    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+}
+function publishSchedule(scheduleId) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/schedule-masters/protected/schedule/publish?scheduleid='+scheduleId);
+    xhr.send();
 }

@@ -5,7 +5,10 @@ function onGuestPageLoad(){
     const url = new URL(url_string);
     const id = url.searchParams.get("scheduleid");
     guestSelectedScheduleId = id;
-    getColumnsForGuest();
+    if (id !== null) {
+        showContents(['home-button']);
+        getColumnsForGuest();
+    }
 }
 
 function getColumnsForGuest(){
