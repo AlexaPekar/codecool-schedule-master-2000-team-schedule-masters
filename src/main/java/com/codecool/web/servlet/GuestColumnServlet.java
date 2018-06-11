@@ -6,6 +6,7 @@ import com.codecool.web.dao.SlotDao;
 import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseSlotDao;
+import com.codecool.web.dto.SlotsDto;
 import com.codecool.web.exceptions.NotFoundException;
 import com.codecool.web.exceptions.ServiceException;
 import com.codecool.web.service.ColumnService;
@@ -23,7 +24,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-@WebServlet("/column/slot")
+@WebServlet("/column/slots")
 public class GuestColumnServlet extends AbstractServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,14 +33,16 @@ public class GuestColumnServlet extends AbstractServlet {
             ColumnDao columnDao = new DatabaseColumnDao(connection);
             SlotDao slotDao = new DatabaseSlotDao(connection);
             String columnId = req.getParameter("columnid");
-            int scheduleId = Integer.parseInt("scheduleid");
+            int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
+            SlotService slotService = new SimpleSlotService(columnDao,slotDao);
+            SlotsDto slotsDto = new SlotsDto(Integer.parseInt(columnId),slotService.getSlotsByColumnID(columnId));
             if(!scheduleService.isSchedulePublished(scheduleId)){
+                sendMessage(resp,HttpServletResponse.SC_OK,slotsDto);
                 return;
             }
            // ColumnService columnService = new SimpleColumnService(columnDao,scheduleDao);
-            SlotService slotService = new SimpleSlotService(columnDao,slotDao);
-            sendMessage(resp,HttpServletResponse.SC_OK,slotService.getSlotsByColumnID(columnId));
+            sendMessage(resp,HttpServletResponse.SC_OK,slotsDto);
 
 
         } catch (SQLException e) {

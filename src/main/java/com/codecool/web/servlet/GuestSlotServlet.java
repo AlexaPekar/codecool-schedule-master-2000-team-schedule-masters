@@ -38,10 +38,12 @@ public class GuestSlotServlet extends AbstractServlet{
             String slotId = req.getParameter("slotid");
             int scheduleId = Integer.parseInt("scheduleid");
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
+            TaskService taskService = new SimpleTaskService(taskDao);
             if(!scheduleService.isSchedulePublished(scheduleId)){
+                sendMessage(resp,HttpServletResponse.SC_OK,taskService.getTaskIdBySlotId(slotId));
+
                 return;
             }
-            TaskService taskService = new SimpleTaskService(taskDao);
             sendMessage(resp,HttpServletResponse.SC_OK,taskService.getTaskIdBySlotId(slotId));
 
 

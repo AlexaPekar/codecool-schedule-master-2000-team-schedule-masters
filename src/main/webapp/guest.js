@@ -69,7 +69,7 @@ function getColumnSlotsForGuest(columnId){
 }
 
 function onGuestSlotsReceived() {
-    const text = this.responseText;
+    const text= this.responseText;
     const slotsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
