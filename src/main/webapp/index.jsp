@@ -179,6 +179,10 @@
         </form>
         <img id="slotsavebutton" src="icons/save-button.png" onclick="onSlotSaveClicked()">
     </div>
+
+    <div id="guest-schedule" >
+
+    </div>
 </div>
 
 </body>

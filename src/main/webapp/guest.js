@@ -53,11 +53,30 @@ function createColumnsTableBodyForGuest(columns){
         colTdEl.appendChild(divEl);
 
         trEl2.appendChild(colTdEl);
-        getColumnSlots(column.id);
+        getColumnSlotsForGuest(column.id);
     }
     tbodyEl.appendChild(trEl1);
     tbodyEl.appendChild(trEl2);
     return tbodyEl;
+}
+
+function getColumnSlotsForGuest(columnId){
+    const link = "/schedule-masters/column/slots?columnid="+columnId + "&scheduleid=" + guestSelectedScheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onGuestSlotsReceived);
+    xhr.open('GET',link);
+    xhr.send();
+}
+
+function onGuestSlotsReceived() {
+    const text = this.responseText;
+    const slotsDto = JSON.parse(text);
+
+    const tableEl = document.createElement('table');
+    tableEl.appendChild(createSlotsTableBody(slotsDto.slots));
+
+    const slEl = document.getElementById('columnGuest' + slotsDto.index);
+    slEl.appendChild(tableEl);
 }
 
 addEventListener('DOMContentLoaded',onGuestPageLoad);
