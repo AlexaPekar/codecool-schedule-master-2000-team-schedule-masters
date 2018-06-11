@@ -184,7 +184,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     @Override
     public boolean findPublished(int id) throws SQLException {
         logger.info("Checking if schedule with ID:{} is published",id);
-        String sql = "SELECT * FROM schedules WHERE schedule_id = ?";
+        String sql = "SELECT * FROM published_schedules WHERE schedule_id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             statement.setInt(1,id);
             logger.info("sql query prepared successfully");

@@ -32,10 +32,12 @@ public class GuestScheduleServlet extends AbstractServlet{
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
             ColumnService columnService = new SimpleColumnService(columnDao,scheduleDao);
             if(!scheduleService.isSchedulePublished(scheduleId)){
+                sendMessage(resp,HttpServletResponse.SC_OK,columnService.getColumnsByScheduleId(scheduleId));
+
+                //sendMessage(resp,HttpServletResponse.SC_BAD_REQUEST,"Not published");
                 return;
             }
             sendMessage(resp,HttpServletResponse.SC_OK,columnService.getColumnsByScheduleId(scheduleId));
-
 
         } catch (SQLException e) {
            handleSqlError(resp,e);
