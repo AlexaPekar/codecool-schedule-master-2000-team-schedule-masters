@@ -26,7 +26,7 @@ function onLoadMenu() {
     if (activeUser.role !== "Admin") {
         usersButtonEl.style.display = "none";
     } else {
-        usersButtonEl.style.display = "inline";
+        usersButtonEl.removeAttribute("display");
     }
 }
 
