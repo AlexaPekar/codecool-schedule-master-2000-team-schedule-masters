@@ -51,13 +51,25 @@ function createSchedulesTableBody(schedules) {
 
         const xUpdateImageTdEl = document.createElement('img');
         xUpdateImageTdEl.setAttribute("src", "/schedule-masters/icons/update-button.png");
-        xUpdateImageTdEl.setAttribute("width", "30");
-        xUpdateImageTdEl.setAttribute("height", "30");
+        xUpdateImageTdEl.setAttribute("width", "36");
+        xUpdateImageTdEl.setAttribute("height", "36");
         deleteTdEl.appendChild(xUpdateImageTdEl);
 
         xUpdateImageTdEl.style.cursor = "pointer";
         xUpdateImageTdEl.dataset.scheduleId = schedule.id;
         xUpdateImageTdEl.addEventListener("click",onScheduleUpdate);
+
+
+        const xShareButtonEl = document.createElement('img');
+        xShareButtonEl.setAttribute("src", "/schedule-masters/icons/share-button.png");
+        xShareButtonEl.setAttribute("width", "30");
+        xShareButtonEl.setAttribute("height", "30");
+        deleteTdEl.appendChild(xShareButtonEl);
+
+        xShareButtonEl.style.cursor = "pointer";
+        xShareButtonEl.dataset.scheduleId = schedule.id;
+        //xShareButtonEl.addEventListener("click",onScheduleShare);
+
 
 
 
