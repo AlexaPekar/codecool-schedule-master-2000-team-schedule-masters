@@ -21,6 +21,7 @@ function onColumnsReceived() {
 function onColumnNameClicked(){
     this.contentEditable = true;
     this.addEventListener("keypress",keypressed);
+    this.setAttribute('title', 'Click here to modify and press enter to save');
 
 }
 
