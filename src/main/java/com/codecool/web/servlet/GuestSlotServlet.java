@@ -37,9 +37,10 @@ public class GuestSlotServlet extends AbstractServlet{
             SlotDao slotDao = new DatabaseSlotDao(connection);
             TaskDao taskDao = new DatabaseTaskDao(connection);
             String slotId = req.getParameter("slotid");
-            int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
             TaskService taskService = new SimpleTaskService(taskDao);
+            String scheduleIdString = req.getParameter("scheduleid");
+            int scheduleId = scheduleService.decrypt(scheduleIdString);
             if(!scheduleService.isSchedulePublished(scheduleId)){
                 sendMessage(resp,HttpServletResponse.SC_FORBIDDEN,"Schedule isn't public.");
                 return;

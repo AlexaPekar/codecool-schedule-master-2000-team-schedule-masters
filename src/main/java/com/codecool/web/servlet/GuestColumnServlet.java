@@ -33,10 +33,11 @@ public class GuestColumnServlet extends AbstractServlet {
             ColumnDao columnDao = new DatabaseColumnDao(connection);
             SlotDao slotDao = new DatabaseSlotDao(connection);
             String columnId = req.getParameter("columnid");
-            int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao,columnDao,slotDao);
             SlotService slotService = new SimpleSlotService(columnDao,slotDao);
             SlotsDto slotsDto = new SlotsDto(Integer.parseInt(columnId),slotService.getSlotsByColumnID(columnId));
+            String scheduleIdString = req.getParameter("scheduleid");
+            int scheduleId = scheduleService.decrypt(scheduleIdString);
             if(!scheduleService.isSchedulePublished(scheduleId)){
                 sendMessage(resp,HttpServletResponse.SC_FORBIDDEN,"Schedule isn't public.");
                 return;
