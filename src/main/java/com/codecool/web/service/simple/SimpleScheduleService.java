@@ -155,6 +155,12 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
+    public void unPublishSchedule(int id) throws SQLException {
+        logger.info("Unpublishing schedule with ID:{}",id);
+        scheduleDao.removeScheduleFromPublished(id);
+    }
+
+    @Override
     public boolean isSchedulePublished(int id) throws SQLException {
         logger.info("Checking if schedule with ID:{} is published",id);
         return scheduleDao.findPublished(id);

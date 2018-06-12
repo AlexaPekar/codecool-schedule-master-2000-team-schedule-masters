@@ -19,6 +19,7 @@ public interface ScheduleService {
     List<Integer> getScheduleIdsByTaskId(String taskId) throws SQLException, ServiceException;
     List<Schedule> getSchedulesByUserId(String userId) throws SQLException, ServiceException;
     Schedule publishSchedule(int id) throws SQLException;
+    void unPublishSchedule(int id) throws SQLException;
     boolean isSchedulePublished(int id) throws SQLException;
     String encrypt(Long id);
     Long decrypt(String encryptedId);
