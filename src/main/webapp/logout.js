@@ -2,7 +2,9 @@ function onLogoutResponse() {
     if (this.status === OK) {
         setUnauthorized();
         clearMessages();
-        showContents(['login-register-buttons'])
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut();
+        showContents(['login-register-buttons']);
     } else {
         onOtherResponse(logoutContentDivEl, this);
     }
