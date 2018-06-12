@@ -199,6 +199,26 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
     }
 
     @Override
+    public void removeScheduleFromPublished(int id) throws SQLException {
+        logger.info("Deleting a schedule from publishedschedules");
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        String sql = "DELETE FROM published_schedules WHERE schedule_id=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            executeInsert(statement);
+            connection.commit();
+            logger.info("sql query executed successfully");
+        } catch (SQLException ex) {
+            connection.rollback();
+            logger.error("sql had not executed", ex);
+            throw ex;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
+    @Override
     public boolean findPublished(int id) throws SQLException {
         logger.info("Checking if schedule with ID:{} is published",id);
         String sql = "SELECT * FROM published_schedules WHERE schedule_id = ?";

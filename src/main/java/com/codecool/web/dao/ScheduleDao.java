@@ -17,5 +17,6 @@ public interface ScheduleDao {
     int findScheduleIdByTaskId(int taskId) throws SQLException;
     List<Integer> findScheduleIdsByTaskId(int taskId) throws SQLException;
     Schedule insertScheduleToPublished(int id) throws SQLException;
+    void removeScheduleFromPublished(int id) throws SQLException;
     boolean findPublished(int id) throws SQLException;
 }
