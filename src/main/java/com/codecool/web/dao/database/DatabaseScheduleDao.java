@@ -159,7 +159,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         try (PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, taskId);
             try (ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()) {
+                while (resultSet.next()) {
                     logger.info("schedule ID found");
                     scheduleIds.add(resultSet.getInt("schedule_id"));
                 }
