@@ -9,6 +9,7 @@ function onLoadSchedules() {
     xhr.send();
 }
 function onSchedulesReceived(){
+
     showContents(['schedules-content','profile-content','schedules','menu', 'logout-content', 'create-schedule-button']);
     const text = this.responseText;
     const schedules = JSON.parse(text);
@@ -70,6 +71,23 @@ function createSchedulesTableBody(schedules) {
         xShareButtonEl.dataset.scheduleId = schedule.id;
         xShareButtonEl.id="share-button";
         xShareButtonEl.addEventListener("click",onScheduleShare);
+
+        const xPublishButtonEl = document.createElement('img');
+        if(schedule.published === false){
+            xPublishButtonEl.setAttribute("src", "/schedule-masters/icons/unpublished.png");
+        }
+        else{
+            xPublishButtonEl.setAttribute("src", "/schedule-masters/icons/published.png");
+        }
+        xPublishButtonEl.setAttribute("width", "30");
+        xPublishButtonEl.setAttribute("height", "30");
+        deleteTdEl.appendChild(xPublishButtonEl);
+
+        xPublishButtonEl.style.cursor = "pointer";
+        xPublishButtonEl.dataset.scheduleId = schedule.id;
+        xPublishButtonEl.dataset.published = schedule.published;
+        xPublishButtonEl.id="publish-button";
+        xPublishButtonEl.addEventListener("click",publishSchedule);
 
 
 
@@ -215,7 +233,7 @@ function onScheduleAddClicked(){
 
 function onScheduleShare() {
     const scheduleId = this.dataset.scheduleId;
-    publishSchedule(scheduleId);
+    //publishSchedule(scheduleId);
 
     const scheduleContentDiv = document.getElementById("schedules-content");
     const lightbox = document.getElementById("scheduleshare-lightbox");
@@ -243,7 +261,22 @@ function onScheduleShare() {
     lightbox.style.top = window.innerHeight/2 - 50 + 'px';
     lightbox.style.left = window.innerWidth/2 - 100 + 'px';
 }
-function publishSchedule(scheduleId) {
+function publishSchedule() {
+    const scheduleId = this.dataset.scheduleId;
+    const published = this.dataset.published;
+    const publishButtonEl = this;
+    if(published === "true"){
+        publishButtonEl.dataset.published = false;
+        publishButtonEl.setAttribute("src", "/schedule-masters/icons/unpublished.png");
+        publishButtonEl.setAttribute("width", "30");
+        publishButtonEl.setAttribute("height", "30");
+    }
+    else{
+        publishButtonEl.dataset.published = true;
+        publishButtonEl.setAttribute("src", "/schedule-masters/icons/published.png");
+        publishButtonEl.setAttribute("width", "30");
+        publishButtonEl.setAttribute("height", "30");
+    }
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/schedule-masters/protected/schedule/publish?scheduleid='+scheduleId);
     xhr.send();
