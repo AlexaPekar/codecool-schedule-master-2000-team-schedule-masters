@@ -48,7 +48,7 @@
         <div id="login-content">
             <h1>Login</h1>
             <form id="login-form" onsubmit="return false;">
-                <p>Name: <input type="text" name="name"></p>
+                <p>Username: <input type="text" name="name"></p>
                 <p>Password: <input type="password" name="password"></p>
                 <button id="login-button">Login</button>
             </form>
@@ -59,8 +59,9 @@
         <div id="register-content">
             <h1>Register</h1>
             <form id="register-form" onsubmit="return false;">
-                <p>Name: <input type="text" name="name"></p>
+                <p>Username: <input type="text" name="name"></p>
                 <p>Password: <input type="password" name="password"></p>
+                <p>Password again: <input type="password" name="password-again"></p>
                 <button id="register-button">Register</button>
             </form>
         </div>

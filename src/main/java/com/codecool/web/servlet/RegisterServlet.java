@@ -28,8 +28,9 @@ public class RegisterServlet extends AbstractServlet {
 
             String name = req.getParameter("name");
             String password = req.getParameter("password");
+            String passwordAgain = req.getParameter("passwordAgain");
 
-            User user = userService.addNewUser(name, password, "User");
+            User user = userService.addNewUser(name, password, passwordAgain, "User");
             req.getSession().setAttribute("user", user);
 
             sendMessage(resp, HttpServletResponse.SC_OK, user);
