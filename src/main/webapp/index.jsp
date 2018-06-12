@@ -95,7 +95,7 @@
 
     <div id="schedules-content" class="hidden content">
         <h1>Schedules</h1>
-        <button id="create-schedule-button" class="hidden content" onclick="onScheduleLightBoxLoad();">Create schedule
+        <button id="create-schedule-button" class="hidden content" onclick="onScheduleLightBoxLoad();" style="cursor: pointer;">Create schedule
         </button>
         <div id="schedules" class="hidden content" class="center-table">
 
@@ -105,7 +105,7 @@
                 <p>Schedule name:</p>
                 <input type="text" name="name">
                 <p>Number of columns:</p>
-                <select id="amountofcolumns">
+                <select id="amountofcolumns" style="cursor: pointer;">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -114,7 +114,7 @@
                     <option value="6">6</option>
                     <option value="7">7</option>
                 </select>
-                <button onclick="onScheduleAddClicked();">Add new Schedule</button>
+                <button onclick="onScheduleAddClicked();" style="cursor: pointer;">Add new Schedule</button>
             </form>
         </div>
         <div id="scheduleupdate-lightbox" class="lightbox">
@@ -122,7 +122,7 @@
                 <p>Schedule name:</p>
                 <input type="text" name="name" id="schedule-name">
                 <br>
-                <img id="savebutton" src="icons/save-button.png" onclick="onScheduleSaveClicked()">
+                <img id="savebutton" src="icons/save-button.png" onclick="onScheduleSaveClicked()" style="cursor: pointer;">
             </form>
         </div>
         <div id="scheduleshare-lightbox" class="lightbox">
@@ -138,7 +138,7 @@
 
     <div id="tasks-content" class="hidden content">
         <h1>Tasks</h1>
-        <button id="create-task-button" class="hidden content" onclick="onTaskLightBoxLoad();">Create task</button>
+        <button id="create-task-button" class="hidden content" onclick="onTaskLightBoxLoad();" style="cursor: pointer;">Create task</button>
         <div id="tasks" class="hidden content" class="center-table">
 
         </div>
@@ -149,7 +149,7 @@
                 <input type="text" name="name">
                 <p>Task content:</p>
                 <textarea name="content"></textarea>
-                <button onclick="onTaskAddClicked();">Add new Task</button>
+                <button onclick="onTaskAddClicked();" style="cursor: pointer;">Add new Task</button>
             </form>
         </div>
     </div>
@@ -174,17 +174,17 @@
         <div id="user" class="hidden content" class="center-table">
 
         </div>
-        <button id="user-schedules-button">Schedule</button>
-        <button id="user-tasks-button">Tasks</button>
+        <button id="user-schedules-button" style="cursor: pointer;">Schedule</button>
+        <button id="user-tasks-button" style="cursor: pointer;">Tasks</button>
         <br>
-        <button id="users-goback-button">Go back</button>
+        <button id="users-goback-button" style="cursor: pointer;">Go back</button>
     </div>
 
     <div id="slot-lightbox" class="lightbox">
         <form id="slot-form" onsubmit="return false;">
 
         </form>
-        <img id="slotsavebutton" src="icons/save-button.png" onclick="onSlotSaveClicked()">
+        <img id="slotsavebutton" src="icons/save-button.png" onclick="onSlotSaveClicked()" style="cursor: pointer;">
     </div>
 
     <div id="guest-schedule" >

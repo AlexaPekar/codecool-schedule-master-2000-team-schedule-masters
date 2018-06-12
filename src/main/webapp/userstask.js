@@ -60,8 +60,10 @@ function onUserTaskLoad() {
     removeAllChildren(taskEl);
 
     const openTasksButtonEl = document.getElementById('open-tasks-button');
+    openTasksButtonEl.style.cursor = "pointer";
 
     const openScheduleButtonEl = document.getElementById('open-schedule-button');
+    openScheduleButtonEl.style.cursor = "pointer";
 
     openScheduleButtonEl.dataset.taskId = task.id;
 
@@ -125,6 +127,7 @@ function onUserTasksButtonRecieved() {
     removeAllChildren(tasksEl);
 
     const gobackButtonEl = document.createElement('button');
+    gobackButtonEl.style.cursor = "pointer";
     gobackButtonEl.textContent = "Go back";
     gobackButtonEl.addEventListener('click', onGobackFromTasksButtonClick);
 
