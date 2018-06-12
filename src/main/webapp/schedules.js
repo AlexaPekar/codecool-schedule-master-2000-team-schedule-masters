@@ -1,4 +1,5 @@
 let currentSchedule;
+let encryptedScheduleId;
 
 function onLoadSchedules() {
     const schedulesDivEl = document.getElementById('schedules');
@@ -18,6 +19,7 @@ function onSchedulesReceived(){
     tableEl.appendChild(createSchedulesTableBody(schedules));
 
     const scEl = document.getElementById('schedules');
+    removeAllChildren(scEl);
     scEl.appendChild(tableEl);
 }
 
@@ -239,7 +241,8 @@ function onScheduleShare() {
     const lightbox = document.getElementById("scheduleshare-lightbox");
     removeAllChildren(lightbox);
     const pEl = document.createElement('p');
-    pEl.textContent = "http://localhost:8080/schedule-masters/guest?scheduleid=" + scheduleId;
+    pEl.id="encrypted-link";
+    encryptId(scheduleId);
     lightbox.appendChild(pEl);
     const dimmer = document.createElement("div");
     dimmer.id = "dimmer";
@@ -260,6 +263,19 @@ function onScheduleShare() {
     lightbox.style.height = "70px";
     lightbox.style.top = window.innerHeight/2 - 50 + 'px';
     lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+}
+function encryptId(scheduleId) {
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load',onEncryptionReceived)
+    xhr.open('GET', '/schedule-masters/protected/encrypt?scheduleid='+scheduleId);
+    xhr.send();
+}
+function onEncryptionReceived() {
+    const text = this.responseText;
+    encryptedScheduleId = JSON.parse(text).message;
+    const pEl = document.getElementById("encrypted-link");
+    pEl.textContent = "http://localhost:8080/schedule-masters/guest?scheduleid=" + encryptedScheduleId;
+
 }
 function publishSchedule() {
     const scheduleId = this.dataset.scheduleId;
