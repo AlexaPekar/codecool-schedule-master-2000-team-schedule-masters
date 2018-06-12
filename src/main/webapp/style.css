@@ -74,7 +74,7 @@ body {
     text-align: center;
 }
 
-table {
+.datatable {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: 12px;
     border-collapse: collapse;
@@ -82,17 +82,17 @@ table {
     margin-left: auto;
 }
 
-td, th {
+.datatable td, th {
     border: 2px solid #6b6b6b;
     padding: 8px;
     height: 30px;
     width: 300px;
 }
 
-tr:nth-child(even){background-color: #f2f2f2;}
-tr:hover {background-color: #ddd;}
+.datatable tr:nth-child(even){background-color: #f2f2f2;}
+.datatable tr:hover {background-color: #ddd;}
 
-th {
+.datatable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;

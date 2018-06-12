@@ -24,6 +24,8 @@ function onColumnsReceivedForGuest(){
     const columns = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createColumnsTableBodyForGuest(columns));
 
     const scEl = document.getElementById('guest-schedule');
@@ -76,6 +78,8 @@ function onGuestSlotsReceived() {
     const slotsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createSlotsTableBodyForGuest(slotsDto.slots));
 
     const slEl = document.getElementById('columnGuest' + slotsDto.index);

@@ -15,6 +15,7 @@ function onUsersRecieved() {
     const users = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
 
     const usersEl = document.getElementById('users');
     removeAllChildren(usersEl);
@@ -91,6 +92,8 @@ function onUserLoad(){
 
 function createUserTable(user) {
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
 

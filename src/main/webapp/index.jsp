@@ -21,7 +21,8 @@
     <script src="google.js"></script>
     <script src="usersschedule.js"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="519766095912-ek3067b5drk7207plttlj6s9s4g2ivlr.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="519766095912-ek3067b5drk7207plttlj6s9s4g2ivlr.apps.googleusercontent.com">
     <link rel="shortcut icon" type="image/png" href="calendar.png"/>
 
 
@@ -78,17 +79,23 @@
 
     <div id="menu" class="hidden content">
         <nav class="menu">
-            <ul>
-                <li>
-                    <p id="schedules-button">Schedules</p>
-                </li>
-                <li>
-                    <p id="tasks-button">Tasks</p>
-                </li>
-                <li>
-                    <p id="users-button">Users</p>
-                </li>
-            </ul>
+            <table class="menubar">
+                <tr>
+                    <td>
+                        <ul>
+                            <li>
+                                <p id="schedules-button">Schedules</p>
+                            </li>
+                            <li>
+                                <p id="tasks-button">Tasks</p>
+                            </li>
+                            <li>
+                                <p id="users-button">Users</p>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
             <br>
         </nav>
     </div>
@@ -99,7 +106,8 @@
 
     <div id="schedules-content" class="hidden content">
         <h1>Schedules</h1>
-        <button id="create-schedule-button" class="hidden content" onclick="onScheduleLightBoxLoad();" style="cursor: pointer;">Create schedule
+        <button id="create-schedule-button" class="hidden content" onclick="onScheduleLightBoxLoad();"
+                style="cursor: pointer;">Create schedule
         </button>
         <div id="schedules" class="hidden content" class="center-table">
 
@@ -126,7 +134,8 @@
                 <p>Schedule name:</p>
                 <input type="text" name="name" id="schedule-name">
                 <br>
-                <img id="savebutton" src="icons/save-button.png" onclick="onScheduleSaveClicked()" style="cursor: pointer;">
+                <img id="savebutton" src="icons/save-button.png" onclick="onScheduleSaveClicked()"
+                     style="cursor: pointer;">
             </form>
         </div>
         <div id="scheduleshare-lightbox" class="lightbox">
@@ -142,7 +151,9 @@
 
     <div id="tasks-content" class="hidden content">
         <h1>Tasks</h1>
-        <button id="create-task-button" class="hidden content" onclick="onTaskLightBoxLoad();" style="cursor: pointer;">Create task</button>
+        <button id="create-task-button" class="hidden content" onclick="onTaskLightBoxLoad();" style="cursor: pointer;">
+            Create task
+        </button>
         <div id="tasks" class="hidden content" class="center-table">
 
         </div>
@@ -162,8 +173,8 @@
         <div id="task" class="hidden content" class="center-table">
 
         </div>
-        <button id="open-tasks-button" class="hidden content">Go to tasks</button>
-        <button id="open-schedule-button" class="hidden content">Go to schedule</button>
+        <button id="open-tasks-button" class="hidden content" style="cursor: pointer;">Go to tasks</button>
+        <button id="open-schedule-button" class="hidden content" style="cursor: pointer;">Go to schedule</button>
     </div>
 
     <div id="users-content" class="hidden content">
@@ -191,7 +202,7 @@
         <img id="slotsavebutton" src="icons/save-button.png" onclick="onSlotSaveClicked()" style="cursor: pointer;">
     </div>
 
-    <div id="guest-schedule" >
+    <div id="guest-schedule">
 
     </div>
 </div>

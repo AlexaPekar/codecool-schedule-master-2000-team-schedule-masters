@@ -55,6 +55,8 @@ function onUserSlotsReceived() {
     const slotsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createUserSlotsTableBody(slotsDto.slots));
 
     const slEl = document.getElementById('column' + slotsDto.index);
@@ -113,6 +115,8 @@ function onUserColumnsReceived() {
     const columns = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createUserColumnsTableBody(columns));
 
     const scEl = document.getElementById('schedule');
@@ -186,6 +190,8 @@ function onUserScheduleButtonRecieved(){
     const schedules = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createUserSchedulesTableBody(schedules));
 
     const gobackButtonEl = document.createElement('button');

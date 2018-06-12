@@ -17,8 +17,10 @@ function onTasksRecieved() {
     const tasks = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
 
     const tasksEl = document.getElementById('tasks');
+
     removeAllChildren(tasksEl);
 
     tableEl.appendChild(createTasksTableBody(tasks));
@@ -171,6 +173,7 @@ function taskKeyPressed(k) {
 
 function createTaskTable(task) {
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
 

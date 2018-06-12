@@ -13,6 +13,8 @@ function onSlotsReceived() {
     const slotsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createSlotsTableBody(slotsDto.slots));
 
     const slEl = document.getElementById('column' + slotsDto.index);

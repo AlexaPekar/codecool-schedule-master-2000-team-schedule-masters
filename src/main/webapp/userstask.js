@@ -1,5 +1,7 @@
 function createUserTaskTable(task) {
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     const tableHeadEl = document.createElement('thead');
     const tableBodyEl = document.createElement('tbody');
 
@@ -138,6 +140,8 @@ function onUserTasksButtonRecieved() {
     tableEl.appendChild(createUserTasksTableBody(tasks));
 
     tasksEl.appendChild(tableEl);
+    tableEl.setAttribute('class', 'datatable');
+
     tasksEl.appendChild(gobackButtonEl)
 }
 

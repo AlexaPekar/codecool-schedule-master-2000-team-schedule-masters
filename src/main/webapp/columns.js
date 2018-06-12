@@ -13,6 +13,8 @@ function onColumnsReceived() {
     const columns = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createColumnsTableBody(columns));
 
     const scEl = document.getElementById('schedule');

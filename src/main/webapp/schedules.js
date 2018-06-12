@@ -16,6 +16,8 @@ function onSchedulesReceived(){
     const schedules = JSON.parse(text);
 
     const tableEl = document.createElement('table');
+    tableEl.setAttribute('class', 'datatable');
+
     tableEl.appendChild(createSchedulesTableBody(schedules));
 
     const scEl = document.getElementById('schedules');
@@ -90,10 +92,6 @@ function createSchedulesTableBody(schedules) {
         xPublishButtonEl.dataset.published = schedule.published;
         xPublishButtonEl.id="publish-button";
         xPublishButtonEl.addEventListener("click",publishSchedule);
-
-
-
-
 
         // creating row
         const trEl = document.createElement('tr');
