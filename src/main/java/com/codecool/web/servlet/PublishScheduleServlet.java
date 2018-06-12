@@ -19,6 +19,7 @@ import java.sql.SQLException;
 
 @WebServlet("/protected/schedule/publish")
 public class PublishScheduleServlet extends AbstractServlet{
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try (Connection connection = getConnection(req.getServletContext())) {
             ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
@@ -28,12 +29,31 @@ public class PublishScheduleServlet extends AbstractServlet{
             int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
             if(scheduleService.isSchedulePublished(scheduleId)){
                 scheduleService.unPublishSchedule(scheduleId);
+                sendMessage(resp,HttpServletResponse.SC_OK,"Schedule unpublished");
             }
             else {
                 scheduleService.publishSchedule(scheduleId);
+                sendMessage(resp,HttpServletResponse.SC_OK,"Schedule published");
+
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            sendMessage(resp,HttpServletResponse.SC_NOT_FOUND,e.getMessage());
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try (Connection connection = getConnection(req.getServletContext())) {
+            ScheduleDao scheduleDao = new DatabaseScheduleDao(connection);
+            ColumnDao columnDao = new DatabaseColumnDao(connection);
+            SlotDao slotDao = new DatabaseSlotDao(connection);
+            ScheduleService scheduleService = new SimpleScheduleService(scheduleDao, columnDao, slotDao);
+            int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
+
+            sendMessage(resp,HttpServletResponse.SC_OK,scheduleService.isSchedulePublished(scheduleId));
+
+        } catch (SQLException e) {
+            sendMessage(resp,HttpServletResponse.SC_NOT_FOUND,e.getMessage());
         }
     }
 }
