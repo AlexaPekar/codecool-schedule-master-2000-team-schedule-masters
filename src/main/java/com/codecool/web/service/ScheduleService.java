@@ -15,6 +15,7 @@ public interface ScheduleService {
     void removeSchedule(int id) throws SQLException, ServiceException;
     int getColumnNumber(int id) throws SQLException;
     int getScheduleIdByTaskId(String taskId) throws SQLException, ServiceException;
+    List<Integer> getScheduleIdsByTaskId(String taskId) throws SQLException, ServiceException;
     List<Schedule> getSchedulesByUserId(String userId) throws SQLException, ServiceException;
     Schedule publishSchedule(int id) throws SQLException;
     boolean isSchedulePublished(int id) throws SQLException;
