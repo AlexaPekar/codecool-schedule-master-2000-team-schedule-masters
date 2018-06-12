@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ScheduleService {
     Schedule getById(int id) throws SQLException, ServiceException;
-    List<Schedule>
+    List<Schedule> getSchedulesByIds(List<Integer> scheduleIds) throws SQLException, ServiceException;
     Schedule addSchedule(int userId,String name,int amountOfColumns) throws EmptyFieldException, ServiceException, SQLException;
     void editName(int id,String name) throws SQLException, ServiceException, EmptyFieldException;
     List<Schedule> getSchedulesByUserId(int userId) throws SQLException;

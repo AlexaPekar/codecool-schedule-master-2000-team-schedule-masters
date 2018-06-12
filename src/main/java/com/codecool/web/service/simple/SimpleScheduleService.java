@@ -13,6 +13,7 @@ import com.codecool.web.model.Schedule;
 import com.codecool.web.service.ScheduleService;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleScheduleService implements ScheduleService {
@@ -37,6 +38,15 @@ public class SimpleScheduleService implements ScheduleService {
         }
         logger.info("Schedule returned by ID");
         return scheduleDao.findById(id);
+    }
+
+    @Override
+    public List<Schedule> getSchedulesByIds(List<Integer> scheduleIds) throws SQLException, ServiceException {
+        List<Schedule> schedules = new ArrayList<>();
+        for (int scheduleId : scheduleIds) {
+            schedules.add(getById(scheduleId));
+        }
+        return schedules;
     }
 
     @Override
@@ -116,6 +126,19 @@ public class SimpleScheduleService implements ScheduleService {
     public int getScheduleIdByTaskId(String taskId) throws SQLException, ServiceException {
         try {
             return scheduleDao.findScheduleIdByTaskId(Integer.parseInt(taskId));
+        } catch (NumberFormatException e) {
+            logger.error("Parameter to 'updateContent' method must be int");
+            throw new ServiceException("Must be a number");
+        } catch (IllegalArgumentException e) {
+            logger.error("Parameter to 'updateContent' method must be int");
+            throw new ServiceException("Illegal argument, must be number");
+        }
+    }
+
+    @Override
+    public List<Integer> getScheduleIdsByTaskId(String taskId) throws SQLException, ServiceException {
+        try {
+            return scheduleDao.findScheduleIdsByTaskId(Integer.parseInt(taskId));
         } catch (NumberFormatException e) {
             logger.error("Parameter to 'updateContent' method must be int");
             throw new ServiceException("Must be a number");

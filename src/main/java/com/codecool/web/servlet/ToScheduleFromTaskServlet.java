@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/protected/toScheduleFromTask")
 public class ToScheduleFromTaskServlet extends AbstractServlet {
@@ -33,11 +34,11 @@ public class ToScheduleFromTaskServlet extends AbstractServlet {
 
             String taskId = req.getParameter("taskId");
 
-            int scheduleId = scheduleService.getScheduleIdByTaskId(taskId);
+            List<Integer> scheduleIds = scheduleService.getScheduleIdsByTaskId(taskId);
 
-            Schedule schedule = scheduleService.getById(scheduleId);
+            List<Schedule> schedules = scheduleService.getSchedulesByIds((scheduleIds));
 
-            sendMessage(resp, HttpServletResponse.SC_OK, schedule);
+            sendMessage(resp, HttpServletResponse.SC_OK, schedules);
 
         } catch (SQLException e) {
             handleSqlError(resp, e);
