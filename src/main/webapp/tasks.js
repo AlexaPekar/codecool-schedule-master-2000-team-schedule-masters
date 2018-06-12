@@ -91,7 +91,7 @@ function onTaskClick() {
 function onToScheduleFromTaskLoad() {
     const text = this.responseText;
     if (text !== '{"message":"No schedules with this id"}') {
-        const schedule = JSON.parse(text);
+        const schedules = JSON.parse(text);
         console.log(this.responseText);
         const scheduleId = schedule.id;
 
@@ -111,12 +111,12 @@ function onToScheduleFromTaskLoad() {
 
 //Task page
 function onOpenScheduleButtonClick() {
-
+    const schedulesDivEl = document.getElementById('schedules');
+    removeAllChildren(schedulesDivEl);
     const taskId = this.dataset.taskId;
-
     const link = "/schedule-masters/protected/toScheduleFromTask?taskId=" + taskId;
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onToScheduleFromTaskLoad);
+    xhr.addEventListener('load', onSchedulesReceived);
     xhr.open('GET', link);
     xhr.send();
 }
@@ -134,9 +134,7 @@ function onTaskLoad() {
 
     const openTasksButtonEl = document.getElementById('open-tasks-button');
 
-    //if (onToScheduleFromTaskLoad()) {
     const openScheduleButtonEl = document.getElementById('open-schedule-button');
-    //}
 
     openScheduleButtonEl.dataset.taskId = task.id;
 

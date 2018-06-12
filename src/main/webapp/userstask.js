@@ -37,23 +37,38 @@ function createUserTaskTable(task) {
     return tableEl;
 }
 
+function onOpenUserScheduleButtonClick() {
+    const schedulesDivEl = document.getElementById('schedules');
+    removeAllChildren(schedulesDivEl);
+    const taskId = this.dataset.taskId;
+    const link = "/schedule-masters/protected/toScheduleFromTask?taskId=" + taskId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onUserScheduleButtonRecieved);
+    xhr.open('GET', link);
+    xhr.send();
+}
+
 function onGobackFromTaskButtonClick() {
     showContents(['tasks-content', 'tasks', 'profile-content', 'menu', 'logout-content']);
 }
 
 function onUserTaskLoad() {
-    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content']);
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'open-tasks-button', 'open-schedule-button']);
     const text = this.responseText;
     const task = JSON.parse(text);
     const taskEl = document.getElementById('task');
     removeAllChildren(taskEl);
 
-    const gobackButtonEl = document.createElement('button');
-    gobackButtonEl.textContent = "Go back"
-    gobackButtonEl.addEventListener('click', onGobackFromTaskButtonClick);
+    const openTasksButtonEl = document.getElementById('open-tasks-button');
+
+    const openScheduleButtonEl = document.getElementById('open-schedule-button');
+
+    openScheduleButtonEl.dataset.taskId = task.id;
+
+    openTasksButtonEl.addEventListener('click', onGobackFromTaskButtonClick);
+    openScheduleButtonEl.addEventListener('click', onOpenUserScheduleButtonClick);
 
     taskEl.appendChild(createUserTaskTable(task));
-    taskEl.appendChild(gobackButtonEl);
 }
 
 function onUserTaskClick() {
@@ -110,7 +125,7 @@ function onUserTasksButtonRecieved() {
     removeAllChildren(tasksEl);
 
     const gobackButtonEl = document.createElement('button');
-    gobackButtonEl.textContent = "Go back"
+    gobackButtonEl.textContent = "Go back";
     gobackButtonEl.addEventListener('click', onGobackFromTasksButtonClick);
 
     tableEl.appendChild(createUserTasksTableBody(tasks));
