@@ -189,10 +189,12 @@ function onUserScheduleButtonRecieved(){
     tableEl.appendChild(createUserSchedulesTableBody(schedules));
 
     const gobackButtonEl = document.createElement('button');
+    gobackButtonEl.style.cursor = "pointer";
     gobackButtonEl.textContent = "Go back"
     gobackButtonEl.addEventListener('click', onGobackFromScheduleButtonClick);
 
     const scEl = document.getElementById('schedules');
+    removeAllChildren(scEl);
     scEl.appendChild(tableEl);
     scEl.appendChild(gobackButtonEl);
 }

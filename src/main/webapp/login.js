@@ -20,7 +20,7 @@ function onLoadMenu() {
 
     const tasksButtonEl = document.getElementById('tasks-button');
     tasksButtonEl.style.cursor = "pointer";
-    tasksButtonEl.addEventListener('click', onLoadTasks)
+    tasksButtonEl.addEventListener('click', onLoadTasks);
 
     const usersButtonEl = document.getElementById('users-button');
     usersButtonEl.style.cursor = "pointer";
@@ -29,7 +29,8 @@ function onLoadMenu() {
     if (activeUser.role !== "Admin") {
         usersButtonEl.style.display = "none";
     } else {
-        usersButtonEl.removeAttribute("display");
+        usersButtonEl.removeAttribute("style");
+        usersButtonEl.style.cursor = "pointer";
     }
 }
 
