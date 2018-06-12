@@ -18,7 +18,10 @@
     <script src="register.js"></script>
     <script src="guest.js"></script>
     <script src="userstask.js"></script>
+    <script src="google.js"></script>
     <script src="usersschedule.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="519766095912-ek3067b5drk7207plttlj6s9s4g2ivlr.apps.googleusercontent.com">
     <link rel="shortcut icon" type="image/png" href="calendar.png"/>
 
 
@@ -52,6 +55,7 @@
                 <p>Password: <input type="password" name="password"></p>
                 <button id="login-button">Login</button>
             </form>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </div>
 
