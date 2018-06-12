@@ -22,5 +22,5 @@ public interface ScheduleService {
     void unPublishSchedule(int id) throws SQLException;
     boolean isSchedulePublished(int id) throws SQLException;
     String encrypt(Long id);
-    Long decrypt(String encryptedId);
+    int decrypt(String encryptedId);
 }

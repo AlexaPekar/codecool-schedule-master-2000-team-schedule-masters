@@ -174,7 +174,8 @@ public class SimpleScheduleService implements ScheduleService {
     }
 
     @Override
-    public Long decrypt(String s) {
-        return (Long.valueOf(s, 36) * 1553655019L) % 2176782336L;
+    public int decrypt(String s) {
+        int id =Math.toIntExact((Long.valueOf(s, 36) * 1553655019L) % 2176782336L);
+        return id;
     }
 }
