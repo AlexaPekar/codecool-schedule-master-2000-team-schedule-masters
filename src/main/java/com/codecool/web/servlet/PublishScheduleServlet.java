@@ -27,9 +27,11 @@ public class PublishScheduleServlet extends AbstractServlet{
             ScheduleService scheduleService = new SimpleScheduleService(scheduleDao, columnDao, slotDao);
             int scheduleId = Integer.parseInt(req.getParameter("scheduleid"));
             if(scheduleService.isSchedulePublished(scheduleId)){
-                return;
+                scheduleService.unPublishSchedule(scheduleId);
             }
-            scheduleService.publishSchedule(scheduleId);
+            else {
+                scheduleService.publishSchedule(scheduleId);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
