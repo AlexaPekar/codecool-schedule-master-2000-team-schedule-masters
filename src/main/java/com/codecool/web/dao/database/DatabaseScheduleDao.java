@@ -51,7 +51,7 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
             int id = fetchGeneratedId(statement);
             connection.commit();
             logger.info("sql query executed successfully");
-            return new Schedule(id,name);
+            return new Schedule(id,name,getSchedulePublished(id));
         } catch (SQLException ex) {
             connection.rollback();
             logger.error("sql had not executed", ex);
@@ -123,6 +123,20 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         }
     }
 
+    private boolean getSchedulePublished(int scheduleId) throws SQLException {
+        //List<Schedule> schedules = new ArrayList<>();
+        String sql = "SELECT schedule_id from published_schedules where schedule_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setInt(1,scheduleId);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public int getColumnNumber(int id) throws SQLException {
         logger.info("getting number of columns in the schedule");
@@ -173,8 +187,9 @@ public final class DatabaseScheduleDao extends AbstractDao implements ScheduleDa
         logger.info("fetching schedule");
         int id = resultset.getInt("id");
         String name = resultset.getString("name");
+        boolean isPublished = getSchedulePublished(id);
         logger.info("schedule fetched successfully");
-        return new Schedule(id,name);
+        return new Schedule(id,name,isPublished);
     }
 
     @Override
