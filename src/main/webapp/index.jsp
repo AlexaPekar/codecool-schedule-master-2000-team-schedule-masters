@@ -92,6 +92,11 @@
                             <li>
                                 <p id="users-button">Users</p>
                             </li>
+                            <li>
+                                <div id="logout-content" class="hidden content">
+                                    <p id="logout-button">Logout</p>
+                                </div>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -100,9 +105,7 @@
         </nav>
     </div>
 
-    <div id="logout-content" class="hidden content">
-        <button id="logout-button">Logout</button>
-    </div>
+
 
     <div id="schedules-content" class="hidden content">
         <h1>Schedules</h1>
