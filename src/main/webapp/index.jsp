@@ -40,6 +40,10 @@
         </nav>
     </div>
 
+
+    <p onclick="javascript:location.href='/schedule-masters'" id="home-button" class="hidden content">Home</p>
+
+
     <div id="login-lightbox" class="lightbox">
         <div id="login-content">
             <h1>Login</h1>
@@ -119,6 +123,8 @@
                 <br>
                 <img id="savebutton" src="icons/save-button.png" onclick="onScheduleSaveClicked()">
             </form>
+        </div>
+        <div id="scheduleshare-lightbox" class="lightbox">
         </div>
     </div>
 

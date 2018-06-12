@@ -38,10 +38,9 @@ public class GuestColumnServlet extends AbstractServlet {
             SlotService slotService = new SimpleSlotService(columnDao,slotDao);
             SlotsDto slotsDto = new SlotsDto(Integer.parseInt(columnId),slotService.getSlotsByColumnID(columnId));
             if(!scheduleService.isSchedulePublished(scheduleId)){
-                sendMessage(resp,HttpServletResponse.SC_OK,slotsDto);
+                sendMessage(resp,HttpServletResponse.SC_FORBIDDEN,"Schedule isn't public.");
                 return;
             }
-           // ColumnService columnService = new SimpleColumnService(columnDao,scheduleDao);
             sendMessage(resp,HttpServletResponse.SC_OK,slotsDto);
 
 

@@ -5,7 +5,10 @@ function onGuestPageLoad(){
     const url = new URL(url_string);
     const id = url.searchParams.get("scheduleid");
     guestSelectedScheduleId = id;
-    getColumnsForGuest();
+    if (id !== null) {
+        showContents(['home-button']);
+        getColumnsForGuest();
+    }
 }
 
 function getColumnsForGuest(){
@@ -73,10 +76,61 @@ function onGuestSlotsReceived() {
     const slotsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
-    tableEl.appendChild(createSlotsTableBody(slotsDto.slots));
+    tableEl.appendChild(createSlotsTableBodyForGuest(slotsDto.slots));
 
     const slEl = document.getElementById('columnGuest' + slotsDto.index);
     slEl.appendChild(tableEl);
+}
+
+function createSlotsTableBodyForGuest(slots) {
+    const tbodyEl = document.createElement('tbody');
+
+    for (let i=0;i < slots.length; i++) {
+        const trEl = document.createElement('tr');
+        const slot = slots[i];
+
+        const slotTimeRangeTdEl = document.createElement('td');
+        slotTimeRangeTdEl.textContent = slot.timeRange;
+
+        trEl.appendChild(slotTimeRangeTdEl);
+
+        const slotContentTdEl = document.createElement('td');
+        const divEl = document.createElement('div');
+        divEl.id = 'slotGuest'+slot.id;
+        slotContentTdEl.id = "slotcontent";
+
+        getGuestSlotsTask(slot.id);
+
+        slotContentTdEl.appendChild(divEl);
+
+        trEl.appendChild(slotContentTdEl);
+        tbodyEl.appendChild(trEl);
+    }
+    return tbodyEl;
+}
+
+function getGuestSlotsTask(slotId) {
+    const link = "/schedule-masters/slot/task?slotid=" + slotId  + "&scheduleid=" + guestSelectedScheduleId;
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onGuestSlotsTaskReceived);
+    xhr.open('GET', link);
+    xhr.send();
+}
+
+function onGuestSlotsTaskReceived() {
+    const text = this.responseText;
+    if (this.status !== 404) {
+        const taskDto = JSON.parse(text);
+
+        const taskEl = document.getElementById('slotGuest' + taskDto.slotId);
+
+        const namePEl = document.createElement('p');
+        namePEl.textContent = taskDto.task.name;
+        namePEl.dataset.taskId = taskDto.task.id;
+        namePEl.style.cursor = "pointer";
+
+        taskEl.appendChild(namePEl);
+    }
 }
 
 addEventListener('DOMContentLoaded',onGuestPageLoad);
