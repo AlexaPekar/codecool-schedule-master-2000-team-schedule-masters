@@ -53,22 +53,28 @@ function onGobackFromTaskButtonClick() {
 }
 
 function onUserTaskLoad() {
-    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content', 'open-tasks-button', 'open-schedule-button']);
+    showContents(['task-content', 'task', 'profile-content', 'menu', 'logout-content']);
     const text = this.responseText;
     const task = JSON.parse(text);
     const taskEl = document.getElementById('task');
     removeAllChildren(taskEl);
 
-    const openTasksButtonEl = document.getElementById('open-tasks-button');
+    const openUserTasksButtonEl = document.createElement('button');
+    openUserTasksButtonEl.textContent = "Go to tasks";
+    openUserTasksButtonEl.style.cursor = "pointer";
 
-    const openScheduleButtonEl = document.getElementById('open-schedule-button');
+    const openUserScheduleButtonEl = document.createElement('button');
+    openUserScheduleButtonEl.textContent = "Go to schedule";
+    openUserScheduleButtonEl.style.cursor = "pointer";
 
-    openScheduleButtonEl.dataset.taskId = task.id;
+    openUserScheduleButtonEl.dataset.taskId = task.id;
 
-    openTasksButtonEl.addEventListener('click', onGobackFromTaskButtonClick);
-    openScheduleButtonEl.addEventListener('click', onOpenUserScheduleButtonClick);
+    openUserTasksButtonEl.addEventListener('click', onGobackFromTaskButtonClick);
+    openUserScheduleButtonEl.addEventListener('click', onOpenUserScheduleButtonClick);
 
     taskEl.appendChild(createUserTaskTable(task));
+    taskEl.appendChild(openUserTasksButtonEl);
+    taskEl.appendChild(openUserScheduleButtonEl);
 }
 
 function onUserTaskClick() {
@@ -125,6 +131,7 @@ function onUserTasksButtonRecieved() {
     removeAllChildren(tasksEl);
 
     const gobackButtonEl = document.createElement('button');
+    gobackButtonEl.style.cursor = "pointer";
     gobackButtonEl.textContent = "Go back";
     gobackButtonEl.addEventListener('click', onGobackFromTasksButtonClick);
 

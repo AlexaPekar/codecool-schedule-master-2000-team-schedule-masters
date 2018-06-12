@@ -109,13 +109,22 @@ function onLoad() {
     userContentDivEl = document.getElementById('user-content');
     registerContentDivEl = document.getElementById('register-content');
 
+    const loginLightboxButtonEl = document.getElementById('login-lightbox-button');
+    loginLightboxButtonEl.style.cursor = "pointer";
+
+    const registerLightboxButtonEl = document.getElementById('register-lightbox-button');
+    registerLightboxButtonEl.style.cursor = "pointer";
+
     const loginButtonEl = document.getElementById('login-button');
+    loginButtonEl.style.cursor = "pointer";
     loginButtonEl.addEventListener('click', onLoginButtonClicked);
 
     const registerButtonEl = document.getElementById('register-button');
+    registerButtonEl.style.cursor = "pointer";
     registerButtonEl.addEventListener('click', onRegisterButtonClicked);
 
     const logoutButtonEl = document.getElementById('logout-button');
+    logoutButtonEl.style.cursor = "pointer";
     logoutButtonEl.addEventListener('click', onLogoutButtonClicked);
 
     schedulesContentDivEl = document.getElementById('schedules-content');

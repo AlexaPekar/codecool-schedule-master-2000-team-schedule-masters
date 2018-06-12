@@ -15,18 +15,22 @@ function onLoginResponse() {
 function onLoadMenu() {
     menuDivEl = document.getElementById('menu');
     const schedulesButtonEl = document.getElementById('schedules-button');
+    schedulesButtonEl.style.cursor = "pointer";
     schedulesButtonEl.addEventListener('click', onLoadSchedules);
 
     const tasksButtonEl = document.getElementById('tasks-button');
-    tasksButtonEl.addEventListener('click', onLoadTasks)
+    tasksButtonEl.style.cursor = "pointer";
+    tasksButtonEl.addEventListener('click', onLoadTasks);
 
     const usersButtonEl = document.getElementById('users-button');
+    usersButtonEl.style.cursor = "pointer";
     usersButtonEl.addEventListener('click', onLoadUsers);
 
     if (activeUser.role !== "Admin") {
         usersButtonEl.style.display = "none";
     } else {
-        usersButtonEl.removeAttribute("display");
+        usersButtonEl.removeAttribute("style");
+        usersButtonEl.style.cursor = "pointer";
     }
 }
 
