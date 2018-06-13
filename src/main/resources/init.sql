@@ -1,16 +1,23 @@
+ROLLBACK;
+
 DROP TABLE IF EXISTS published_schedules;
 DROP TABLE IF EXISTS tasks_schedules;
+DROP FUNCTION IF EXISTS check_task_in_schedule_by_schedule_id;
+DROP FUNCTION IF EXISTS check_tasks_schedules;
 DROP TABLE IF EXISTS tasks_slots;
+DROP FUNCTION IF EXISTS check_slot_neighbours;
+DROP FUNCTION IF EXISTS check_slot_in_column;
+DROP FUNCTION IF EXISTS check_task_in_schedule_by_slot_id;
+DROP FUNCTION IF EXISTS check_tasks_slots;
 DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS slots;
 DROP TABLE IF EXISTS "columns";
 DROP TABLE IF EXISTS schedules;
 DROP TABLE IF EXISTS users;
-DROP TYPE IF EXISTS roles;
 
 CREATE TABLE users (
 id SERIAL PRIMARY KEY,
-name TEXT NOT NULL,
+name TEXT NOT NULL UNIQUE,
 password TEXT NOT NULL,
 role TEXT NOT NULL
 );
@@ -50,13 +57,146 @@ FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
 FOREIGN KEY (slot_id) REFERENCES slots(id) ON DELETE CASCADE
 );
 
+CREATE FUNCTION check_task_in_schedule_by_slot_id(tid INTEGER, sid INTEGER) RETURNS BOOLEAN AS
+'
+	DECLARE
+		result BOOLEAN;
+	BEGIN
+		IF EXISTS (SELECT task_id FROM tasks_schedules WHERE task_id = tid) THEN
+			IF (SELECT schedule_id FROM tasks_schedules WHERE task_id = tid) = (SELECT schedule_id FROM columns WHERE id = (SELECT column_id FROM slots WHERE id = sid)) THEN
+				RAISE NOTICE ''task (%) is in schedule'', tid;
+            	result := TRUE;
+			ELSE
+				RAISE NOTICE ''task (%) is not in schedule'', tid;
+				result := FALSE;
+			END IF;
+		ELSE
+			RAISE NOTICE ''what is this'';
+			result := FALSE;
+		END IF;
+		RETURN result;
+	END;
+'
+LANGUAGE plpgsql;
+
+CREATE FUNCTION check_slot_in_column(tid INTEGER, sid INTEGER) RETURNS BOOLEAN AS
+'
+	DECLARE
+		result BOOLEAN;
+	BEGIN
+		IF (SELECT column_id FROM slots WHERE id = sid) IN
+		(SELECT column_id FROM slots WHERE id IN (SELECT slot_id FROM tasks_slots WHERE task_id = tid)) THEN
+            result := TRUE;
+		ELSE
+			result := FALSE;
+		END IF;
+		RETURN result;
+	END;
+'
+LANGUAGE plpgsql;
+
+CREATE FUNCTION check_slot_neighbours(tid INTEGER, sid INTEGER) RETURNS BOOLEAN AS
+'
+	DECLARE
+		result BOOLEAN;
+	BEGIN
+		IF (sid - 1) IN (SELECT slot_id FROM tasks_slots WHERE task_id = tid) THEN
+			result := TRUE;
+		ELSIF (sid + 1) IN (SELECT slot_id FROM tasks_slots WHERE task_id = tid) THEN
+            result := TRUE;
+		ELSE
+			result := FALSE;
+		END IF;
+		RETURN result;
+	END;
+'
+LANGUAGE plpgsql;
+
+CREATE FUNCTION check_tasks_slots() RETURNS TRIGGER AS
+'
+	DECLARE
+		t_id INTEGER;
+		s_id INTEGER;
+    BEGIN
+		t_id := NEW.task_id;
+		s_id := NEW.slot_id;
+
+		IF t_id IN (SELECT task_id FROM tasks_slots) THEN
+			IF check_task_in_schedule_by_slot_id(t_id, s_id) = FALSE THEN
+				RETURN NEW;
+			ELSE
+            	IF check_slot_in_column(t_id, s_id) = TRUE THEN
+					IF check_slot_neighbours(t_id, s_id) = FALSE THEN
+                    	RAISE EXCEPTION ''It is not next to any slots'';
+					ELSE
+						RAISE NOTICE ''everything is ok'';
+						RETURN NEW;
+                	END IF;
+            	ELSE
+                	RAISE EXCEPTION ''It is not in the same column'';
+            	END IF;
+        	END IF;
+		ELSE
+			RETURN NEW;
+		END IF;
+    END;
+
+'
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_tasks_slots BEFORE INSERT ON tasks_slots
+    FOR EACH ROW EXECUTE PROCEDURE check_tasks_slots();
+
 CREATE TABLE tasks_schedules (
 task_id INTEGER NOT NULL,
 schedule_id INTEGER NOT NULL,
 FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
 FOREIGN KEY (schedule_id) REFERENCES schedules(id) ON DELETE CASCADE,
-UNIQUE (task_id, schedule_id)
+UNIQUE(task_id, schedule_id)
 );
+
+CREATE FUNCTION check_task_in_schedule_by_schedule_id(tid INTEGER, schid INTEGER) RETURNS BOOLEAN AS
+'
+	BEGIN
+		IF tid IN (SELECT task_id FROM tasks_schedules) THEN
+			IF schid IN (SELECT schedule_id FROM tasks_schedules) THEN
+				RETURN TRUE;
+			ELSE
+				RETURN FALSE;
+			END IF;
+		ELSE
+			RETURN FALSE;
+		END IF;
+	END;
+'
+LANGUAGE plpgsql;
+
+CREATE FUNCTION check_tasks_schedules() RETURNS TRIGGER AS
+'
+	DECLARE
+		t_id INTEGER;
+		sch_id INTEGER;
+		rec RECORD;
+    BEGIN
+		t_id := NEW.task_id;
+		sch_id := NEW.schedule_id;
+
+		IF check_task_in_schedule_by_schedule_id(t_id, sch_id) = FALSE THEN
+			RETURN NEW;
+		ELSE
+			FOR rec IN SELECT slot_id FROM tasks_slots WHERE task_id = t_id ORDER BY slot_id LOOP
+				IF check_slot_neighbours(t_id, rec.slot_id) = FALSE THEN
+					RAISE EXCEPTION ''not neighbours'';
+				END IF;
+   			END LOOP;
+			RETURN NULL;
+		END IF;
+	END;
+'
+LANGUAGE plpgsql;
+
+CREATE TRIGGER check_tasks_schedules BEFORE INSERT ON tasks_schedules
+    FOR EACH ROW EXECUTE PROCEDURE check_tasks_schedules();
 
 CREATE TABLE published_schedules (
 schedule_id INTEGER UNIQUE,
