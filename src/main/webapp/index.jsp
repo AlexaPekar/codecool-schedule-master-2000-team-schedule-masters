@@ -84,17 +84,26 @@
                     <td>
                         <ul>
                             <li>
-                                <p id="schedules-button">Schedules</p>
+                                <p id="schedules-button" class="menuitem">Schedules</p>
                             </li>
                             <li>
-                                <p id="tasks-button">Tasks</p>
+                                <p>•</p>
                             </li>
                             <li>
-                                <p id="users-button">Users</p>
+                                <p id="tasks-button" class="menuitem">Tasks</p>
+                            </li>
+                            <li>
+                                <p>•</p>
+                            </li>
+                            <li>
+                                <p id="users-button" class="menuitem">Users</p>
+                            </li>
+                            <li>
+                                <p>•</p>
                             </li>
                             <li>
                                 <div id="logout-content" class="hidden content">
-                                    <p id="logout-button">Logout</p>
+                                    <p id="logout-button" class="menuitem">Logout</p>
                                 </div>
                             </li>
                         </ul>
