@@ -13,4 +13,5 @@ public interface UserDao {
     User insertNewUser(String name, String password, String role) throws SQLException;
     List<User> findAllUsers() throws SQLException;
     User findUserById(int id) throws SQLException;
+    User insertNewUser(String name, String role) throws SQLException;
 }

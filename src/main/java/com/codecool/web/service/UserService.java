@@ -19,4 +19,6 @@ public interface UserService {
 
     User getUserById(String id) throws SQLException, ServiceException;
 
+    User addNewUser(String name, String role) throws SQLException;
+
 }

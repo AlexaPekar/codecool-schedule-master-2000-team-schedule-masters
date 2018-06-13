@@ -96,6 +96,28 @@ public class DatabaseUserDao extends AbstractDao implements UserDao {
         return null;
     }
 
+    @Override
+    public User insertNewUser(String name, String role) throws SQLException {
+        logger.info("inserting a user in users");
+        String sql = "INSERT INTO users (name, role) VALUES (?, ?)";
+        boolean autoCommit = connection.getAutoCommit();
+        connection.setAutoCommit(false);
+        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, name);
+            statement.setString(2, role);
+            statement.executeUpdate();
+            int id = fetchGeneratedId(statement);
+            logger.info("sql query executed successfully");
+            return new User(id, name, role);
+        } catch (SQLException se) {
+            connection.rollback();
+            logger.error("sql had not executed", se);
+            throw se;
+        } finally {
+            connection.setAutoCommit(autoCommit);
+        }
+    }
+
     private User fetchUser(ResultSet resultSet) throws SQLException {
         logger.info("fetching user");
         int id = resultSet.getInt("id");

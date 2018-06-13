@@ -87,4 +87,9 @@ public class SimpleUserService implements UserService {
             throw new ServiceException("Illegal argument, must be number");
         }
     }
+
+    @Override
+    public User addNewUser(String name, String role) throws SQLException {
+        return uD.insertNewUser(name,role);
+    }
 }

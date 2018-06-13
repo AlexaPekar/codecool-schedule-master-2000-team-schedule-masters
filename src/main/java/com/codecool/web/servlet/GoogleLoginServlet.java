@@ -37,13 +37,11 @@ public class GoogleLoginServlet extends AbstractServlet {
             try (Connection connection = getConnection(req.getServletContext())) {
                 UserDao userDao = new DatabaseUserDao(connection);
                 UserService userService = new SimpleUserService(userDao);
-                User user = userService.addNewUser(email,"lol","lol","User");
+                User user = userService.addNewUser(email,"User");
                 req.getSession().setAttribute("user", user);
                 sendMessage(resp, HttpServletResponse.SC_OK, user);
             } catch (SQLException e1) {
                 handleSqlError(resp, e1);
-            } catch (ServiceException e1) {
-                sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, e1.getMessage());
             }
         } catch (ServiceException e) {
             sendMessage(resp, HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());

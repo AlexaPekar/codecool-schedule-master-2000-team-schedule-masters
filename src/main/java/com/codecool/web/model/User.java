@@ -13,6 +13,13 @@ public final class User extends AbstractModel {
         this.role = role;
     }
 
+    public User(int id, String name, String role) {
+        super(id);
+        this.name = name;
+        this.role = role;
+        password = "";
+    }
+
     public String getName() {
         return name;
     }
