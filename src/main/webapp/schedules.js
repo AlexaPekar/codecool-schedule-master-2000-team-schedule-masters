@@ -238,10 +238,15 @@ function onScheduleShare() {
     const scheduleContentDiv = document.getElementById("schedules-content");
     const lightbox = document.getElementById("scheduleshare-lightbox");
     removeAllChildren(lightbox);
-    const pEl = document.createElement('p');
-    pEl.id="encrypted-link";
+    const inputEl = document.createElement('input');
+    inputEl.id="encrypted-link";
     encryptId(scheduleId);
-    lightbox.appendChild(pEl);
+    lightbox.appendChild(inputEl);
+    const copyButtonEl = document.createElement('button');
+    copyButtonEl.id = "copy-button";
+    copyButtonEl.onclick = copyURL;
+    copyButtonEl.textContent = "Copy";
+    lightbox.appendChild(copyButtonEl);
     const dimmer = document.createElement("div");
     dimmer.id = "dimmer";
     dimmer.style.width =  window.innerWidth + 'px';
@@ -271,9 +276,14 @@ function encryptId(scheduleId) {
 function onEncryptionReceived() {
     const text = this.responseText;
     encryptedScheduleId = JSON.parse(text).message;
-    const pEl = document.getElementById("encrypted-link");
-    pEl.textContent = "http://localhost:8080/schedule-masters/guest?scheduleid=" + encryptedScheduleId;
+    const inputEl = document.getElementById("encrypted-link");
+    inputEl.value = "http://localhost:8080/schedule-masters/guest?scheduleid=" + encryptedScheduleId;
 
+}
+function copyURL() {
+  var copyText = document.getElementById("encrypted-link");
+  copyText.select();
+  document.execCommand("copy");
 }
 function publishSchedule() {
     const scheduleId = this.dataset.scheduleId;
