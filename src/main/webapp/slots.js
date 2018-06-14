@@ -117,10 +117,10 @@ function onSlotSaveClicked(){
     xhr.onreadystatechange = function() {
         if(this.readyState === 4 ){
             if (this.status === INTERNAL_SERVER_ERROR) {
-                alert("You can't add multiple tasks");
+                alert("You can't do that!");
             }
-            else{
-                alert("Task added to the slot");
+            else {
+                alert("Task added to the slot!");
             }
         }
     };
