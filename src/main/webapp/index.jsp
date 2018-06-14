@@ -105,10 +105,13 @@
                                 <p id="tasks-button" class="menuitem">Tasks</p>
                             </li>
                             <li>
-                                <p id="users-point">•</p>
+                                <p>•</p>
                             </li>
                             <li>
                                 <p id="users-button" class="menuitem">Users</p>
+                            </li>
+                            <li>
+                                <p id="users-point">•</p>
                             </li>
                             <li>
                                 <p class="menuitem" id="profile-button">Profile</p>
