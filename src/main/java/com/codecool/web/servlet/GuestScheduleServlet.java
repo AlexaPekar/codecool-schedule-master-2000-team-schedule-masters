@@ -6,7 +6,10 @@ import com.codecool.web.dao.SlotDao;
 import com.codecool.web.dao.database.DatabaseColumnDao;
 import com.codecool.web.dao.database.DatabaseScheduleDao;
 import com.codecool.web.dao.database.DatabaseSlotDao;
+import com.codecool.web.dto.GuestColumnsDto;
 import com.codecool.web.exceptions.ServiceException;
+import com.codecool.web.model.Column;
+import com.codecool.web.model.Schedule;
 import com.codecool.web.service.ColumnService;
 import com.codecool.web.service.ScheduleService;
 import com.codecool.web.service.simple.SimpleColumnService;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet("/schedule/columns")
 public class GuestScheduleServlet extends AbstractServlet{
@@ -36,7 +40,10 @@ public class GuestScheduleServlet extends AbstractServlet{
                 sendMessage(resp,HttpServletResponse.SC_FORBIDDEN,"Schedule isn't public.");
                 return;
             }
-            sendMessage(resp,HttpServletResponse.SC_OK,columnService.getColumnsByScheduleId(scheduleId));
+            List<Column> columns = columnService.getColumnsByScheduleId(scheduleId);
+            Schedule schedule = scheduleService.getById(scheduleId);
+            GuestColumnsDto guestColumnsDto = new GuestColumnsDto(schedule.getName(),columns);
+            sendMessage(resp,HttpServletResponse.SC_OK,guestColumnsDto);
 
         } catch (SQLException e) {
            handleSqlError(resp,e);

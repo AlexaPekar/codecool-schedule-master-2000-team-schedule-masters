@@ -21,14 +21,17 @@ function getColumnsForGuest(){
 
 function onColumnsReceivedForGuest(){
     const text = this.responseText;
-    const columns = JSON.parse(text);
+    const columnsDto = JSON.parse(text);
 
     const tableEl = document.createElement('table');
     tableEl.setAttribute('class', 'datatable');
+    const pageHeader = document.createElement('h1');
+    pageHeader.textContent = columnsDto.scheduleName;
 
-    tableEl.appendChild(createColumnsTableBodyForGuest(columns));
+    tableEl.appendChild(createColumnsTableBodyForGuest(columnsDto.columns));
 
     const scEl = document.getElementById('guest-schedule');
+    scEl.appendChild(pageHeader);
     scEl.appendChild(tableEl);
 
 }
