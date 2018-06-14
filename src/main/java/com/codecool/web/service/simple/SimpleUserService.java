@@ -39,15 +39,19 @@ public class SimpleUserService implements UserService {
 
     @Override
     public User addNewUser(String name, String password, String passwordAgain, String role) throws SQLException, ServiceException {
-        if (name.equals("") || password.equals("") || passwordAgain.equals("") || role.equals("") ) {
-            logger.error("Field(s) left empty");
-            throw new ServiceException(new EmptyFieldException("Fill all fields!"));
-        }
-        logger.info("New user added");
-        if (password.equals(passwordAgain)) {
-        return uD.insertNewUser(name,password,role);
-        } else {
-            throw new ServiceException("Passwords don't match!");
+        try {
+            if (name.equals("") || password.equals("") || passwordAgain.equals("") || role.equals("")) {
+                logger.error("Field(s) left empty");
+                throw new ServiceException(new EmptyFieldException("Fill all fields!"));
+            }
+            logger.info("New user added");
+            if (password.equals(passwordAgain)) {
+                return uD.insertNewUser(name, password, role);
+            } else {
+                throw new ServiceException("Passwords don't match!");
+            }
+        }catch (SQLException ex) {
+            throw new ServiceException("Username is already taken.");
         }
     }
 

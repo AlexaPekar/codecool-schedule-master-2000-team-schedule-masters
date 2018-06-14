@@ -7,6 +7,8 @@ function onRegisterResponse() {
         onLoadMenu();
         showContents(['menu', 'profile-content', 'logout-content']);
         onLoadSchedules();
+        document.getElementById("dimmer").remove();
+        document.getElementById('register-lightbox').style.visibility = "hidden";
     } else {
         onOtherResponse(registerContentDivEl, this);
     }
@@ -34,8 +36,7 @@ function onRegisterButtonClicked() {
     xhr.open('POST', 'register');
     xhr.send(params);
 
-    document.getElementById("dimmer").remove();
-    document.getElementById('register-lightbox').style.visibility = "hidden";
+
 }
 
 function onRegisterLightBoxLoad() {
