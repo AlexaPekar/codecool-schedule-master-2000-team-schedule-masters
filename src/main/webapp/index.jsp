@@ -20,7 +20,7 @@
     <script src="userstask.js"></script>
     <script src="google.js"></script>
     <script src="usersschedule.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     <meta name="google-signin-client_id"
           content="519766095912-ek3067b5drk7207plttlj6s9s4g2ivlr.apps.googleusercontent.com">
     <link rel="shortcut icon" type="image/png" href="calendar.png"/>
@@ -45,7 +45,7 @@
                                 <p>•</p>
                             </li>
                             <li>
-                                <p class="g-signin2 menuitem" data-onsuccess="onSignIn" id="googlelogin"></p>
+                                <p id="google-signin2"></p>
                             </li>
                             <li>
                                 <p>•</p>

@@ -17,3 +17,22 @@ function onSignIn(googleUser) {
   document.getElementById("dimmer").remove();
   document.getElementById('login-lightbox').style.visibility = "hidden";
 }
+
+function onSuccess(googleUser) {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    onSignIn(googleUser);
+}
+function onFailure(error) {
+    console.log(error);
+}
+function renderButton() {
+    gapi.signin2.render('google-signin2', {
+        'scope': 'profile email',
+        'width': 250,
+        'height': 30,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+    });
+}
