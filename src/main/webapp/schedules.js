@@ -267,7 +267,7 @@ function onScheduleShare() {
     lightbox.style.position='fixed';
     lightbox.style.left = '35%';
     lightbox.style.top = '45%';
-    lightbox.style.height = "30px";
+    lightbox.style.height = "40px";
 }
 function encryptId(scheduleId) {
     const xhr = new XMLHttpRequest();
