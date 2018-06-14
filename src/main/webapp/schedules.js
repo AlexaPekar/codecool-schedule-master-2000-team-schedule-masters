@@ -240,6 +240,7 @@ function onScheduleShare() {
     removeAllChildren(lightbox);
     const inputEl = document.createElement('input');
     inputEl.id="encrypted-link";
+    inputEl.style.width = '90%';
     encryptId(scheduleId);
     lightbox.appendChild(inputEl);
     const copyButtonEl = document.createElement('button');
@@ -263,9 +264,10 @@ function onScheduleShare() {
 
     lightbox.style.visibility = 'visible';
     lightbox.style.width = "600px";
-    lightbox.style.height = "70px";
-    lightbox.style.top = window.innerHeight/2 - 50 + 'px';
-    lightbox.style.left = window.innerWidth/2 - 100 + 'px';
+    lightbox.style.position='fixed';
+    lightbox.style.left = '35%';
+    lightbox.style.top = '45%';
+    lightbox.style.height = "30px";
 }
 function encryptId(scheduleId) {
     const xhr = new XMLHttpRequest();
