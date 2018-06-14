@@ -14,6 +14,8 @@ function onSlotsReceived() {
 
     const tableEl = document.createElement('table');
     tableEl.setAttribute('class', 'datatable');
+    tableEl.setAttribute('id', 'slottable');
+
 
     tableEl.appendChild(createSlotsTableBody(slotsDto.slots));
 
@@ -44,6 +46,8 @@ function createSlotsTableBody(slots) {
         slotContentTdEl.appendChild(divEl);
 
         trEl.appendChild(slotContentTdEl);
+        trEl.setAttribute('id', 'trslotelement');
+
         tbodyEl.appendChild(trEl);
     }
     return tbodyEl;

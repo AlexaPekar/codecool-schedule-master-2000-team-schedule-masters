@@ -62,15 +62,27 @@
     </div>
 
 
-    <p onclick="javascript:location.href='/schedule-masters'" id="home-button" class="hidden content">Home</p>
+    <p onclick="javascript:location.href='/schedule-masters'" id="home-button" class="hidden content" style="margin-left: -2.5em;">Home</p>
 
 
     <div id="login-lightbox" class="lightbox">
         <div id="login-content">
             <h1>Login</h1>
             <form id="login-form" onsubmit="return false;">
-                <p>Username: <input type="text" name="name"></p>
-                <p>Password: <input type="password" name="password"></p>
+                <table id="loginform">
+                    <tr>
+                        <p>
+                        <td>Username:</td>
+                        <td><input type="text" name="name"></td>
+                        </p>
+                    </tr>
+                    <tr>
+                        <p>
+                        <td>Password:</td>
+                        <td><input type="password" name="password"></td>
+                        </p>
+                    </tr>
+                </table>
                 <button id="login-button">Login</button>
             </form>
         </div>
@@ -80,9 +92,17 @@
         <div id="register-content">
             <h1>Register</h1>
             <form id="register-form" onsubmit="return false;">
-                <p>Username: <input type="text" name="name"></p>
-                <p>Password: <input type="password" name="password"></p>
-                <p>Password again: <input type="password" name="password-again"></p>
+                <table id="registerform">
+                    <tr>
+                <p><td>Username: </td><td><input type="text" name="name"></td></p>
+                    </tr>
+                    <tr>
+                <p><td>Password: </td><td><input type="password" name="password"></td></p>
+                    </tr>
+                    <tr>
+                <p><td>Password again: </td><td><input type="password" name="password-again"></td></p>
+                    </tr>
+                </table>
                 <button id="register-button">Register</button>
             </form>
         </div>
@@ -140,7 +160,7 @@
         </nav>
     </div>
 
-    <div id="slider">
+    <div id="slider" class="content">
         <figure>
             <img src="./images/slider_2.jpg" alt>
             <img src="./images/slider_3.jpg" alt>

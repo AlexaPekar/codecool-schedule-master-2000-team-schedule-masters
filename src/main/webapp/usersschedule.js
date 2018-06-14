@@ -161,6 +161,7 @@ function createUserSchedulesTableBody(schedules){
         // creating id cell
         const idTdEl = document.createElement('td');
         idTdEl.textContent = schedule.id;
+        idTdEl.setAttribute('id', 'idtdelements');
 
         // creating name cell
         const nameTdEl = document.createElement('td');

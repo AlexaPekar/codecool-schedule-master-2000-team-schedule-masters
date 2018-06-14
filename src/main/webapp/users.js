@@ -34,6 +34,7 @@ function createUsersTableBody(users) {
         //creating id cell
         const idTdEl = document.createElement('td');
         idTdEl.textContent = user.id + ".";
+        idTdEl.setAttribute('id', 'idtdelements');
 
         //creating name cell
         const nameTdEl = document.createElement('td');

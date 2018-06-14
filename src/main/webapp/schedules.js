@@ -34,6 +34,7 @@ function createSchedulesTableBody(schedules) {
         // creating id cell
         const idTdEl = document.createElement('td');
         idTdEl.textContent = schedule.id;
+        idTdEl.setAttribute('id', 'idtdelements');
 
         // creating name cell
         const nameTdEl = document.createElement('td');
@@ -62,6 +63,7 @@ function createSchedulesTableBody(schedules) {
 
         xUpdateImageTdEl.style.cursor = "pointer";
         xUpdateImageTdEl.dataset.scheduleId = schedule.id;
+        xUpdateImageTdEl.dataset.scheduleName = schedule.name;
         xUpdateImageTdEl.addEventListener("click",onScheduleUpdate);
 
 
@@ -121,6 +123,9 @@ function onScheduleUpdate(){
         document.body.removeChild(this);
         lightbox.style.visibility = 'hidden';
     }
+
+    const nameInputEl = document.getElementById('schedule-name');
+    nameInputEl.value = this.dataset.scheduleName;
 
 
     document.body.appendChild(dimmer);
@@ -265,7 +270,7 @@ function onScheduleShare() {
     lightbox.style.visibility = 'visible';
     lightbox.style.width = "600px";
     lightbox.style.position='fixed';
-    lightbox.style.left = '35%';
+    lightbox.style.left = '31%';
     lightbox.style.top = '45%';
     lightbox.style.height = "40px";
 }

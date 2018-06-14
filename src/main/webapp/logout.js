@@ -4,7 +4,7 @@ function onLogoutResponse() {
         clearMessages();
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut();
-        showContents(['login-register-buttons']);
+        showContents(['login-register-buttons', 'slider']);
     } else {
         onOtherResponse(logoutContentDivEl, this);
     }

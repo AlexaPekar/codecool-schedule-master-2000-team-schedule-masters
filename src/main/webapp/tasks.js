@@ -47,6 +47,8 @@ function createTasksTableBody(tasks) {
         //creating id cell
         const idTdEl = document.createElement('td');
         idTdEl.textContent = task.id;
+        idTdEl.setAttribute('id', 'idtdelements');
+
 
         //creating name cell
         const nameTdEl = document.createElement('td');
@@ -310,13 +312,13 @@ function onSlotsTaskReceived() {
 
         const taskEl = document.getElementById('slot' + taskDto.slotId);
 
-        const namePEl = document.createElement('p');
-        namePEl.textContent = taskDto.task.name;
-        namePEl.dataset.taskId = taskDto.task.id;
-        namePEl.style.cursor = "pointer";
-        namePEl.addEventListener('click', onTaskClick);
+        const nameSpanEl = document.createElement('span');
+        nameSpanEl.textContent = taskDto.task.name;
+        nameSpanEl.dataset.taskId = taskDto.task.id;
+        nameSpanEl.style.cursor = "pointer";
+        nameSpanEl.addEventListener('click', onTaskClick);
 
-        taskEl.appendChild(namePEl);
+        taskEl.appendChild(nameSpanEl);
     }
 }
 

@@ -1,4 +1,14 @@
+/*login*/
+#loginform {
+    padding-left: 1em;
+    padding-bottom: 1em;
+}
 
+#registerform {
+    margin-top: -0.5em;
+    margin-bottom: 0.2em;
+    margin-right: 1em;
+}
 /*menu*/
 .menu ul, .menu li {
     margin: 0;
@@ -145,13 +155,14 @@ body {
     border-collapse: collapse;
     margin-right: auto;
     margin-left: auto;
+    table-layout: fixed;
 }
 
 .datatable td, th {
     border: 2px solid #6b6b6b;
     padding: 8px;
-    height: 30px;
     width: 300px;
+    height: 3.5em;
 }
 
 .datatable tr:nth-child(even){background-color: #f2f2f2;}
@@ -163,6 +174,14 @@ body {
     text-align: left;
     background-color: #6e6a6e;
     color: white;
+}
+
+#idtdelements {
+    width: 5em;
+}
+
+#slottable {
+    table-layout: fixed;
 }
 
 .lightbox{
