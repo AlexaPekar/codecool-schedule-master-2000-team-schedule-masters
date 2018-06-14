@@ -26,7 +26,7 @@
     -ms-transition: all .25s ease;
     -o-transition: all .25s ease;
     transition: all .25s ease;
-    border-radius: 80px 10px ;
+    border-radius: 30px 100px;
 
 }
 .menu li:hover p.menuitem {
