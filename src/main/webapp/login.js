@@ -26,11 +26,25 @@ function onLoadMenu() {
     usersButtonEl.style.cursor = "pointer";
     usersButtonEl.addEventListener('click', onLoadUsers);
 
+    const usersPointEl = document.getElementById('users-point');
+
+    const profileButtonEl = document.getElementById('profile-button');
+    const profileEl = document.getElementById('profile');
+
     if (activeUser.role !== "Admin") {
         usersButtonEl.style.display = "none";
+        usersPointEl.style.display = "none";
+
+        profileButtonEl.setAttribute('class', 'userprofileinfo menuitem');
+
+        profileEl.setAttribute('class', 'userprofileinfo menuitem');
     } else {
         usersButtonEl.removeAttribute("style");
         usersButtonEl.style.cursor = "pointer";
+        usersPointEl.removeAttribute("style");
+        profileButtonEl.setAttribute('class', 'profileinfo menuitem');
+
+        profileEl.setAttribute('class', 'profileinfo menuitem');
     }
 }
 

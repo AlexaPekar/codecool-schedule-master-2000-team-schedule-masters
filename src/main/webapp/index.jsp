@@ -33,14 +33,31 @@
 
     <div id="login-register-buttons" class="content">
         <nav class="menu">
-            <ul>
-                <li>
-                    <p onclick="onLoginLightBoxLoad();" id="login-lightbox-button">Login</p>
-                </li>
-                <li>
-                    <p onclick="onRegisterLightBoxLoad();" id="register-lightbox-button">Register</p>
-                </li>
-            </ul>
+            <table class="menubar">
+                <tr>
+                    <td>
+                        <ul>
+                            <li>
+                                <p onclick="onLoginLightBoxLoad();" id="login-lightbox-button" class="menuitem">
+                                    Login</p>
+                            </li>
+                            <li>
+                                <p>•</p>
+                            </li>
+                            <li>
+                                <p class="g-signin2 menuitem" data-onsuccess="onSignIn" id="googlelogin"></p>
+                            </li>
+                            <li>
+                                <p>•</p>
+                            </li>
+                            <li>
+                                <p onclick="onRegisterLightBoxLoad();" id="register-lightbox-button" class="menuitem">
+                                    Register</p>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
         </nav>
     </div>
 
@@ -56,7 +73,6 @@
                 <p>Password: <input type="password" name="password"></p>
                 <button id="login-button">Login</button>
             </form>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </div>
     </div>
 
@@ -72,10 +88,6 @@
         </div>
     </div>
 
-    <div id="profile-content" class="hidden content">
-        <p>Name: <span id="user-name"></span></p>
-        <p>Role: <span id="user-role"></span></p>
-    </div>
 
     <div id="menu" class="hidden content">
         <nav class="menu">
@@ -93,10 +105,21 @@
                                 <p id="tasks-button" class="menuitem">Tasks</p>
                             </li>
                             <li>
-                                <p>•</p>
+                                <p id="users-point">•</p>
                             </li>
                             <li>
                                 <p id="users-button" class="menuitem">Users</p>
+                            </li>
+                            <li>
+                                <p class="menuitem" id="profile-button">Profile</p>
+                                <ul>
+                                    <li>
+                                        <div id="profile-content" class="hidden content">
+                                            <p class="menuitem" id="profile">Name: <span id="user-name"></span><br>
+                                                Role: <span id="user-role"></span></p>
+                                        </div>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <p>•</p>
@@ -113,7 +136,6 @@
             <br>
         </nav>
     </div>
-
 
 
     <div id="schedules-content" class="hidden content">
